@@ -83,9 +83,10 @@ async def mine(ctx):
     bal = db[user]['bal']
     bal += 1
     db[user]['bal'] = bal
-    embed = discord.Embed(description="This is an embed that will show how to build an embed and the different components", color=discord.Color.dark_gray())
-    embed.set_author(name=f'Mined a profit of {inc} silver!', icon_url=c.ore_icons[random.randint(0, 1)]) # https://i.postimg.cc/Sscfcm9L/ore6.png https://i.postimg.cc/xCNFhrzq/ore4.png
-    await ctx.send(f'**{ctx.author.name}** successfully mined!', embed=embed)
+    embed = discord.Embed(description=f'Mined a profit of **{inc}** credit!', color=discord.Color.dark_gray())
+    embed.set_author(name=f'{ctx.author.name} successfully mined!', icon_url=c.ore_icons[random.randint(0, 1)])
+    embed.set_footer(text=f'Credit: {bal} | Profit: {inc}')
+    await ctx.send(embed=embed)
 
 
 @bot.command(aliases=['_d'])  # PRIVATE
