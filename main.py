@@ -1,12 +1,14 @@
-import os
 import constants as c
-import discord
-import math
-import random
-import pytz
 from datetime import datetime
+import discord
 from discord.ext import commands, tasks
+from embed_tpl import error_tpl
+import math
+import os
+import pytz
+import random
 from replit import db
+
 
 token = os.environ['TOKEN']  # DON'T TOUCH
 bot = commands.Bot(command_prefix=c.prefix)
@@ -29,12 +31,7 @@ async def on_ready():
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        embed = discord.Embed(description=c.missing_arguments_error,
-                              color=discord.Color.red())
-        embed.set_author(
-            name=f'[{ctx.author.name}] Error',
-            icon_url='https://i.postimg.cc/P5LQBHL1/4691426-x-icon.png')
-        await ctx.send(embed=embed, delete_after=60.0)
+        await ctx.send(embed=error_tpl(ctx, c.missing_arguments_error), delete_after=60.0)
 
 
 @tasks.loop(seconds=10)
@@ -60,12 +57,7 @@ async def clear(ctx, amount: int):
 async def start(ctx, nick=''):
     if ('user' + str(ctx.author.id)) not in db.keys():
         if nick == '':
-            embed = discord.Embed(description=c.start_requires_nick_error,
-                                  color=discord.Color.red())
-            embed.set_author(
-                name=f'[{ctx.author.name}] Error',
-                icon_url='https://i.postimg.cc/P5LQBHL1/4691426-x-icon.png')
-            await ctx.send(embed=embed, delete_after=60.0)
+            await ctx.send(embed=error_tpl(ctx, c.start_requires_nick_error), delete_after=60.0)
             return
 
         user_data = {
@@ -78,24 +70,14 @@ async def start(ctx, nick=''):
         db['user' + str(ctx.author.id)] = user_data
         await ctx.send('Done starting.')
     else:
-        embed = discord.Embed(description=c.already_registered_error,
-                              color=discord.Color.red())
-        embed.set_author(
-            name=f'[{ctx.author.name}] Error',
-            icon_url='https://i.postimg.cc/P5LQBHL1/4691426-x-icon.png')
-        await ctx.send(embed=embed, delete_after=60.0)
+        await ctx.send(embed=error_tpl(ctx, c.already_registered_error), delete_after=60.0)
 
 
 @bot.command(aliases=['i'])
 async def info(ctx):
     user = 'user' + str(ctx.author.id)
     if user not in db.keys():
-        embed = discord.Embed(description=c.not_registered_error,
-                              color=discord.Color.red())
-        embed.set_author(
-            name=f'[{ctx.author.name}] Error',
-            icon_url='https://i.postimg.cc/P5LQBHL1/4691426-x-icon.png')
-        await ctx.send(embed=embed, delete_after=60.0)
+        await ctx.send(embed=error_tpl(ctx, c.not_registered_error), delete_after=60.0)
     else:
         data = db[user]
         await ctx.send(f'{data["nick"]}\'s Info\nSilver: {data["bal"]}')
@@ -105,14 +87,7 @@ async def info(ctx):
 async def mine(ctx):
     user = 'user' + str(ctx.author.id)
     if user not in db.keys():
-        embed = discord.Embed(
-            description=
-            'You have not registered used *start* yet. Check *help* for usage.',
-            color=discord.Color.red())
-        embed.set_author(
-            name=f'[{ctx.author.name}] Error',
-            icon_url='https://i.postimg.cc/P5LQBHL1/4691426-x-icon.png')
-        await ctx.send(embed=embed, delete_after=60.0)
+        await ctx.send(embed=error_tpl(ctx, c.not_registered_error), delete_after=60.0)
     else:
         inc = 1
         bal = db[user]['bal']
@@ -148,6 +123,4 @@ async def on_member_join(member):
     return
 
 
-bot.run(token)
-bot.run(token)
 bot.run(token)
