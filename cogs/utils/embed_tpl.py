@@ -1,4 +1,3 @@
-import constants as c
 import discord
 
 
