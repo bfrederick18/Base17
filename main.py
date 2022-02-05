@@ -15,16 +15,17 @@ alive_count = 0
 @bot.event
 async def on_ready():
     print(c.banner + '\n')
-    print(f'{now()}: Logged in as {bot.user}.')
+    print(f'{now()}: Logging in as {bot.user}.')
+    print(f'{now()}: Starting status loop.')
     change_status.start()
-    print(f'{now()}: Started status loop.')
+    print(f'{now()}: Loading cogs.')
 
 
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(embed=error_tpl(ctx, c.missing_arguments_error), delete_after=60.0)
-    print(error)
+    print(f'{now()}: "{error}"')
 
 
 @tasks.loop(seconds=10)

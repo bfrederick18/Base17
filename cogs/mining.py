@@ -4,6 +4,7 @@ import random
 import discord
 
 from cogs.utils.embed_tpl import error_tpl
+from cogs.utils.time import now
 from discord.ext import commands
 from replit import db
 
@@ -16,7 +17,7 @@ class Mining(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Mining cog is online.')
+        print(f'{now()}: Mining cog is online.')
 
 
     @commands.command(aliases=['m'])

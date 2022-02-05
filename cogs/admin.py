@@ -1,5 +1,6 @@
 import discord
 
+from cogs.utils.time import now
 from discord.ext import commands
 
 
@@ -11,7 +12,7 @@ class Administrator(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Admin cog is online.')
+        print(f'{now()}: Admin cog is online.')
 
 
     @commands.command(aliases=['p'])

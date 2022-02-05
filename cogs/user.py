@@ -3,6 +3,7 @@ import cogs.utils.constants as c
 import discord
 
 from cogs.utils.embed_tpl import error_tpl
+from cogs.utils.time import now
 from discord.ext import commands
 from replit import db
 
@@ -15,7 +16,7 @@ class User(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print('User cog is online.')
+        print(f'{now()}: User cog is online.')
 
 
     @commands.command(aliases=['join', 'register'])
