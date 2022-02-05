@@ -10,3 +10,8 @@ banner = ''' ____                 _ _____
 status = cycle(['._.', 'o.o'])
 three_dots = cycle(['.', '.', '.\n'])
 ore_icons = ['https://i.postimg.cc/xCNFhrzq/ore4.png', 'https://i.postimg.cc/Sscfcm9L/ore6.png']
+
+missing_arguments_error = 'Please include all required arguments. Check *help* for usage.'
+start_requires_nick_error = '*Start* requires a nickname. Check *help* for usage.'
+already_registered_error = 'You already used *start* to register before. Check *help* for usage.'
+not_registered_error = 'You have not registered used *start* yet. Check *help* for usage.'
