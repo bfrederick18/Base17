@@ -22,9 +22,17 @@ def now():
 @bot.event
 async def on_ready():
     print(c.banner + '\n')
-    print(f'{now()}: Logged in as {bot.user}')
+    print(f'{now()}: Logged in as {bot.user}.')
     change_status.start()
-    print(f'{now()}: Started status loop')
+    print(f'{now()}: Started status loop.')
+
+
+@bot.event
+async def on_command_error(ctx, error):
+  if isinstance(error, commands.MissingRequiredArgument):
+    embed = discord.Embed(description='Please include all required arguments. Check *help* for usage.', color=discord.Color.red())
+    embed.set_author(name=f'[{ctx.author.name}] Error', icon_url='https://i.postimg.cc/P5LQBHL1/4691426-x-icon.png')
+    await ctx.send(embed=embed, delete_after=60.0)
 
 
 @tasks.loop(seconds=10)
@@ -35,39 +43,48 @@ async def change_status():
 
 @bot.command(aliases=['p'])
 async def ping(ctx):
-  await ctx.send(f'Pong! {round(bot.latency * 1000)}ms')
-
+  await ctx.message.delete()
+  await ctx.send(f'Pong: {round(bot.latency * 1000)}ms.')
+  
 
 @bot.command()
-async def clear(ctx, amount = 2):
-  await ctx.channel.purge(limit=amount)
-
+async def clear(ctx, amount : int):
+  await ctx.message.delete()
+  deleted = await ctx.channel.purge(limit=amount)
+  # await ctx.send(f'Cleared {len(deleted)} message(s) by {ctx.author.mention}')
+  
 
 @bot.command(aliases=['join'])
-async def start(ctx, nickname=''):
-  if nickname == '':
-    await ctx.send('Error! Nickname cannot be empty.')
-    return
-
+async def start(ctx, nick=''):
   if ('user' + str(ctx.author.id)) not in db.keys():
+    if nick == '':
+      embed = discord.Embed(description='*Start* requires a nickname. Check *help* for usage.', color=discord.Color.red())
+      embed.set_author(name=f'[{ctx.author.name}] Error', icon_url='https://i.postimg.cc/P5LQBHL1/4691426-x-icon.png')
+      await ctx.send(embed=embed, delete_after=60.0)
+      return
+
     user_data = {
       'id': ctx.author.id,
-      'nick': nickname,
+      'nick': nick,
       'bal': 0,
       'ships': [],
       'colonies': [],
     }
     db['user' + str(ctx.author.id)] = user_data
-    await ctx.send('Done starting!')
+    await ctx.send('Done starting.')
   else:
-    await ctx.send('Error! Already started.')
+    embed = discord.Embed(description='You already used *start* to register before. Check *help* for usage.', color=discord.Color.red())
+    embed.set_author(name=f'[{ctx.author.name}] Error', icon_url='https://i.postimg.cc/P5LQBHL1/4691426-x-icon.png')
+    await ctx.send(embed=embed, delete_after=60.0)
 
 
 @bot.command(aliases=['i'])
 async def info(ctx):
   user = 'user' + str(ctx.author.id)
   if user not in db.keys():
-    await ctx.send('You have not started yet!')
+    embed = discord.Embed(description='You have not registered used *start* yet. Check *help* for usage.', color=discord.Color.red())
+    embed.set_author(name=f'[{ctx.author.name}] Error', icon_url='https://i.postimg.cc/P5LQBHL1/4691426-x-icon.png')
+    await ctx.send(embed=embed, delete_after=60.0)
   else:
     data = db[user]
     await ctx.send(f'{data["nick"]}\'s Info\nSilver: {data["bal"]}')
@@ -77,17 +94,20 @@ async def info(ctx):
 async def mine(ctx):
   user = 'user' + str(ctx.author.id)
   if user not in db.keys():
-    await ctx.send('You have not started yet!')
+    embed = discord.Embed(description='You have not registered used *start* yet. Check *help* for usage.', color=discord.Color.red())
+    embed.set_author(name=f'[{ctx.author.name}] Error', icon_url='https://i.postimg.cc/P5LQBHL1/4691426-x-icon.png')
+    await ctx.send(embed=embed, delete_after=60.0)
   else:
     inc = 1
     bal = db[user]['bal']
     bal += 1
     db[user]['bal'] = bal
-    embed = discord.Embed(description=f'Mined a profit of **{inc}** credit!', color=discord.Color.dark_gray())
-    embed.set_author(name=f'{ctx.author.name} successfully mined!', icon_url=c.ore_icons[random.randint(0, 1)])
+    embed = discord.Embed(description=f'Mined a profit of **{inc}** credit.', color=discord.Color.dark_gray())
+    embed.set_author(name=f'[{ctx.author.name}] Successfully mined.', icon_url=c.ore_icons[random.randint(0, 1)])
     embed.set_footer(text=f'Credit: {bal} | Profit: {inc}')
-    await ctx.send(embed=embed)
-
+    await ctx.message.delete()
+    await ctx.send(embed=embed, delete_after=60.0)
+    
 
 @bot.command(aliases=['_d'])  # PRIVATE
 async def _debug(ctx, arg1='', arg2='', arg3='', arg4=''):
