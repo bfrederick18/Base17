@@ -1,7 +1,5 @@
 import cogs.utils.constants as c
 
-import discord
-
 from cogs.utils.embed_tpl import error_tpl
 from cogs.utils.time import now
 from discord.ext import commands

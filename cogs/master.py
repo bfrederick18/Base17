@@ -1,5 +1,3 @@
-import discord
-
 from cogs.utils.time import now
 from discord.ext import commands
 
