@@ -32,6 +32,7 @@ async def on_ready():
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(embed=error_tpl(ctx, c.missing_arguments_error), delete_after=60.0)
+    print(error)
 
 
 @tasks.loop(seconds=10)
@@ -55,67 +56,55 @@ async def clear(ctx, amount: int):
 
 @bot.command(aliases=['join', 'register'])
 async def start(ctx, nick=''):
-    if ('user' + str(ctx.author.id)) not in db.keys():
+    user_id = str(ctx.author.id)
+    if user_id not in db['users'].keys():
         if nick == '':
             await ctx.send(embed=error_tpl(ctx, c.start_requires_nick_error), delete_after=60.0)
             return
 
         user_data = {
-            'id': ctx.author.id,
             'nick': nick,
             'bal': 0,
-            'ships': [],
-            'colonies': [],
+            'ships': {},
+            'colonies': {},
         }
-        db['user' + str(ctx.author.id)] = user_data
+        db['users'][int(ctx.author.id)] = user_data
         await ctx.send('Done starting.')
-    else:
-        await ctx.send(embed=error_tpl(ctx, c.already_registered_error), delete_after=60.0)
+        return
+    await ctx.send(embed=error_tpl(ctx, c.already_registered_error), delete_after=60.0)
 
 
 @bot.command(aliases=['i'])
 async def info(ctx):
-    user = 'user' + str(ctx.author.id)
-    if user not in db.keys():
+    user_id = str(ctx.author.id)
+    if user_id not in db['users'].keys():
         await ctx.send(embed=error_tpl(ctx, c.not_registered_error), delete_after=60.0)
-    else:
-        data = db[user]
-        await ctx.send(f'{data["nick"]}\'s Info\nSilver: {data["bal"]}')
+        return
+    data = db['users'][user_id]
+    await ctx.send(f'{data["nick"]}\'s Info\nSilver: {data["bal"]}')
 
 
 @bot.command(aliases=['m'])
 async def mine(ctx):
-    user = 'user' + str(ctx.author.id)
-    if user not in db.keys():
+    if 'users' not in db.keys():
+        await ctx.send(embed=error_tpl(ctx, c.no_users_error))  # Do not delete
+        return
+    user_id = str(ctx.author.id)
+    if user_id not in db['users'].keys():
         await ctx.send(embed=error_tpl(ctx, c.not_registered_error), delete_after=60.0)
-    else:
-        inc = 1
-        bal = db[user]['bal']
-        bal += 1
-        db[user]['bal'] = bal
-        embed = discord.Embed(
-            description=f'Mined a profit of **{inc}** credit.',
-            color=discord.Color.dark_gray())
-        embed.set_author(name=f'[{ctx.author.name}] Successfully mined.',
-                         icon_url=c.ore_icons[random.randint(0, 1)])
-        embed.set_footer(text=f'Credit: {bal} | Profit: {inc}')
-        await ctx.message.delete()
-        await ctx.send(embed=embed, delete_after=60.0)
-
-
-@bot.command(aliases=['_d'])  # PRIVATE
-async def _debug(ctx, arg1='', arg2='', arg3='', arg4=''):
-    if arg1 == 'id':
-        await ctx.send(f'{ctx.author.id}')
-    elif arg1 == 'db':  # DATABASE
-        if arg2 == 'keys':
-            await ctx.send(db.keys())
-        elif arg2 == 'val' or arg2 == 'value':
-            await ctx.send(db[arg3])
-        elif arg2 == 'set':
-            db[arg3] = arg4
-        elif arg2 == 'del':
-            del db[arg3]
+        return
+    
+    inc = 1
+    db['users'][user_id]['bal'] += inc
+    bal = db['users'][user_id]['bal']
+    embed = discord.Embed(
+        description=f'Mined a profit of **{inc}** credit.',
+        color=discord.Color.dark_gray())
+    embed.set_author(name=f'[{ctx.author.name}] Successfully mined.',
+                        icon_url=c.ore_icons[random.randint(0, 1)])
+    embed.set_footer(text=f'Credit: {bal} | Profit: {inc}')
+    await ctx.message.delete()
+    await ctx.send(embed=embed, delete_after=60.0)
 
 
 @bot.event

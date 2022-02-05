@@ -15,3 +15,4 @@ missing_arguments_error = 'Please include all required arguments. Check *help* f
 start_requires_nick_error = '*Start* requires a nickname. Check *help* for usage.'
 already_registered_error = 'You already used *start* to register before. Check *help* for usage.'
 not_registered_error = 'You have not registered used *start* yet. Check *help* for usage.'
+no_users_error = 'There appears to be no users. Ask a bot admin for help.'
