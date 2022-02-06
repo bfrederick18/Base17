@@ -42,5 +42,6 @@ class Mining(commands.Cog):
         await ctx.message.delete()
         await ctx.send(embed=embed, delete_after=60.0)
 
+
 def setup(bot):
     bot.add_cog(Mining(bot))
