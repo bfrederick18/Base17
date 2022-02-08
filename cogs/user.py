@@ -36,7 +36,7 @@ class User(commands.Cog):
         await ctx.send(embed=error_tpl(ctx, data[data['config']['chosen_language']]['already_registered_error']))
 
 
-    @commands.command(aliases=['i'])
+    @commands.command(aliases=['i', 'inv', 'data'])
     async def info(self, ctx):
         global data
         user_id = str(ctx.author.id)
