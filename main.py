@@ -1,11 +1,20 @@
 import cogs.utils.constants as c
+import json
 import os
+
 import discord
 
 from cogs.utils.embed_tpl import error_tpl
 from cogs.utils.time import now
+from config import data
 from discord.ext import commands, tasks
 
+
+with open('json/config.json', 'r') as file:
+    config_json = json.load(file)
+
+print(f'{config_json["prefix"]}')
+print(f'{json.dumps(config_json, indent=4)}')
 
 token = os.environ['TOKEN']  # DON'T TOUCH
 bot = commands.Bot(command_prefix=c.prefix)
