@@ -21,4 +21,4 @@ for file in filenames:
 
 data = dict(zip(filenames, dicts))
 
-print(data)
+print(json.dumps(data, indent=4))

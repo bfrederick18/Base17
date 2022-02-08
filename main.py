@@ -10,20 +10,18 @@ from config import data
 from discord.ext import commands, tasks
 
 
-with open('json/config.json', 'r') as file:
-    config_json = json.load(file)
-
-print(f'{config_json["prefix"]}')
-print(f'{json.dumps(config_json, indent=4)}')
+config_data = data['config']
+language_data = data[config_data['chosen_language']]
+game_data = data['game_data']
 
 token = os.environ['TOKEN']  # DON'T TOUCH
-bot = commands.Bot(command_prefix=c.prefix)
+bot = commands.Bot(command_prefix=config_data['prefix'])
 alive_count = 0
 
 
 @bot.event
 async def on_ready():
-    print(c.banner + '\n')
+    print(config_data['banner'] + '\n')
     print(f'{now()}: Logging in as {bot.user}.')
     print(f'{now()}: Starting status loop.')
     change_status.start()
@@ -41,6 +39,16 @@ async def on_command_error(ctx, error):
 async def change_status():
     await bot.change_presence(activity=discord.Game(next(c.status)))
     print(f'{next(c.three_dots)}', end='', flush=True)
+
+
+@bot.command()
+async def load(ctx, extension):
+    bot.load_extension(f'cogs.{extension}')
+
+
+@bot.command()
+async def unload(ctx, extension):
+    bot.unload_extension(f'cogs.{extension}')
 
 
 @bot.event
