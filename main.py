@@ -36,16 +36,19 @@ async def change_status():
 
 
 @bot.command()
+@commands.is_owner()
 async def loadcog(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
 
 
 @bot.command()
+@commands.is_owner()
 async def unloadcog(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
 
 
 @bot.command()
+@commands.is_owner()
 async def reloadcog(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     bot.load_extension(f'cogs.{extension}')

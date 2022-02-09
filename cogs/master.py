@@ -15,6 +15,7 @@ class Master(commands.Cog):
 
 
     @commands.command()
+    @commands.is_owner()
     async def reloadjson(self, ctx, extension):
         reload_json(extension)
 
