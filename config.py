@@ -5,8 +5,8 @@ from os import listdir
 from itertools import cycle
 
 
-global data
-data = {}
+global jdata
+jdata = {}
 
 
 def load_all_json():
@@ -26,16 +26,16 @@ def load_all_json():
 
     return dict(zip(filenames, dicts))
 
-    # print(json.dumps(data, indent=4))
+    # print(json.dumps(jdata, indent=4))
 
 
 def reload_json(filename):
     with open(f'json/{filename}.json', 'r') as f:
-        data[filename] = json.load(f)
+        jdata[filename] = json.load(f)
 
 
-data = load_all_json()
+jdata = load_all_json()
 
-status_cycle = cycle(data['config']['status'])
-three_dots_cycle = cycle(data['config']['three_dots'])
-tz = pytz.timezone(data['config']['tz'])
+status_cycle = cycle(jdata['config']['status'])
+three_dots_cycle = cycle(jdata['config']['three_dots'])
+tz = pytz.timezone(jdata['config']['tz'])

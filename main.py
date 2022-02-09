@@ -4,18 +4,18 @@ import discord
 
 from cogs.utils.embed_tpl import error_tpl
 from cogs.utils.time import now
-from config import data, status_cycle, three_dots_cycle
+from config import jdata, status_cycle, three_dots_cycle
 from discord.ext import commands, tasks
 
 
 token = os.environ['TOKEN']  # DON'T TOUCH
-bot = commands.Bot(command_prefix=data['config']['prefix'])
+bot = commands.Bot(command_prefix=jdata['config']['prefix'])
 alive_count = 0
 
 
 @bot.event
 async def on_ready():
-    print(data['config']['banner'] + '\n')
+    print(jdata['config']['banner'] + '\n')
     print(f'{now()}: Logging in as {bot.user}.')
     print(f'{now()}: Starting status loop.')
     change_status.start()
@@ -25,7 +25,7 @@ async def on_ready():
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send(embed=error_tpl(ctx, data[data['config']['chosen_language']]['missing_arguments_error']))
+        await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['missing_arguments_error']))
     print(f'{now()}: "{error}"')
 
 
