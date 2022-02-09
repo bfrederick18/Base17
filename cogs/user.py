@@ -49,7 +49,7 @@ class User(commands.Cog):
             await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['not_registered_error']))
             return
         db_data = db['users'][user_id]
-        await ctx.send(f'{db_data["nick"]}\'s Info\nSilver: {db_data["bal"]}')
+        await ctx.send(f'{db_data["nick"]}\'s Info\nCredit: {db_data["bal"]}')
 
 def setup(bot):
     bot.add_cog(User(bot))
