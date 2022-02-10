@@ -19,23 +19,25 @@ class User(commands.Cog):
 
 
     @commands.command(aliases=['join', 'register'])
-    async def start(self, ctx, nick=''):
+    async def start(self, ctx, username=''):
         user_id = str(ctx.author.id)
         if user_id not in db['users'].keys():
-            if nick == '':
-                await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['start_requires_nick_error']))
+            if username == '':
+                await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['start_requires_username_error']))
                 return
 
             user_data = {
-                'nick': nick,
-                'bal': 0,
+                'username': username,
+                'prefix': "",
+                'quarx': 0,
                 'ships': {},
                 'colonies': {},
             }
             db['users'][int(ctx.author.id)] = user_data
+            
             embed = discord.Embed(color=discord.Color.dark_gray())
-            embed.set_author(name=f'[{user_data["nick"]}] Done starting.')
-            embed.set_footer(text=f'Credit: {user_data["bal"]}\nShips: {len(user_data["ships"].keys())} | Colonies: {len(user_data["colonies"].keys())}')
+            embed.set_author(name=f'[{user_data["username"]}] Done starting.')
+            embed.set_footer(text=f'Credit: {user_data["quarx"]}\nShips: {len(user_data["ships"].keys())} | Colonies: {len(user_data["colonies"].keys())}')
             await ctx.message.delete()
             await ctx.send(embed=embed)
             return
@@ -48,8 +50,16 @@ class User(commands.Cog):
         if user_id not in db['users'].keys():
             await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['not_registered_error']))
             return
-        db_data = db['users'][user_id]
-        await ctx.send(f'{db_data["nick"]}\'s Info\nCredit: {db_data["bal"]}')
+
+        user_data = db['users'][user_id]
+        embed = discord.Embed(
+            description=f'Credit: {user_data["quarx"]}\nShips: {len(user_data["ships"])}\n Colonies: {len(user_data["colonies"])}',
+            color=discord.Color.dark_gray())
+        embed.set_author(name=f'[{user_data["username"]}] Personal Data.',
+                            icon_url=jdata['config']['success_icon'])
+        embed.set_footer(text=f'This data will expire in 60 seconds.')
+        await ctx.message.delete()
+        await ctx.send(embed=embed, delete_after=60.0)
 
 def setup(bot):
     bot.add_cog(User(bot))
