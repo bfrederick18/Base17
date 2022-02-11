@@ -8,5 +8,7 @@
     "ore_icons": ["https://i.postimg.cc/xCNFhrzq/ore4.png", "https://i.postimg.cc/Sscfcm9L/ore6.png"],
     "error_icon": "https://i.postimg.cc/cLFzt45b/46914262345234597-x-icon.png",
     "success_icon": "https://i.postimg.cc/dt741jcg/1178849234512348967-check.png",
-    "tz": "America/Vancouver"
+    "tz": "America/Vancouver",
+    "expire_seconds": 60.0,
+    "owners": ["213727513631916034"]
 }

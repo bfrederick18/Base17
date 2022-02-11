@@ -5,7 +5,6 @@ from os import listdir
 from itertools import cycle
 
 
-global jdata
 jdata = {}
 
 

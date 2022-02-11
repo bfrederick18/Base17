@@ -23,12 +23,12 @@ class Mining(commands.Cog):
     @commands.command(aliases=['m'])
     async def mine(self, ctx):
         if 'users' not in db.keys():
-            await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['no_users_error']))
+            await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors']['no_users']))
             return
 
         user_id = str(ctx.author.id)
         if user_id not in db['users'].keys():
-            await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['not_registered_error']))
+            await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors']['not_registered']))
             return
         
         inc = 1
@@ -38,14 +38,14 @@ class Mining(commands.Cog):
         ore_icons = jdata['config']['ore_icons']
 
         embed = discord.Embed(
-            description=f'Mined a profit of **{inc}** credit.',
+            description=f'Mined a profit of **{inc}** quarx.',
             color=discord.Color.dark_gray())
         embed.set_author(name=f'[{user_data["username"]}] Successfully mined.',
                             icon_url=(ore_icons[random.randint(0, len(ore_icons) - 1)] if len(ore_icons) > 0 else discord.Embed.Empty))
-        embed.set_footer(text=f'Credit: {user_data["quarx"]} | Profit: {inc}\nThis data will expire in 60 seconds.')
+        embed.set_footer(text=f'Quarx: {user_data["quarx"]} | Profit: {inc}\nThis data will expire in {jdata["config"]["expire_seconds"]} seconds.')
 
         await ctx.message.delete()
-        await ctx.send(embed=embed, delete_after=60.0)
+        await ctx.send(embed=embed, delete_after=jdata['config']['expire_seconds'])
 
 
 def setup(bot):

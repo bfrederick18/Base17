@@ -25,7 +25,7 @@ async def on_ready():
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['missing_arguments_error']))
+        await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors']['missing_arguments']))
     print(f'{now()}: "{error}"')
 
 
