@@ -1,5 +1,42 @@
 {
-    "all_ships": {
+    "dialogue": {
+        "0": {
+            "0": {
+                "0": {
+                    "input": {
+                        "type": "db",
+                        "variable": {
+                            "type": "str",
+                            "name": "username"
+                        }
+                    }
+                },
+                "1": {
+                    "input": {
+                        "type": "db",
+                        "variable": {
+                            "type": "str",
+                            "name": "occupation"
+                        }
+                    }
+                },
+                "2": {
+                    "input": {
+                        "type": "db",
+                        "variable": {
+                            "type": "dict",
+                            "name": "occupation",
+                            "key": {
+                                "type": "str",
+                                "name": "special_skill"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "ships": {
         "nomad": {
             "name": "Nomad",
             "type": ["Miner"],

@@ -9,40 +9,9 @@
     "dialogue": {
         "0": {
             "0": {
-                "0": {
-                    "text": "Sparking and smoking, your ship limps away from the clutches of the [aliens]. In the skirmish, your pilot was killed. As second-in-command, the responsibility of getting the citizens aboard this vessel* falls to you. As you run up to take control of the ship, the computer asks for confirmation of your codex.\nEnter name (using the *input* command):",
-                    "input": {
-                        "type": "data",
-                        "variable": {
-                            "type": "str",
-                            "name": "username"
-                        }
-                    }
-                },
-                "1": {
-                    "text": "Occupation:",
-                    "input": {
-                        "type": "data",
-                        "variable": {
-                            "type": "str",
-                            "name": "occupation"
-                        }
-                    }
-                },
-                "2": {
-                    "text": "Special Skill:",
-                    "input": {
-                        "type": "data",
-                        "variable": {
-                            "type": "dict",
-                            "name": "occupation",
-                            "key": {
-                                "type": "str",
-                                "name": "special_skill"
-                            }
-                        }
-                    }
-                }
+                "0": "Sparking and smoking, your ship limps away from the clutches of the [aliens]. In the skirmish, your pilot was killed. As second-in-command, the responsibility of getting the citizens aboard this vessel* falls to you. As you run up to take control of the ship, the computer asks for confirmation of your codex.\nEnter name (using the *input* command):",
+                "1": "Occupation:",
+                "2": "Special Skill:"
             }
         }
     }

@@ -10,6 +10,7 @@
     "success_icon": "https://i.postimg.cc/dt741jcg/1178849234512348967-check.png",
     "tz": "America/Vancouver",
     "expire_seconds": 60.0,
+    "debug_seconds": 10.0,
     "colors": {
         "error": "0xe74c3c",
         "mining": "0x3f515a",
