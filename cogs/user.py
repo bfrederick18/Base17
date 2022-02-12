@@ -1,3 +1,5 @@
+import random
+
 import discord
 
 from cogs.utils.embed_tpl import error_tpl
@@ -22,13 +24,18 @@ class User(commands.Cog):
     async def start(self, ctx, username=''):
         user_id = str(ctx.author.id)
         if user_id not in db['users'].keys():
+            (x, y) = (
+                random.randint(jdata['config']['sectors']['width']['min'], jdata['config']['sectors']['width']['max']),
+                random.randint(jdata['config']['sectors']['height']['min'], jdata['config']['sectors']['height']['max'])
+            )
+            
             user_data = {
                 'username': ctx.author.name,
                 'prefix': '',
                 'quarx': 0,
                 'coords': {
-                    'x': 0,
-                    'y': 0
+                    'x': x,
+                    'y': y
                 },
                 'ships': {},
                 'colonies': {},
