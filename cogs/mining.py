@@ -37,11 +37,10 @@ class Mining(commands.Cog):
         user_data = db['users'][user_id]
         ore_icons = jdata['config']['ore_icons']
 
-        embed = discord.Embed(
-            description=f'Mined a profit of **{inc}** quarx.',
-            color=discord.Color.dark_gray())
-        embed.set_author(name=f'[{user_data["username"]}] Successfully mined.',
-                            icon_url=(ore_icons[random.randint(0, len(ore_icons) - 1)] if len(ore_icons) > 0 else discord.Embed.Empty))
+        embed = discord.Embed(description=f'Mined a profit of **{inc}** quarx.', color=int(jdata['config']['colors']['mining'], 16))
+        embed.set_author(
+            name=f'[{user_data["username"]}] Successfully mined.',
+            icon_url=(ore_icons[random.randint(0, len(ore_icons) - 1)] if len(ore_icons) > 0 else discord.Embed.Empty))
         embed.set_footer(text=f'Quarx: {user_data["quarx"]} | Profit: {inc}\nThis data will expire in {jdata["config"]["expire_seconds"]} seconds.')
 
         await ctx.message.delete()

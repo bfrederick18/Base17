@@ -10,5 +10,11 @@
     "success_icon": "https://i.postimg.cc/dt741jcg/1178849234512348967-check.png",
     "tz": "America/Vancouver",
     "expire_seconds": 60.0,
-    "owners": ["213727513631916034"]
+    "colors": {
+        "error": "0xe74c3c",
+        "mining": "0x3f515a",
+        "dialogue": "0x607d8b",
+        "info": "0x607d8b",
+        "start": "0x607d8b"
+    }
 }

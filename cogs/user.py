@@ -20,11 +20,11 @@ class User(commands.Cog):
 
     @commands.command(aliases=['join', 'register'])
     async def start(self, ctx, username=''):
-        user_id = ctx.author.id
+        user_id = str(ctx.author.id)
         if user_id not in db['users'].keys():
             user_data = {
                 'username': ctx.author.name,
-                'prefix': "",
+                'prefix': '',
                 'quarx': 0,
                 'coords': {
                     'x': 0,
@@ -33,14 +33,16 @@ class User(commands.Cog):
                 'ships': {},
                 'colonies': {},
                 'dialogue_id': {
-                    'major': -1,
+                    'major': 0,
                     'minor': 0,
                     'sub': 0
-                }
+                },
+                'occupation': '',
+                'skills': {}
             }
-            db['users'][ctx.author.id] = user_data
+            db['users'][str(ctx.author.id)] = user_data
             
-            embed = discord.Embed(color=discord.Color.dark_gray())
+            embed = discord.Embed(color=int(jdata['config']['colors']['info'], 16))
             embed.set_author(name=f'[{user_data["username"]}] Done starting.')
             embed.set_footer(text=f'Quarx: {user_data["quarx"]}\nShips: {len(user_data["ships"].keys())} | Colonies: {len(user_data["colonies"].keys())}')
             await ctx.send(embed=embed)
@@ -50,7 +52,7 @@ class User(commands.Cog):
 
     @commands.command(aliases=['i', 'inv', 'data'])
     async def info(self, ctx):
-        user_id = ctx.author.id
+        user_id = str(ctx.author.id)
         if user_id not in db['users'].keys():
             await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors']['not_registered']))
             return
@@ -58,9 +60,8 @@ class User(commands.Cog):
         user_data = db['users'][user_id]
         embed = discord.Embed(
             description=f'Quarx: {user_data["quarx"]}\nShips: {len(user_data["ships"])}\n Colonies: {len(user_data["colonies"])}',
-            color=discord.Color.dark_gray())
-        embed.set_author(name=f'[{user_data["username"]}] Personal Data.',
-                            icon_url=jdata['config']['success_icon'])
+            color=int(jdata['config']['colors']['info'], 16))
+        embed.set_author(name=f'[{user_data["username"]}] Personal Data.', icon_url=jdata['config']['success_icon'])
         embed.set_footer(text=f'This data will expire in {jdata["config"]["expire_seconds"]} seconds.')
         await ctx.message.delete()
         await ctx.send(embed=embed, delete_after=jdata['config']['expire_seconds'])
