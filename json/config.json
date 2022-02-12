@@ -5,12 +5,16 @@
     "chosen_language": "en",
     "status": ["._.", "o.o"],
     "three_dots": [".", ".", ".\n"],
-    "ore_icons": ["https://i.postimg.cc/xCNFhrzq/ore4.png", "https://i.postimg.cc/Sscfcm9L/ore6.png"],
-    "error_icon": "https://i.postimg.cc/cLFzt45b/46914262345234597-x-icon.png",
-    "success_icon": "https://i.postimg.cc/dt741jcg/1178849234512348967-check.png",
     "tz": "America/Vancouver",
-    "expire_seconds": 60.0,
-    "debug_seconds": 10.0,
+    "icons": {
+        "ores": ["https://i.postimg.cc/xCNFhrzq/ore4.png", "https://i.postimg.cc/Sscfcm9L/ore6.png"],
+        "error": "https://i.postimg.cc/cLFzt45b/46914262345234597-x-icon.png",
+        "success": "https://i.postimg.cc/dt741jcg/1178849234512348967-check.png"
+    },
+    "delete_after": {
+        "default": 60.0,
+        "debug": 10.0
+    },
     "colors": {
         "error": "0xe74c3c",
         "mining": "0x3f515a",

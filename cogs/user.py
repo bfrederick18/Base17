@@ -50,7 +50,7 @@ class User(commands.Cog):
             db['users'][str(ctx.author.id)] = user_data
             
             embed = discord.Embed(color=int(jdata['config']['colors']['info'], 16))
-            embed.set_author(name=f'[{user_data["username"]}] Done starting.')
+            embed.set_author(name=f'[{user_data["username"]}] Done starting.', icon_url=jdata['config']['icons']['success'])
             embed.set_footer(text=f'Quarx: {user_data["quarx"]}\nShips: {len(user_data["ships"].keys())} | Colonies: {len(user_data["colonies"].keys())}')
             await ctx.send(embed=embed)
             return
@@ -68,10 +68,10 @@ class User(commands.Cog):
         embed = discord.Embed(
             description=f'Quarx: {user_data["quarx"]}\nShips: {len(user_data["ships"])}\n Colonies: {len(user_data["colonies"])}',
             color=int(jdata['config']['colors']['info'], 16))
-        embed.set_author(name=f'[{user_data["username"]}] Personal Data.', icon_url=jdata['config']['success_icon'])
-        embed.set_footer(text=f'This data will expire in {jdata["config"]["expire_seconds"]} seconds.')
+        embed.set_author(name=f'[{user_data["username"]}] Personal Data.', icon_url=jdata['config']['icons']['success'])
+        embed.set_footer(text=f'This data will expire in {jdata["config"]["delete_after"]["default"]} seconds.')
         await ctx.message.delete()
-        await ctx.send(embed=embed, delete_after=jdata['config']['expire_seconds'])
+        await ctx.send(embed=embed, delete_after=jdata['config']['delete_after']['default'])
 
 
     @commands.command(aliases=['in'])
