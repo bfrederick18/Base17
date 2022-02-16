@@ -3,35 +3,57 @@
         "0": {
             "0": {
                 "0": {
-                    "input": {
-                        "type": "db",
-                        "variable": {
-                            "type": "str",
-                            "name": "username"
+                    "next": {
+                        "dialogue": {
+                            "major": "0",
+                            "minor": "0",
+                            "sub": "1"
                         }
                     }
                 },
                 "1": {
                     "input": {
-                        "type": "db",
-                        "variable": {
-                            "type": "str",
-                            "name": "occupation"
+                        "type": "str",
+                        "name": "db['users'][user_id]['username']"
+                    },
+                    "next": {
+                        "dialogue": {
+                            "major": "0",
+                            "minor": "0",
+                            "sub": "2"
                         }
                     }
                 },
                 "2": {
                     "input": {
-                        "type": "db",
-                        "variable": {
-                            "type": "dict",
-                            "name": "occupation",
-                            "key": {
-                                "type": "str",
-                                "name": "special_skill"
-                            }
+                        "type": "str",
+                        "name": "db['users'][user_id]['occupation']"
+                    },
+                    "next": {
+                        "dialogue": {
+                            "major": "0",
+                            "minor": "0",
+                            "sub": "3"
                         }
                     }
+                },
+                "3": {
+                    "input": {
+                        "type": "str",
+                        "name": "db['users'][user_id]['skills']['special_skill']"
+                    },
+                    "next": {
+                        "dialogue": {
+                            "major": "0",
+                            "minor": "0",
+                            "sub": "3"
+                        }
+                    }
+                }
+            },
+            "1": {
+                "0": {
+                    
                 }
             }
         }
