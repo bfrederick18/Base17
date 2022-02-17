@@ -45,15 +45,34 @@
                     "next": {
                         "dialogue": {
                             "major": "0",
-                            "minor": "0",
-                            "sub": "3"
+                            "minor": "1",
+                            "sub": "0"
                         }
                     }
                 }
             },
             "1": {
                 "0": {
-                    
+                    "next": {
+                        "dialogue": {
+                            "major": "0",
+                            "minor": "1",
+                            "sub": "1"
+                        }
+                    }
+                },
+                "1": {
+                    "input": {
+                        "type": "cmd",
+                        "name": "db['users'][user_id]['skills']['special_skill']"
+                    },
+                    "next": {
+                        "dialogue": {
+                            "major": "0",
+                            "minor": "1",
+                            "sub": "1"
+                        }
+                    }
                 }
             }
         }

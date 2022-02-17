@@ -13,13 +13,13 @@
             "0": {
                 "0": {
                     "author": "'...cRaCkLee SPark...'",
-                    "description": "'Sparking and smoking, your ship limps away from the clutches of the [aliens]. In the skirmish, your pilot was killed. As second-in-command, the responsibility of getting the citizens aboard this vessel* falls to you. As you run up to take control of the ship, the computer asks for confirmation of your codex.'",
+                    "description": "'Sparking and smoking, your ship limps away from the clutches of the [aliens]. In the skirmish, your pilot was killed. As second-in-command, the responsibility of getting the citizens aboard this vessel falls to you. As you run up to take control of the ship, the computer asks for confirmation of your codex.'",
                     "footer": "''"
                 },
                 "1": {
                     "author": "'Enter Name:'",
                     "description": "''",
-                    "footer": "'(use *input* to respond to dialogue)'"
+                    "footer": "'**Reminder**: Use \".input\" to respond to dialogue'"
                 },
                 "2": {
                     "author": "f'[{db[\"users\"][user_id][\"username\"]}] Enter Occupation:'",
@@ -29,6 +29,18 @@
                 "3": {
                     "author": "f'[{db[\"users\"][user_id][\"username\"]}] Enter Special Skill:'",
                     "description": "''",
+                    "footer": "''"
+                }
+            },
+            "1": {
+                "0": {
+                    "author": "f'[{db[\"users\"][user_id][\"username\"]}] Your information and biometrics have been accepted.'",
+                    "description": "f'{db[\"users\"][user_id][\"username\"]} is now eligible for manual operation of this vessel. All clearances are granted. **WARNING**: This vessel has sustained heavy damage. 1 unit of fuel remaining. Suggested course of action: Flee to a system near (0,0). The [aliens] will not follow.'",
+                    "footer": "''"
+                },
+                "1": {
+                    "author": "f'[{db[\"users\"][user_id][\"username\"]}] Use \".jump\" to jump to a system.'",
+                    "description": "'**Reminder**: You only have enough fuel to jump to an adjacent system.'",
                     "footer": "''"
                 }
             }
