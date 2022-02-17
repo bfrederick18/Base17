@@ -109,7 +109,24 @@ class User(commands.Cog):
         if user_id in db['users'].keys():
             user_dlg_id = db['users'][user_id]['dialogue_id']
             jdata_chosen_dlg = jdata['game_data']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
-        return
+
+            if 'input' in jdata_chosen_dlg.keys():
+                print(f'{now()}: [{user_id}] Tries {jdata_chosen_dlg["input"]["name"]} = "{input}".')
+                exec(f'{jdata_chosen_dlg["input"]["name"]} = "{input}"')
+                print(f'{now()}: [{user_id}] Success.')
+
+                db['users'][user_id]['dialogue_id']['major'] = jdata_chosen_dlg['next']['dialogue']['major']
+                db['users'][user_id]['dialogue_id']['minor'] = jdata_chosen_dlg['next']['dialogue']['minor']
+                db['users'][user_id]['dialogue_id']['sub'] = jdata_chosen_dlg['next']['dialogue']['sub']
+                print(f'{now()}: [{user_id}] Updated major, minor, and sub.')
+                
+                await self.send_dlg(ctx)
+                print(f'{now()}: [{user_id}] Done with send_dlg recursion.')
+            else:
+                await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors']['dlg_no_input']))
+            return
+            
+        await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors']['already_registered']))
 
 
     @commands.command(aliases=['dlg'])
