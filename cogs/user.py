@@ -104,7 +104,7 @@ class User(commands.Cog):
 
     
     @commands.command(aliases=['in'])
-    async def input(self, ctx, input):
+    async def input(self, ctx, *, input):
         user_id = str(ctx.author.id)
         if user_id in db['users'].keys():
             user_dlg_id = db['users'][user_id]['dialogue_id']
