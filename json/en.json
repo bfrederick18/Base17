@@ -12,19 +12,23 @@
             "0": {
                 "0": {
                     "author": "'...cRaCkLee SPark...'",
-                    "description": "'Sparking and smoking, your ship limps away from the clutches of the [aliens]. In the skirmish, your pilot was killed. As second-in-command, the responsibility of getting the citizens aboard this vessel* falls to you. As you run up to take control of the ship, the computer asks for confirmation of your codex.'"
+                    "description": "'Sparking and smoking, your ship limps away from the clutches of the [aliens]. In the skirmish, your pilot was killed. As second-in-command, the responsibility of getting the citizens aboard this vessel* falls to you. As you run up to take control of the ship, the computer asks for confirmation of your codex.'",
+                    "footer": "''"
                 },
                 "1": {
-                    "author": "'Enter Name (using the *input* command):'",
-                    "description": "''"
+                    "author": "'Enter Name:'",
+                    "description": "''",
+                    "footer": "'(use *input* to respond to dialogue)'"
                 },
                 "2": {
-                    "author": "f'[{db['users'][user_id]['username]}] Enter Occupation:'",
-                    "description": "''"
+                    "author": "f'[{db['users'][user_id]['username']}] Enter Occupation:'",
+                    "description": "''",
+                    "footer": "''"
                 },
                 "3": {
-                    "author": "f'[{db['users'][user_id]['username]}] Enter Special Skill:'",
-                    "description": "''"
+                    "author": "f'[{db['users'][user_id]['username']}] Enter Special Skill:'",
+                    "description": "''",
+                    "footer": "''"
                 }
             }
         }

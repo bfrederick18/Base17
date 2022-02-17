@@ -11,7 +11,7 @@ def error_tpl(ctx, desc):
     embed.set_author(name=f'[{db["users"][user_id]["username"]}] Error', icon_url=jdata['config']['icons']['error'])
     return embed
 
-def dialogue_tpl(author, desc):
+def dialogue_tpl(author, desc, footer):
     if desc == '':
         embed = discord.Embed(color=int(jdata['config']['colors']['error'], 16))
     else:
@@ -19,4 +19,6 @@ def dialogue_tpl(author, desc):
         
     if author != '':
         embed.set_author(name=author)
+    if footer != '':
+        embed.set_footer(text=footer)
     return embed

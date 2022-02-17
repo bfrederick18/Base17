@@ -22,7 +22,7 @@ class User(commands.Cog):
             en_chosen_dlg = jdata['en']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
         
             if 'description' in en_chosen_dlg.keys() and 'author' in en_chosen_dlg.keys():
-                await ctx.send(embed=dialogue_tpl(eval(en_chosen_dlg['author']), eval(en_chosen_dlg['description'])))
+                await ctx.send(embed=dialogue_tpl(eval(en_chosen_dlg['author']), eval(en_chosen_dlg['description']), eval(en_chosen_dlg['footer'])))
                 print(f'{now()}: [{user_id}] Sent dialogue.')
 
                 jdata_chosen_dlg = jdata['game_data']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
@@ -37,7 +37,9 @@ class User(commands.Cog):
                     print(f'{now()}: [{user_id}] Updated major, minor, and sub.')
                     
                     await self.send_dlg(ctx)
-                    print(f'{now()}: [{user_id}] Done send recursion.')
+                    print(f'{now()}: [{user_id}] Done with send_dlg recursion.')
+                else:
+                    print(f'{now()}: [{user_id}] Waiting on input.')
             else:
                 await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors']['dlg_no_desc_or_author']))
         else:
@@ -103,13 +105,16 @@ class User(commands.Cog):
     
     @commands.command(aliases=['in'])
     async def input(self, ctx, input):
-        
+        user_id = str(ctx.author.id)
+        if user_id in db['users'].keys():
+            user_dlg_id = db['users'][user_id]['dialogue_id']
+            jdata_chosen_dlg = jdata['game_data']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
         return
 
 
     @commands.command(aliases=['dlg'])
-    async def dialogue(self, ctx, input):
-        
+    async def dialogue(self, ctx):
+        await self.send_dlg(ctx)
         return
 
 

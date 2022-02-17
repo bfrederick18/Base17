@@ -29,10 +29,10 @@ async def on_command_error(ctx, error):
     print(f'{now()}: "{error}"')
 
 
-@tasks.loop(seconds=10)
+@tasks.loop(seconds=60)
 async def change_status():
     await bot.change_presence(activity=discord.Game(next(status_cycle)))
-    print(f'{next(three_dots_cycle)}', end='', flush=True)
+    print(f'{now()}: Online.')
 
 
 @bot.command()
