@@ -19,7 +19,7 @@
                 "1": {
                     "author": "'Enter name:'",
                     "description": "''",
-                    "footer": "'**Reminder**: Use \".input\" to respond to dialogue'"
+                    "footer": "f'Use \".input\" to respond to dialogue (Ex. \".input {ctx.author.name}\").'"
                 },
                 "2": {
                     "author": "f'[{db[\"users\"][user_id][\"username\"]}] Enter occupation:'",
@@ -35,13 +35,13 @@
             "1": {
                 "0": {
                     "author": "f'[{db[\"users\"][user_id][\"username\"]}] Your information and biometrics have been accepted.'",
-                    "description": "f'{db[\"users\"][user_id][\"username\"]} is now eligible for manual operation of this vessel. All clearances are granted. **WARNING**: This vessel has sustained heavy damage. 1 unit of fuel remaining. Suggested course of action: Flee to a system near (0,0). The [aliens] will not follow.'",
+                    "description": "f'{db[\"users\"][user_id][\"username\"]} is now eligible for manual operation of this vessel. All clearances are granted.\\n**WARNING**: This vessel has sustained heavy damage. **1** unit of fuel remaining.\\n**Suggested course of action**: Flee to a system near **({db[\"users\"][user_id][\"coords\"][\"x\"]}, {db[\"users\"][user_id][\"coords\"][\"y\"]})**.\\n No need to worry. The [aliens] will not follow.'",
                     "footer": "''"
                 },
                 "1": {
-                    "author": "f'[{db[\"users\"][user_id][\"username\"]}] Use \".jump\" to jump to a system.'",
-                    "description": "'**Reminder**: You only have enough fuel to jump to an adjacent system.'",
-                    "footer": "''"
+                    "author": "f'[{db[\"users\"][user_id][\"username\"]}] Jump to an adjacent system.'",
+                    "description": "f'You need to leave the system, but you only have enough fuel to jump to an adjacent system.\\n**Current Coords**: **({db[\"users\"][user_id][\"coords\"][\"x\"]}, {db[\"users\"][user_id][\"coords\"][\"y\"]})**.'",
+                    "footer": "'Use \".jump\" to jump to a system (Ex. \".jump 0 0\").'"
                 }
             }
         }

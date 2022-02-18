@@ -16,6 +16,12 @@ class User(commands.Cog):
         self.bot = bot
 
 
+    def update_dlg_id(self, user_id, chosen_dlg):
+        db['users'][user_id]['dialogue_id']['major'] = chosen_dlg['next']['dialogue']['major']
+        db['users'][user_id]['dialogue_id']['minor'] = chosen_dlg['next']['dialogue']['minor']
+        db['users'][user_id]['dialogue_id']['sub'] = chosen_dlg['next']['dialogue']['sub']
+    
+
     async def send_dlg(self, ctx):
         user_id = str(ctx.author.id)
         if user_id in db['users'].keys():
@@ -32,9 +38,7 @@ class User(commands.Cog):
                 if 'input' not in jdata_chosen_dlg.keys():
                     print(f'{now()}: [{user_id}] Entered if scope.')
                     
-                    db['users'][user_id]['dialogue_id']['major'] = jdata_chosen_dlg['next']['dialogue']['major']
-                    db['users'][user_id]['dialogue_id']['minor'] = jdata_chosen_dlg['next']['dialogue']['minor']
-                    db['users'][user_id]['dialogue_id']['sub'] = jdata_chosen_dlg['next']['dialogue']['sub']
+                    self.update_dlg_id(user_id, jdata_chosen_dlg)
                     print(f'{now()}: [{user_id}] Updated major, minor, and sub.')
                     
                     await self.send_dlg(ctx)
@@ -123,9 +127,7 @@ class User(commands.Cog):
                 exec(f'{jdata_chosen_dlg["input"]["name"]} = "{input}"')
                 print(f'{now()}: [{user_id}] Success.')
 
-                db['users'][user_id]['dialogue_id']['major'] = jdata_chosen_dlg['next']['dialogue']['major']
-                db['users'][user_id]['dialogue_id']['minor'] = jdata_chosen_dlg['next']['dialogue']['minor']
-                db['users'][user_id]['dialogue_id']['sub'] = jdata_chosen_dlg['next']['dialogue']['sub']
+                self.update_dlg_id(user_id, jdata_chosen_dlg)
                 print(f'{now()}: [{user_id}] Updated major, minor, and sub.')
                 
                 await self.send_dlg(ctx)
