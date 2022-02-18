@@ -14,7 +14,11 @@
                 "1": {
                     "input": {
                         "type": "str",
-                        "name": "db['users'][user_id]['username']"
+                        "name": "db['users'][user_id]['username']",
+                        "checks": {
+                            "regex": "(?=^.{2,24}$)^[a-zA-Z][a-zA-Z0-9]*$",
+                            "error_text": "Invalid name. Must follow the regex: \"(?=^.{2,24}$)^[a-zA-Z][a-zA-Z0-9]*$\""
+                        }
                     },
                     "next": {
                         "dialogue": {

@@ -17,17 +17,17 @@
                     "footer": "''"
                 },
                 "1": {
-                    "author": "'Enter Name:'",
+                    "author": "'Enter name:'",
                     "description": "''",
                     "footer": "'**Reminder**: Use \".input\" to respond to dialogue'"
                 },
                 "2": {
-                    "author": "f'[{db[\"users\"][user_id][\"username\"]}] Enter Occupation:'",
+                    "author": "f'[{db[\"users\"][user_id][\"username\"]}] Enter occupation:'",
                     "description": "''",
                     "footer": "''"
                 },
                 "3": {
-                    "author": "f'[{db[\"users\"][user_id][\"username\"]}] Enter Special Skill:'",
+                    "author": "f'[{db[\"users\"][user_id][\"username\"]}] Enter special skill:'",
                     "description": "''",
                     "footer": "''"
                 }

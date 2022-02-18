@@ -1,4 +1,5 @@
 import random
+import re
 
 import discord
 
@@ -111,6 +112,13 @@ class User(commands.Cog):
             jdata_chosen_dlg = jdata['game_data']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
 
             if 'input' in jdata_chosen_dlg.keys():
+                print(f'{now()}: [{user_id}] Tries to match "{input}" to "{jdata_chosen_dlg["input"]["name"]}".')
+                if 'checks' in jdata_chosen_dlg['input'].keys() and not re.match(jdata_chosen_dlg['input']['checks']['regex'], input):
+                    await ctx.send(embed=error_tpl(ctx, jdata_chosen_dlg['input']['checks']['error_text']))
+                    print(f'{now()}: [{user_id}] Error.')
+                    return
+                print(f'{now()}: [{user_id}] Success.')
+                
                 print(f'{now()}: [{user_id}] Tries {jdata_chosen_dlg["input"]["name"]} = "{input}".')
                 exec(f'{jdata_chosen_dlg["input"]["name"]} = "{input}"')
                 print(f'{now()}: [{user_id}] Success.')
