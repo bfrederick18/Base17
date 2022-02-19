@@ -83,7 +83,7 @@ class User(commands.Cog):
             )
             
             user_data = {
-                'username': ctx.author.name,
+                'username': '',
                 'prefix': '',
                 'quarx': 0,
                 'coords': {
