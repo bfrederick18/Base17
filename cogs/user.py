@@ -20,6 +20,10 @@ class User(commands.Cog):
         db['users'][user_id]['dialogue_id']['major'] = chosen_dlg['next']['dialogue']['major']
         db['users'][user_id]['dialogue_id']['minor'] = chosen_dlg['next']['dialogue']['minor']
         db['users'][user_id]['dialogue_id']['sub'] = chosen_dlg['next']['dialogue']['sub']
+
+
+    def gen_starting_coords(self):
+        return
     
 
     async def send_dlg(self, ctx):
@@ -50,7 +54,7 @@ class User(commands.Cog):
         else:
             await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors']['not_registered']))
 
-    
+
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'{now()}: User cog is online.')

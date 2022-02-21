@@ -4,7 +4,7 @@
         "start_requires_username": "*Start* requires a username. Check *help* for usage.",
         "already_registered": "You already used *start* to register before. Check *help* for usage.",
         "not_registered": "You have not registered using *start* yet. Check *help* for usage.",
-        "no_users": "There appears to be no users. Ask a bot admin for help.",
+        "no_users": "There appears to be no users. Ask a bot admin for help!",
         "dlg_no_desc_or_author": "The current dialogue has no description or title. Ask a bot admin for help.",
         "dlg_no_input": "The current dialogue has no input. If you get this error repeatedly and believe there should be an input, ask a bot admin for help."
     },
