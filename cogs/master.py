@@ -27,21 +27,19 @@ class Master(commands.Cog):
     @commands.is_owner()
     async def reloadjson(self, ctx, extension, perm_arg=''):
         old_dict = jdata[extension]
-        print(json.dumps(old_dict, indent=4))
-        
+
+        print(f'{now()}: Reloading {extension}.json...')
         reload_json(extension)
+        print(f'{now()}: Done.')
         await ctx.message.delete()
 
         new_dict = jdata[extension]
-        print(json.dumps(old_dict, indent=4))
-
-        print('-' * 20)
         
         edits = []
         for diff in list(dictdiffer.diff(old_dict, new_dict)):
             edits.append(diff)
-            print(diff)
 
+        print(f'{now()}: Edits: {edits}')
         await self.send_temp(ctx, edits, perm_arg)
 
 

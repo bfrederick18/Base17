@@ -13,11 +13,10 @@ class Administrator(commands.Cog):
         print(f'{now()}: Admin cog is online.')
 
 
-    @commands.command(aliases=['p'], case_sensitive=False)
+    @commands.command(aliases=['p'])
     async def ping(self, ctx):
         await ctx.message.delete()
         await ctx.send(f'Pong: {round(self.bot.latency * 1000)}ms.')
-        #await ctx.channel.send('Pong!')
 
 
     @commands.command()

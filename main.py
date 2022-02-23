@@ -26,7 +26,7 @@ async def on_ready():
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors']['missing_arguments']))
-    print(f'{now()}: "{error}"')
+    print(f'{now()}: Error: {error}.')
 
 
 @tasks.loop(seconds=60)
