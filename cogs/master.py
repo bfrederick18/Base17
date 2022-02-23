@@ -60,6 +60,8 @@ class Master(commands.Cog):
         elif arg1 == 'all':
             for key in db.keys():
                 await ctx.send(f'```{json.dumps(json.loads(dumps(db[key])), indent=4)}```', delete_after=jdata['config']['delete_after']['debug'] if arg2 != 'perm' else 2000000)
+        elif arg1 == 'keys':
+            await self.send_temp(ctx, f'```{list(db.keys())}```', arg2)
 
 
 def setup(bot):
