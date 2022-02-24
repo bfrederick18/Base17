@@ -13,14 +13,16 @@
     },
     "delete_after": {
         "default": 60.0,
-        "debug": 10.0
+        "debug": 10.0,
+        "success": 120.0
     },
     "colors": {
         "error": "0xe74c3c",
         "mining": "0x3f515a",
         "dialogue": "0x607d8b",
         "info": "0x607d8b",
-        "start": "0x607d8b"
+        "start": "0x607d8b",
+        "success": "0x2ecc36"
     },
     "sectors": {
         "width": {

@@ -19,7 +19,7 @@
                 "1": {
                     "author": "'Enter name:'",
                     "description": "''",
-                    "footer": "f'Use \".input\" to respond to dialogue (Ex. \".input {ctx.author.name}\").'"
+                    "footer": "f'Use \".input\" to respond to dialogue (Ex. \".input {ctx.author.name}\";\\nYou can enter any string after \".input\", therefore any name).'"
                 },
                 "2": {
                     "author": "f'[{db[\"users\"][user_id][\"username\"]}] Enter occupation:'",

@@ -156,6 +156,7 @@ class User(commands.Cog):
 
     @commands.command(aliases=['dlg'])
     async def dialogue(self, ctx):
+        await ctx.message.delete()
         await self.send_dlg(ctx)
         return
 

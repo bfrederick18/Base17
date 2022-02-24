@@ -8,8 +8,19 @@ def error_tpl(ctx, desc):
     user_id = str(ctx.author.id)
     
     embed = discord.Embed(description=desc, color=int(jdata['config']['colors']['error'], 16))
-    embed.set_author(name=f'[{db["users"][user_id]["username"]}] Error', icon_url=jdata['config']['icons']['error'])
+    embed.set_author(name=f'[{db["users"][user_id]["username"]}] Error' if user_id in db['users'].keys() else 'Error',
+                     icon_url=jdata['config']['icons']['error'])
     return embed
+
+
+def success_tpl(ctx, desc):
+    user_id = str(ctx.author.id)
+    
+    embed = discord.Embed(description=desc, color=int(jdata['config']['colors']['success'], 16))
+    embed.set_author(name=f'[{db["users"][user_id]["username"]}] Success' if user_id in db['users'].keys() else 'Success',
+                     icon_url=jdata['config']['icons']['success'])
+    return embed
+
 
 def dialogue_tpl(author, desc, footer):
     if desc == '':
