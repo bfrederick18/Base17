@@ -23,7 +23,18 @@ class User(commands.Cog):
 
 
     def gen_starting_coords(self):
-        return
+        (x, y) = (
+                random.randint(jdata['config']['sectors']['width']['min'], jdata['config']['sectors']['width']['max']),
+                random.randint(jdata['config']['sectors']['height']['min'], jdata['config']['sectors']['height']['max'])
+            )
+
+        clear = False
+        while not clear:
+            for i in range(x - 1, x + 2): # (x - 1) to (x + 1) inclusive
+                for j in range(y - 1, y + 2):
+                    if i == x and j == y:
+                        break
+                    # Check if system i, j is occupied (maybe checking system type? : evil, neutral, player)
     
 
     async def send_dlg(self, ctx):
