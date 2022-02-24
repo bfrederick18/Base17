@@ -2,7 +2,7 @@ import random
 
 import discord
 
-from cogs.utils.embed_tpl import error_tpl
+from cogs.utils.embed import error_tpl
 from cogs.utils.time import now
 from config import jdata
 from discord.ext import commands

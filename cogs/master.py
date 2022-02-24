@@ -1,7 +1,7 @@
 import dictdiffer
 import json
 
-from cogs.utils.embed_tpl import error_tpl, success_tpl
+from cogs.utils.embed import error_tpl, success_tpl
 from cogs.utils.time import now
 from config import jdata, reload_json
 from discord.ext import commands

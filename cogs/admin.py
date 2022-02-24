@@ -23,6 +23,7 @@ class Administrator(commands.Cog):
     async def clear(self, ctx, amount: int):
         await ctx.message.delete()
         await ctx.channel.purge(limit=amount)
+        await ctx.send('test', delete_after=10.0)
 
 
 def setup(bot):

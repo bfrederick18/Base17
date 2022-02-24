@@ -2,7 +2,7 @@ import os
 
 import discord
 
-from cogs.utils.embed_tpl import error_tpl
+from cogs.utils.embed import error_tpl
 from cogs.utils.time import now
 from config import jdata, status_cycle
 from discord.ext import commands, tasks
