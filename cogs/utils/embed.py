@@ -4,7 +4,7 @@ from config import jdata
 from replit import db
 
 
-def error_tpl(ctx, desc):
+def error_tpl(ctx, desc):  # Embed Error Template
     user_id = str(ctx.author.id)
     
     embed = discord.Embed(description=desc, color=int(jdata['config']['colors']['error'], 16))
@@ -13,7 +13,7 @@ def error_tpl(ctx, desc):
     return embed
 
 
-def success_tpl(ctx, desc):
+def success_tpl(ctx, desc):  # Embed Success Template
     user_id = str(ctx.author.id)
     
     embed = discord.Embed(description=desc, color=int(jdata['config']['colors']['success'], 16))
@@ -22,7 +22,7 @@ def success_tpl(ctx, desc):
     return embed
 
 
-def dialogue_tpl(author, desc, footer):
+def dialogue_tpl(author, desc, footer):  # Embed Dialogue Template
     if desc == '':
         embed = discord.Embed(color=int(jdata['config']['colors']['error'], 16))
     else:
