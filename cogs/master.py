@@ -57,10 +57,10 @@ class Master(commands.Cog):
                     await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[0]][args[2]])), indent=4)}```', args[3])
                 elif args[1] == 'reset':
                     db[args[0]][args[2]] = {}
-                    await ctx.send(embed=success_tpl(ctx, f'Reset "{args[2]}" in "{args[0]}".', delete_after=jdata['config']['delete_after']['success']))
+                    await ctx.send(embed=success_tpl(ctx, f'Reset "{args[2]}" in "{args[0]}".'), delete_after=jdata['config']['delete_after']['success'])
                 elif args[1] == 'del' and args[3] == 'confirm':
                     del db[args[0]][args[2]]
-                    await ctx.send(embed=success_tpl(ctx, f'Deleted "{args[2]}" in "{args[0]}".', delete_after=jdata['config']['delete_after']['success']))
+                    await ctx.send(embed=success_tpl(ctx, f'Deleted "{args[2]}" in "{args[0]}".'), delete_after=jdata['config']['delete_after']['success'])
             elif args[0] == 'all':
                 for key in db.keys():
                     await ctx.send(f'```"{key}": {json.dumps(json.loads(dumps(db[key])), indent=4)}```', delete_after=jdata['config']['delete_after']['debug'] if args[1] != 'perm' else 2000000)

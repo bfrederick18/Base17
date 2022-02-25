@@ -18,7 +18,7 @@ async def send_dlg(ctx):
     
         if 'description' in en_chosen_dlg.keys() and 'author' in en_chosen_dlg.keys():
             await ctx.send(embed=dialogue_tpl(eval(en_chosen_dlg['author']), eval(en_chosen_dlg['description']), eval(en_chosen_dlg['footer'])))
-            print(f'{now()}: [{user_id}] Sent dialogue (0, 0, 0).')
+            print(f'{now()}: [{user_id}] Sent dialogue ({user_dlg_id["major"]}, {user_dlg_id["minor"]}, {user_dlg_id["sub"]}).')
 
             jdata_chosen_dlg = jdata['game_data']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
             print(f'{now()}: [{user_id}] Defined jdata_chosen_dlg')
@@ -27,7 +27,8 @@ async def send_dlg(ctx):
                 print(f'{now()}: [{user_id}] Entered if scope.')
                 
                 update_dlg_id(user_id, jdata_chosen_dlg)
-                print(f'{now()}: [{user_id}] Updated major, minor, and sub.')
+                user_dlg_id = db['users'][user_id]['dialogue_id']
+                print(f'{now()}: [{user_id}] Updated (major, minor, and sub) to ({user_dlg_id["major"]}, {user_dlg_id["minor"]}, {user_dlg_id["sub"]}).')
                 
                 await send_dlg(ctx)
                 print(f'{now()}: [{user_id}] Done with send_dlg recursion.')
