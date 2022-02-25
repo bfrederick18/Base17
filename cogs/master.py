@@ -63,7 +63,7 @@ class Master(commands.Cog):
                     await ctx.send(embed=success_tpl(ctx, f'Deleted "{args[2]}" in "{args[0]}".'), delete_after=jdata['config']['delete_after']['success'])
             elif args[0] == 'all':
                 for key in db.keys():
-                    await ctx.send(f'```"{key}": {json.dumps(json.loads(dumps(db[key])), indent=4)}```', delete_after=jdata['config']['delete_after']['debug'] if args[1] != 'perm' else 2000000)
+                    await ctx.send(f'```"{key}": {json.dumps(json.loads(dumps(db[key])), indent=4)}```', delete_after=jdata['config']['delete_after']['debug'] if len(args) < 2 or args[1] != 'perm' else 2000000)
             elif args[0] == 'keys':
                 await self.send_debug(ctx, f'```{list(db.keys())}```', args[1])
             elif args[0] == 'val':
@@ -75,8 +75,8 @@ class Master(commands.Cog):
                 del db[args[1]]
                 await ctx.send(embed=success_tpl(ctx, f'Deleted "{args[1]}".', delete_after=jdata['config']['delete_after']['success']))
             await ctx.message.delete()
-        except IndexError:
-            print(args)
+        except IndexError as e:
+            print(f'{now()}: {e}: args = {args}')
             await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors']['missing_arguments']))
 
 

@@ -2,7 +2,7 @@ import os
 
 import discord
 
-from cogs.utils.embed import error_tpl
+from cogs.utils.embed import error_tpl, success_tpl
 from cogs.utils.time import now
 from config import jdata, status_cycle
 from discord.ext import commands, tasks
@@ -39,19 +39,24 @@ async def change_status():
 @commands.is_owner()
 async def loadcog(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
+    await ctx.message.delete()
+    await ctx.send(embed=success_tpl(ctx, f'Loaded cog "{extension}".'), delete_after=jdata['config']['delete_after']['success'])
 
 
 @bot.command()
 @commands.is_owner()
 async def unloadcog(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
-
+    await ctx.message.delete()
+    await ctx.send(embed=success_tpl(ctx, f'Unloaded cog "{extension}".'), delete_after=jdata['config']['delete_after']['success'])
 
 @bot.command()
 @commands.is_owner()
 async def reloadcog(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     bot.load_extension(f'cogs.{extension}')
+    await ctx.message.delete()
+    await ctx.send(embed=success_tpl(ctx, f'Reloaded cog "{extension}".'), delete_after=jdata['config']['delete_after']['success'])
 
 
 @bot.event

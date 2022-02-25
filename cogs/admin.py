@@ -1,4 +1,6 @@
+from cogs.utils.embed import success_tpl
 from cogs.utils.time import now
+from config import jdata
 from discord.ext import commands
 
 
@@ -22,8 +24,8 @@ class Administrator(commands.Cog):
     @commands.command()
     async def clear(self, ctx, amount: int):
         await ctx.message.delete()
-        await ctx.channel.purge(limit=amount)
-        await ctx.send('test', delete_after=10.0)
+        deleted = await ctx.channel.purge(limit=amount)
+        await ctx.send(embed=success_tpl(ctx, f'Deleted {len(deleted)} messages.'), delete_after=jdata['config']['delete_after']['success'])
 
 
 def setup(bot):
