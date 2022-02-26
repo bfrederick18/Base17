@@ -2,7 +2,7 @@ import os
 
 import discord
 
-from cogs.utils.embed import error_tpl, success_tpl
+from cogs.utils.embed import error_tpl, send_success
 from cogs.utils.time import now
 from config import jdata, status_cycle
 from discord.ext import commands, tasks
@@ -40,7 +40,7 @@ async def change_status():
 async def loadcog(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
     await ctx.message.delete()
-    await ctx.send(embed=success_tpl(ctx, f'Loaded cog "{extension}".'), delete_after=jdata['config']['delete_after']['success'])
+    await send_success(ctx, f'Loaded cog "{extension}".')
 
 
 @bot.command()
@@ -48,7 +48,8 @@ async def loadcog(ctx, extension):
 async def unloadcog(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     await ctx.message.delete()
-    await ctx.send(embed=success_tpl(ctx, f'Unloaded cog "{extension}".'), delete_after=jdata['config']['delete_after']['success'])
+    await send_success(ctx, f'Unloaded cog "{extension}".')
+
 
 @bot.command()
 @commands.is_owner()
@@ -56,7 +57,7 @@ async def reloadcog(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     bot.load_extension(f'cogs.{extension}')
     await ctx.message.delete()
-    await ctx.send(embed=success_tpl(ctx, f'Reloaded cog "{extension}".'), delete_after=jdata['config']['delete_after']['success'])
+    await send_success(ctx, f'Reloaded cog "{extension}".')
 
 
 @bot.event

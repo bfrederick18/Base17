@@ -1,6 +1,5 @@
 from cogs.utils.embed import send_success
 from cogs.utils.time import now
-from config import jdata
 from discord.ext import commands
 
 

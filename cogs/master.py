@@ -1,7 +1,7 @@
 import dictdiffer
 import json
 
-from cogs.utils.embed import error_tpl, success_tpl
+from cogs.utils.embed import error_tpl, send_success
 from cogs.utils.time import now
 from config import jdata, reload_json
 from discord.ext import commands
@@ -57,10 +57,10 @@ class Master(commands.Cog):
                     await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[0]][args[2]])), indent=4)}```', args[3])
                 elif args[1] == 'reset':
                     db[args[0]][args[2]] = {}
-                    await ctx.send(embed=success_tpl(ctx, f'Reset "{args[2]}" in "{args[0]}".'), delete_after=jdata['config']['delete_after']['success'])
+                    await send_success(ctx, f'Reset "{args[2]}" in "{args[0]}".')
                 elif args[1] == 'del' and args[3] == 'confirm':
                     del db[args[0]][args[2]]
-                    await ctx.send(embed=success_tpl(ctx, f'Deleted "{args[2]}" in "{args[0]}".'), delete_after=jdata['config']['delete_after']['success'])
+                    await send_success(ctx, f'Deleted "{args[2]}" in "{args[0]}".')
             elif args[0] == 'all':
                 for key in db.keys():
                     await ctx.send(f'```"{key}": {json.dumps(json.loads(dumps(db[key])), indent=4)}```', delete_after=jdata['config']['delete_after']['debug'] if len(args) < 2 or args[1] != 'perm' else 2000000)
@@ -70,10 +70,10 @@ class Master(commands.Cog):
                 await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[1]])), indent=4)}```', args[2])
             elif args[0] == 'reset':
                 db[args[1]] = {}
-                await ctx.send(embed=success_tpl(ctx, f'Reset "{args[1]}".', delete_after=jdata['config']['delete_after']['success']))
+                await send_success(ctx, f'Reset "{args[1]}".')
             elif args[0] == 'del' and args[2] == 'confirm':
                 del db[args[1]]
-                await ctx.send(embed=success_tpl(ctx, f'Deleted "{args[1]}".', delete_after=jdata['config']['delete_after']['success']))
+                await send_success(ctx, f'Deleted "{args[1]}".')
             await ctx.message.delete()
         except IndexError as e:
             print(f'{now()}: {e}: args = {args}')
