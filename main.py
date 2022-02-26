@@ -17,6 +17,8 @@ alive_count = 0
 async def on_ready():
     print(jdata['config']['banner'] + '\n')
     print(f'{now()}: Logging in as {bot.user}.')
+    c, l = os.get_terminal_size()
+    print(f'{now()}: Terminal Size: ({c}, {l}).')
     print(f'{now()}: Starting status loop.')
     change_status.start()
     print(f'{now()}: Loading cogs.')
