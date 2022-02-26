@@ -1,7 +1,7 @@
 import dictdiffer
 import json
 
-from cogs.utils.embed import error_tpl, send_success
+from cogs.utils.embed import send_error, send_success
 from cogs.utils.time import now
 from config import jdata, reload_json
 from discord.ext import commands
@@ -77,7 +77,7 @@ class Master(commands.Cog):
             await ctx.message.delete()
         except IndexError as e:
             print(f'{now()}: {e}: args = {args}')
-            await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors']['missing_arguments']))
+            await send_error(ctx, 'missing_arguments')
 
 
 def setup(bot):

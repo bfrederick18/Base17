@@ -2,7 +2,7 @@ import os
 
 import discord
 
-from cogs.utils.embed import error_tpl, send_success
+from cogs.utils.embed import send_error, send_success
 from cogs.utils.time import now
 from config import jdata, status_cycle
 from discord.ext import commands, tasks
@@ -25,7 +25,7 @@ async def on_ready():
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors']['missing_arguments']))
+        await send_error(ctx, 'missing_arguments')
     print(f'{now()}: Error: {error}')
 
 

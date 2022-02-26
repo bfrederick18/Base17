@@ -2,7 +2,7 @@ import random
 
 import discord
 
-from cogs.utils.embed import error_tpl
+from cogs.utils.embed import send_error
 from cogs.utils.time import now
 from config import jdata
 from discord.ext import commands
@@ -23,12 +23,12 @@ class Mining(commands.Cog):
     @commands.command(aliases=['m'])
     async def mine(self, ctx):
         if 'users' not in db.keys():
-            await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors']['no_users']))
+            await send_error(ctx, 'no_users')
             return
 
         user_id = str(ctx.author.id)
         if user_id not in db['users'].keys():
-            await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors']['not_registered']))
+            await send_error(ctx, 'not_registered')
             return
         
         inc = 1
