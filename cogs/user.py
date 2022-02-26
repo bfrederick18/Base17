@@ -3,7 +3,7 @@ import re
 
 import discord
 
-from cogs.utils.embed import send_error, send_dlg_error, dialogue_tpl
+from cogs.utils.embed import send_error, send_dlg_error, send_dialogue_embed
 from cogs.utils.time import now
 from config import jdata
 from discord.ext import commands
@@ -29,13 +29,15 @@ class User(commands.Cog):
 
 
     async def send_dlg(self, ctx):
+        print(f'{now()}: Entered send_dlg.')
+        
         user_id = str(ctx.author.id)
         if user_id in db['users'].keys():
             user_dlg_id = db['users'][user_id]['dialogue_id']
-            en_chosen_dlg = jdata['en']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
+            lang_chosen_dlg = jdata[jdata['config']['chosen_language']]['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
         
-            if 'description' in en_chosen_dlg.keys() and 'author' in en_chosen_dlg.keys():
-                await ctx.send(embed=dialogue_tpl(eval(en_chosen_dlg['author']), eval(en_chosen_dlg['description']), eval(en_chosen_dlg['footer'])))
+            if 'description' in lang_chosen_dlg.keys() and 'author' in lang_chosen_dlg.keys():
+                await send_dialogue_embed(ctx, lang_chosen_dlg)
                 print(f'{now()}: [{user_id}] Sent dialogue ({user_dlg_id["major"]}, {user_dlg_id["minor"]}, {user_dlg_id["sub"]}).')
     
                 jdata_chosen_dlg = jdata['game_data']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]

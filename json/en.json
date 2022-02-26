@@ -22,25 +22,25 @@
                     "footer": "f'Use \".input\" to respond to dialogue (Ex. \".input {ctx.author.name}\";\\nYou can enter any string after \".input\", therefore any name).'"
                 },
                 "2": {
-                    "author": "f'[{db[\"users\"][user_id][\"username\"]}] Enter occupation:'",
+                    "author": "f'[{db[\"users\"][str(ctx.author.id)][\"username\"]}] Enter occupation:'",
                     "description": "''",
                     "footer": "''"
                 },
                 "3": {
-                    "author": "f'[{db[\"users\"][user_id][\"username\"]}] Enter special skill:'",
+                    "author": "f'[{db[\"users\"][str(ctx.author.id)][\"username\"]}] Enter special skill:'",
                     "description": "''",
                     "footer": "''"
                 }
             },
             "1": {
                 "0": {
-                    "author": "f'[{db[\"users\"][user_id][\"username\"]}] Your information and biometrics have been accepted.'",
-                    "description": "f'{db[\"users\"][user_id][\"username\"]} is now eligible for manual operation of this vessel. All clearances are granted.\\n**WARNING**: This vessel has sustained heavy damage. **1** unit of fuel remaining.\\n**Suggested course of action**: Flee to a system near **({db[\"users\"][user_id][\"coords\"][\"x\"]}, {db[\"users\"][user_id][\"coords\"][\"y\"]})**.\\n No need to worry. The [aliens] will not follow.'",
+                    "author": "f'[{db[\"users\"][str(ctx.author.id)][\"username\"]}] Your information and biometrics have been accepted.'",
+                    "description": "f'{db[\"users\"][str(ctx.author.id)][\"username\"]} is now eligible for manual operation of this vessel. All clearances are granted.\\n**WARNING**: This vessel has sustained heavy damage. **1** unit of fuel remaining.\\n**Suggested course of action**: Flee to a system near **({db[\"users\"][str(ctx.author.id)][\"coords\"][\"x\"]}, {db[\"users\"][str(ctx.author.id)][\"coords\"][\"y\"]})**.\\n No need to worry. The [aliens] will not follow.'",
                     "footer": "''"
                 },
                 "1": {
-                    "author": "f'[{db[\"users\"][user_id][\"username\"]}] Jump to an adjacent system.'",
-                    "description": "f'You need to leave the system, but you only have enough fuel to jump to an adjacent system.\\n**Current Coords**: **({db[\"users\"][user_id][\"coords\"][\"x\"]}, {db[\"users\"][user_id][\"coords\"][\"y\"]})**.'",
+                    "author": "f'[{db[\"users\"][str(ctx.author.id)][\"username\"]}] Jump to an adjacent system.'",
+                    "description": "f'You need to leave the system, but you only have enough fuel to jump to an adjacent system.\\n**Current Coords**: **({db[\"users\"][str(ctx.author.id)][\"coords\"][\"x\"]}, {db[\"users\"][str(ctx.author.id)][\"coords\"][\"y\"]})**.'",
                     "footer": "'Use \".jump\" to jump to a system (Ex. \".jump 0 0\").'"
                 }
             }
