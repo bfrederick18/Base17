@@ -35,15 +35,15 @@ def dialogue_tpl(author, desc, footer):  # Embed Dialogue Template
     return embed
 
 
-async def send_success(ctx, desc):
+async def send_success_embed(ctx, desc):
     await ctx.send(embed=success_tpl(ctx, desc), delete_after=jdata['config']['delete_after']['success'])
 
 
-async def send_error(ctx, error_name):
+async def send_error_embed(ctx, error_name):
     await ctx.send(embed=error_tpl(ctx, jdata[jdata['config']['chosen_language']]['errors'][error_name]))
 
 
-async def send_dlg_error(ctx, jdata_chosen_dlg):
+async def send_dlg_error_embed(ctx, jdata_chosen_dlg):
     await ctx.send(embed=error_tpl(ctx, jdata_chosen_dlg['input']['checks']['error_text']))
 
 

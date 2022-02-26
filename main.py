@@ -2,7 +2,7 @@ import os
 
 import discord
 
-from cogs.utils.embed import send_error, send_success
+from cogs.utils.embed import send_error_embed, send_success_embed
 from cogs.utils.time import now
 from config import jdata, status_cycle
 from discord.ext import commands, tasks
@@ -25,7 +25,7 @@ async def on_ready():
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await send_error(ctx, 'missing_arguments')
+        await send_error_embed(ctx, 'missing_arguments')
     print(f'{now()}: Error: {error}')
 
 
@@ -40,7 +40,7 @@ async def change_status():
 async def loadcog(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
     await ctx.message.delete()
-    await send_success(ctx, f'Loaded cog "{extension}".')
+    await send_success_embed(ctx, f'Loaded cog "{extension}".')
 
 
 @bot.command()
@@ -48,7 +48,7 @@ async def loadcog(ctx, extension):
 async def unloadcog(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     await ctx.message.delete()
-    await send_success(ctx, f'Unloaded cog "{extension}".')
+    await send_success_embed(ctx, f'Unloaded cog "{extension}".')
 
 
 @bot.command()
@@ -57,7 +57,7 @@ async def reloadcog(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
     bot.load_extension(f'cogs.{extension}')
     await ctx.message.delete()
-    await send_success(ctx, f'Reloaded cog "{extension}".')
+    await send_success_embed(ctx, f'Reloaded cog "{extension}".')
 
 
 @bot.event

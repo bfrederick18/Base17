@@ -3,7 +3,7 @@ import re
 
 import discord
 
-from cogs.utils.embed import send_error, send_dlg_error, send_dialogue_embed
+from cogs.utils.embed import send_error_embed, send_dlg_error_embed, send_dialogue_embed
 from cogs.utils.time import now
 from config import jdata
 from discord.ext import commands
@@ -53,9 +53,9 @@ class User(commands.Cog):
                 else:
                     print(f'{now()}: [{user_id}] Waiting on input.')
             else:
-                await send_error(ctx, 'dlg_no_desc_or_author')
+                await send_error_embed(ctx, 'dlg_no_desc_or_author')
         else:
-            await send_error(ctx, 'not_registered')
+            await send_error_embed(ctx, 'not_registered')
     
 
     def gen_starting_coords(self):
@@ -82,7 +82,7 @@ class User(commands.Cog):
     async def info(self, ctx):
         user_id = str(ctx.author.id)
         if user_id not in db['users'].keys():
-            await send_error(ctx, 'not_registered')
+            await send_error_embed(ctx, 'not_registered')
             return
 
         user_data = db['users'][user_id]
@@ -127,7 +127,7 @@ class User(commands.Cog):
             await self.send_dlg(ctx)
             return
             
-        await send_error(ctx, 'already_registered')
+        await send_error_embed(ctx, 'already_registered')
 
     
     @commands.command(aliases=['in'])
@@ -140,7 +140,7 @@ class User(commands.Cog):
             if 'input' in jdata_chosen_dlg.keys():
                 print(f'{now()}: [{user_id}] Tries to match "{input}" to "{jdata_chosen_dlg["input"]["name"]}".')
                 if 'checks' in jdata_chosen_dlg['input'].keys() and not re.match(jdata_chosen_dlg['input']['checks']['regex'], input):
-                    await send_dlg_error(ctx, jdata_chosen_dlg)
+                    await send_dlg_error_embed(ctx, jdata_chosen_dlg)
                     print(f'{now()}: [{user_id}] Error.')
                     return
                 print(f'{now()}: [{user_id}] Success.')
@@ -154,10 +154,10 @@ class User(commands.Cog):
                 await self.send_dlg(ctx)
                 print(f'{now()}: [{user_id}] Done with send_dlg recursion.')
             else:
-                await send_error(ctx, 'dlg_no_input')
+                await send_error_embed(ctx, 'dlg_no_input')
             return
             
-        await send_error(ctx, 'already_registered')
+        await send_error_embed(ctx, 'already_registered')
 
 
     @commands.command(aliases=['dlg'])

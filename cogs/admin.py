@@ -1,4 +1,4 @@
-from cogs.utils.embed import send_success
+from cogs.utils.embed import send_success_embed
 from cogs.utils.time import now
 from discord.ext import commands
 
@@ -25,7 +25,7 @@ class Administrator(commands.Cog):
         await ctx.message.delete()
         print(f'{now()}: Clearing messages in channel {ctx.channel.id}.')
         deleted = await ctx.channel.purge(limit=amount)
-        await send_success(ctx, f'Deleted {len(deleted)} message{"s" if len(deleted) < 1 or len(deleted) > 1 else ""}.')
+        await send_success_embed(ctx, f'Deleted {len(deleted)} message{"s" if len(deleted) < 1 or len(deleted) > 1 else ""}.')
         print(f'{now()}: Successfully cleared {len(deleted)} message{"s" if len(deleted) < 1 or len(deleted) > 1 else ""}.')
 
 
