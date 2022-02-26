@@ -33,3 +33,7 @@ def dialogue_tpl(author, desc, footer):  # Embed Dialogue Template
     if footer != '':
         embed.set_footer(text=footer)
     return embed
+
+
+async def send_success(ctx, desc):
+    await ctx.send(embed=success_tpl(ctx, desc), delete_after=jdata['config']['delete_after']['success'])
