@@ -81,6 +81,19 @@
             }
         }
     },
+    "systems": {
+        "width": {
+            "min": -100,
+            "max": 100
+        },
+        "height": {
+            "min": -100,
+            "max": 100
+        },
+        "system_types": ["single", "binary", "trinary", "neutron", "black_hole", "white_dwarf"],
+        "star_types": [],
+        "planet_types": []
+    },
     "ships": {
         "nomad": {
             "name": "Nomad",

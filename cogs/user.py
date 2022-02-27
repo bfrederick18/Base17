@@ -60,8 +60,8 @@ class User(commands.Cog):
 
     def gen_starting_coords(self):
         (x, y) = (
-            random.randint(jdata['config']['sectors']['width']['min'], jdata['config']['sectors']['width']['max']),
-            random.randint(jdata['config']['sectors']['height']['min'], jdata['config']['sectors']['height']['max'])
+            random.randint(jdata['game_data']['systems']['width']['min'], jdata['game_data']['systems']['width']['max']),
+            random.randint(jdata['game_data']['systems']['height']['min'], jdata['game_data']['systems']['height']['max'])
             )
 
         clear = False
@@ -121,14 +121,21 @@ class User(commands.Cog):
                 'occupation': '',
                 'skills': {}
             }
+            print(f'{now()}: [{user_id}] Created user_data.')
+            
             db['users'][str(ctx.author.id)] = user_data
-
+            print(f'{now()}: [{user_id}] Set user_data.')
+            
+            print(f'{now()}: [{user_id}] {jdata["game_data"]["systems"]["system_types"]}: {len(jdata["game_data"]["systems"]["system_types"])}')
             system_data = {
-                'type': 'binary',
+                'type': jdata['game_data']['systems']['system_types'][random.randint(0, len(jdata['game_data']['systems']['system_types']) - 1)],
                 'stars': {},
                 'planets': {}
             }
+            print(f'{now()}: [{user_id}] Created system_data.')
+            
             db['systems'][str(x)][str(y)] = system_data
+            print(f'{now()}: [{user_id}] Set system_data.')
 
             await self.send_dlg(ctx)
             return

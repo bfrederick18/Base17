@@ -23,15 +23,5 @@
         "info": "0x607d8b",
         "start": "0x607d8b",
         "success": "0x2ecc36"
-    },
-    "sectors": {
-        "width": {
-            "min": -100,
-            "max": 100
-        },
-        "height": {
-            "min": -100,
-            "max": 100
-        }
     }
 }
