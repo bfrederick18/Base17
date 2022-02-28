@@ -133,7 +133,10 @@ class User(commands.Cog):
                 'planets': {}
             }
             print(f'{now()}: [{user_id}] Created system_data.')
-            
+
+            # Check to see if first dict exists
+            # If not, create it as {}, then add str(y)
+            # If so, add str(y)
             db['systems'][str(x)][str(y)] = system_data
             print(f'{now()}: [{user_id}] Set system_data.')
 
