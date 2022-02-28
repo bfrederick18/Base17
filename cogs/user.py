@@ -137,7 +137,11 @@ class User(commands.Cog):
             # Check to see if first dict exists
             # If not, create it as {}, then add str(y)
             # If so, add str(y)
+            if str(x) not in db['systems'].keys():
+                db['systems'][str(x)] = {}
+
             db['systems'][str(x)][str(y)] = system_data
+            
             print(f'{now()}: [{user_id}] Set system_data.')
 
             await self.send_dlg(ctx)
