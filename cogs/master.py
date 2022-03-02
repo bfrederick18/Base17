@@ -49,32 +49,44 @@ class Master(commands.Cog):
     async def db(self, ctx, *args):
         try:
             if args[0] in db.keys():
-                if args[1] == 'all':
-                    await self.send_debug(ctx, f'```"{args[0]}": {json.dumps(json.loads(dumps(db[args[0]])), indent=4)}```', args[2])
-                elif args[1] == 'keys':
-                    await self.send_debug(ctx, f'```{list(db[args[0]].keys())}```', args[2])
-                elif args[1] == 'val':
-                    await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[0]][args[2]])), indent=4)}```', args[3])
-                elif args[1] == 'reset':
-                    db[args[0]][args[2]] = {}
-                    await send_success_embed(ctx, f'Reset "{args[2]}" in "{args[0]}".')
-                elif args[1] == 'del' and args[3] == 'confirm':
-                    del db[args[0]][args[2]]
-                    await send_success_embed(ctx, f'Deleted "{args[2]}" in "{args[0]}".')
-            elif args[0] == 'all':
-                for key in db.keys():
-                    await ctx.send(f'```"{key}": {json.dumps(json.loads(dumps(db[key])), indent=4)}```', delete_after=jdata['config']['delete_after']['debug'] if len(args) < 2 or args[1] != 'perm' else 2000000)
-            elif args[0] == 'keys':
-                await self.send_debug(ctx, f'```{list(db.keys())}```', args[1])
-            elif args[0] == 'val':
-                await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[1]])), indent=4)}```', args[2])
-            elif args[0] == 'reset':
-                db[args[1]] = {}
-                await send_success_embed(ctx, f'Reset "{args[1]}".')
-            elif args[0] == 'del' and args[2] == 'confirm':
-                del db[args[1]]
-                await send_success_embed(ctx, f'Deleted "{args[1]}".')
-            await ctx.message.delete()
+                if args[1] in db[args[0]].keys():
+                    if args[2] == 'reset':
+                        db[args[0]][args[1]][args[3]] = {}
+                        await send_success_embed(ctx, f'Reset "{args[3]}" in "{args[1]}" in "{args[0]}".')
+                    elif args[2] == 'set':
+                        db[args[0]][args[1]][args[3]] = args[4]
+                        await send_success_embed(ctx, f'Set "{args[3]}" in "{args[1]}" in "{args[0]}" to "{args[4]}".')
+                else:
+                    if args[1] == 'all':
+                        await self.send_debug(ctx, f'```"{args[0]}": {json.dumps(json.loads(dumps(db[args[0]])), indent=4)}```', args[2])
+                    elif args[1] == 'keys':
+                        await self.send_debug(ctx, f'```{list(db[args[0]].keys())}```', args[2])
+                    elif args[1] == 'val':
+                        await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[0]][args[2]])), indent=4)}```', args[3])
+                    elif args[1] == 'reset':
+                        db[args[0]][args[2]] = {}
+                        await send_success_embed(ctx, f'Reset "{args[2]}" in "{args[0]}".')
+                    elif args[1] == 'set':
+                        db[args[0]][args[2]] = args[3]
+                        await send_success_embed(ctx, f'Set "{args[2]}" in "{args[0]}" to "{args[3]}".')
+                    elif args[1] == 'del' and args[3] == 'confirm':
+                        del db[args[0]][args[2]]
+                        await send_success_embed(ctx, f'Deleted "{args[2]}" in "{args[0]}".')
+            else:
+                if args[0] == 'all':
+                    for key in db.keys():
+                        await ctx.send(f'```"{key}": {json.dumps(json.loads(dumps(db[key])), indent=4)}```', delete_after=jdata['config']['delete_after']['debug'] if len(args) < 2 or args[1] != 'perm' else 2000000)
+                elif args[0] == 'keys':
+                    await self.send_debug(ctx, f'```{list(db.keys())}```', args[1])
+                elif args[0] == 'val':
+                    await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[1]])), indent=4)}```', args[2])
+                elif args[0] == 'reset':
+                    db[args[1]] = {}
+                    await send_success_embed(ctx, f'Reset "{args[1]}".')
+                elif args[0] == 'del' and args[2] == 'confirm':
+                    del db[args[1]]
+                    await send_success_embed(ctx, f'Deleted "{args[1]}".')
+                await ctx.message.delete()
         except IndexError as e:
             print(f'{now()}: {e}: args = {args}')
             await send_error_embed(ctx, 'missing_arguments')

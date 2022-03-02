@@ -64,13 +64,12 @@ class User(commands.Cog):
             random.randint(jdata['game_data']['systems']['height']['min'], jdata['game_data']['systems']['height']['max'])
             )
 
-        clear = False
+        clear = True
         while not clear:
             for i in range(x - 1, x + 2): # (x - 1) to (x + 1) inclusive
                 for j in range(y - 1, y + 2):
                     if i == x and j == y:
                         break
-                    clear = True
                     # Check if system i, j is occupied (maybe checking system type? : evil, neutral, player)
         return (x, y)
     
@@ -134,9 +133,6 @@ class User(commands.Cog):
             }
             print(f'{now()}: [{user_id}] Created system_data.')
 
-            # Check to see if first dict exists
-            # If not, create it as {}, then add str(y)
-            # If so, add str(y)
             if str(x) not in db['systems'].keys():
                 db['systems'][str(x)] = {}
 
