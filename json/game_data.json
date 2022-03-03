@@ -90,6 +90,7 @@
             "min": -100,
             "max": 100
         },
+        "allegiance_types": ["alien", "government", "trade"],
         "system_types": ["single", "binary", "trinary", "neutron", "black_hole", "white_dwarf"],
         "star_types": [],
         "planet_types": []

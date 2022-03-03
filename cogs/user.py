@@ -127,6 +127,7 @@ class User(commands.Cog):
             
             print(f'{now()}: [{user_id}] {jdata["game_data"]["systems"]["system_types"]}: {len(jdata["game_data"]["systems"]["system_types"])}')
             system_data = {
+                'allegiance': 'alien',
                 'type': jdata['game_data']['systems']['system_types'][random.randint(0, len(jdata['game_data']['systems']['system_types']) - 1)],
                 'stars': {},
                 'planets': {}
