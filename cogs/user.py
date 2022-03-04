@@ -70,7 +70,9 @@ class User(commands.Cog):
                 for j in range(y - 1, y + 2):
                     if i == x and j == y:
                         break
-                    # Check if system i, j is occupied (maybe checking system type? : evil, neutral, player)
+                    if str(i) in db['systems'].keys() and str(j) in db['systems'][str(i)].keys():
+                        clear = False
+                        # Check if system i, j is occupied (maybe checking system type? : evil, neutral, player)
         return (x, y)
     
 
