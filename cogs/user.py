@@ -18,14 +18,16 @@ class User(commands.Cog):
 
     def update_dlg_id(self, user_id, chosen_dlg):
         old_dlg = db['users'][user_id]['dialogue_id']
+        
         db['users'][user_id]['dialogue_id']['major'] = chosen_dlg['next']['dialogue']['major']
         db['users'][user_id]['dialogue_id']['minor'] = chosen_dlg['next']['dialogue']['minor']
         db['users'][user_id]['dialogue_id']['sub'] = chosen_dlg['next']['dialogue']['sub']
+        
+        new_dlg = db['users'][user_id]['dialogue_id']
+        
         print(f'{now()}: [{user_id}] Updated dialogue_id from \
 ({old_dlg["major"]}, {old_dlg["minor"]}, {old_dlg["sub"]}) to \
-({db["users"][user_id]["dialogue_id"]["major"]}, \
-{db["users"][user_id]["dialogue_id"]["minor"]}, \
-{db["users"][user_id]["dialogue_id"]["sub"]}).')
+({new_dlg["major"]}, {new_dlg["minor"]}, {new_dlg["sub"]}).')
 
 
     async def send_dlg(self, ctx):
@@ -56,7 +58,7 @@ class User(commands.Cog):
                 await send_error_embed(ctx, 'dlg_no_desc_or_author')
         else:
             await send_error_embed(ctx, 'not_registered')
-    
+
 
     def gen_starting_coords(self):
         (x, y) = (
@@ -65,16 +67,16 @@ class User(commands.Cog):
             )
 
         clear = True
-        while not clear:
+        while clear:
             for i in range(x - 1, x + 2): # (x - 1) to (x + 1) inclusive
                 for j in range(y - 1, y + 2):
                     if i == x and j == y:
                         break
-                    if str(i) in db['systems'].keys() and str(j) in db['systems'][str(i)].keys():
+                    if str(i) not in db['systems'].keys() and str(j) not in db['systems'][str(i)].keys():
                         clear = False
                         # Check if system i, j is occupied (maybe checking system type? : evil, neutral, player)
         return (x, y)
-    
+
 
     @commands.Cog.listener()
     async def on_ready(self):
