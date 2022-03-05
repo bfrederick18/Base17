@@ -83,15 +83,16 @@
     },
     "systems": {
         "width": {
-            "min": -100,
-            "max": 100
+            "min": -10,
+            "max": 10
         },
         "height": {
-            "min": -100,
-            "max": 100
+            "min": -10,
+            "max": 10
         },
         "allegiance_types": ["alien", "government", "trade"],
         "system_types": ["single", "binary", "trinary", "neutron", "black_hole", "white_dwarf"],
+        "system_types_roll_table": ["single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "binary", "binary", "binary", "binary", "binary", "trinary", "trinary", "neutron", "black_hole", "white_dwarf"],
         "star_types": [],
         "planet_types": []
     },

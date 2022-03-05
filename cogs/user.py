@@ -60,21 +60,27 @@ class User(commands.Cog):
             await send_error_embed(ctx, 'not_registered')
 
 
-    def gen_starting_coords(self):
-        (x, y) = (
-            random.randint(jdata['game_data']['systems']['width']['min'], jdata['game_data']['systems']['width']['max']),
-            random.randint(jdata['game_data']['systems']['height']['min'], jdata['game_data']['systems']['height']['max'])
-            )
+    def gen_starting_coords(self, user_id):
+        (x, y) = (0, 0)
 
-        clear = True
-        while clear:
+        clear = False
+        while not clear:
+            (x, y) = (
+                random.randint(jdata['game_data']['systems']['width']['min'], jdata['game_data']['systems']['width']['max']),
+                random.randint(jdata['game_data']['systems']['height']['min'], jdata['game_data']['systems']['height']['max'])
+                )
+            print(f'{now()}: [{user_id}] Rolled ({x}, {y})')
+            clear = True
             for i in range(x - 1, x + 2): # (x - 1) to (x + 1) inclusive
                 for j in range(y - 1, y + 2):
-                    if i == x and j == y:
-                        break
-                    if str(i) not in db['systems'].keys() and str(j) not in db['systems'][str(i)].keys():
+                    if (i == x) and (j == y):
+                        continue
+                    print(f'{now()}: [{user_id}] Checking ({i}, {j})')
+                    if str(i) in db['systems'].keys() and str(j) in db['systems'][str(i)].keys():
                         clear = False
+                        print(f'{now()}: [{user_id}] Conflict on ({i}, {j})')
                         # Check if system i, j is occupied (maybe checking system type? : evil, neutral, player)
+        print(f'{now()}: [{user_id}] Returning ({x}, {y})')
         return (x, y)
 
 
@@ -104,7 +110,7 @@ class User(commands.Cog):
     async def start(self, ctx, username=''):
         user_id = str(ctx.author.id)
         if user_id not in db['users'].keys():
-            (x, y) = self.gen_starting_coords()
+            (x, y) = self.gen_starting_coords(user_id)
             
             user_data = {
                 'username': '',
@@ -129,10 +135,11 @@ class User(commands.Cog):
             db['users'][str(ctx.author.id)] = user_data
             print(f'{now()}: [{user_id}] Set user_data.')
             
-            print(f'{now()}: [{user_id}] {jdata["game_data"]["systems"]["system_types"]}: {len(jdata["game_data"]["systems"]["system_types"])}')
+            print(f'{now()}: [{user_id}] system_types: {jdata["game_data"]["systems"]["system_types"]}: {len(jdata["game_data"]["systems"]["system_types"])}')
+            print(f'{now()}: [{user_id}] system_types_roll_table: {jdata["game_data"]["systems"]["system_types_roll_table"]}: {len(jdata["game_data"]["systems"]["system_types_roll_table"])}')
             system_data = {
                 'allegiance': 'alien',
-                'type': jdata['game_data']['systems']['system_types'][random.randint(0, len(jdata['game_data']['systems']['system_types']) - 1)],
+                'type': jdata['game_data']['systems']['system_types_roll_table'][random.randint(0, len(jdata['game_data']['systems']['system_types_roll_table']) - 1)],
                 'stars': {},
                 'planets': {}
             }
