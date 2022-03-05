@@ -1,5 +1,6 @@
 import dictdiffer
 import json
+import os
 
 from cogs.utils.embed import send_error_embed, send_success_embed
 from cogs.utils.time import now
@@ -88,9 +89,21 @@ class Master(commands.Cog):
                     await send_success_embed(ctx, f'Deleted "{args[1]}".')
                 await ctx.message.delete()
         except IndexError as e:
-            print(f'{now()}: {e}: args = {args}')
+            print(f'{now()}: IndexError: {e}: args = {args}')
             await send_error_embed(ctx, 'missing_arguments')
 
+    
+    @commands.command()
+    @commands.is_owner()
+    async def trm(self, ctx, *args):
+        try:
+            if args[0] == 'clear':
+                os.system('clear')  # Might not want to delete everyting because keeping a log is important...
+                # print('\n' * 100)
+                print(jdata['config']['banner'] + '\n')
+        except IndexError as e:
+            print(f'{now()}: IndexError: {e}: args = {args}')
+            await send_error_embed(ctx, 'missing_arguments')
 
 def setup(bot):
     bot.add_cog(Master(bot))

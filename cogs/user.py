@@ -72,14 +72,13 @@ class User(commands.Cog):
             print(f'{now()}: [{user_id}] Rolled ({x}, {y})')
             clear = True
             for i in range(x - 1, x + 2): # (x - 1) to (x + 1) inclusive
-                for j in range(y - 1, y + 2):
-                    if (i == x) and (j == y):
+                for j in range(y - 1, y + 2):  # (y - 1) to (y + 1) inclusive
+                    if (i == x) and (j == y):  # Not (x, y)
                         continue
                     print(f'{now()}: [{user_id}] Checking ({i}, {j})')
                     if str(i) in db['systems'].keys() and str(j) in db['systems'][str(i)].keys():
                         clear = False
                         print(f'{now()}: [{user_id}] Conflict on ({i}, {j})')
-                        # Check if system i, j is occupied (maybe checking system type? : evil, neutral, player)
         print(f'{now()}: [{user_id}] Returning ({x}, {y})')
         return (x, y)
 
