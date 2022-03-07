@@ -16,8 +16,8 @@ class Master(commands.Cog):
         self.bot = bot
 
 
-    async def send_debug(self, ctx, message, perm_arg):
-        await ctx.send(message, delete_after=jdata['config']['delete_after']['debug'] if perm_arg != 'perm' else 2000000)
+    async def send_debug(self, ctx, message, args, arg_num):
+        await ctx.send(message, delete_after=jdata['config']['delete_after']['debug'] if (len(args) < (arg_num + 1)) or args[arg_num] != 'perm' else 2000000)
     
 
     @commands.Cog.listener()
@@ -59,11 +59,11 @@ class Master(commands.Cog):
                         await send_success_embed(ctx, f'Set "{args[3]}" in "{args[1]}" in "{args[0]}" to "{args[4]}".')
                 else:
                     if args[1] == 'all':
-                        await self.send_debug(ctx, f'```"{args[0]}": {json.dumps(json.loads(dumps(db[args[0]])), indent=4)}```', args[2])
+                        await self.send_debug(ctx, f'```"{args[0]}": {json.dumps(json.loads(dumps(db[args[0]])), indent=4)}```', args, 2)
                     elif args[1] == 'keys':
-                        await self.send_debug(ctx, f'```{list(db[args[0]].keys())}```', args[2])
+                        await self.send_debug(ctx, f'```{list(db[args[0]].keys())}```', args, 2)
                     elif args[1] == 'val':
-                        await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[0]][args[2]])), indent=4)}```', args[3])
+                        await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[0]][args[2]])), indent=4)}```', args, 3)
                     elif args[1] == 'reset':
                         db[args[0]][args[2]] = {}
                         await send_success_embed(ctx, f'Reset "{args[2]}" in "{args[0]}".')
@@ -76,11 +76,11 @@ class Master(commands.Cog):
             else:
                 if args[0] == 'all':
                     for key in db.keys():
-                        await ctx.send(f'```"{key}": {json.dumps(json.loads(dumps(db[key])), indent=4)}```', delete_after=jdata['config']['delete_after']['debug'] if len(args) < 2 or args[1] != 'perm' else 2000000)
+                        await self.send_debug(ctx, f'```"{key}": {json.dumps(json.loads(dumps(db[key])), indent=4)}```', args, 1)
                 elif args[0] == 'keys':
-                    await self.send_debug(ctx, f'```{list(db.keys())}```', args[1])
+                    await self.send_debug(ctx, f'```{list(db.keys())}```', args, 1)
                 elif args[0] == 'val':
-                    await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[1]])), indent=4)}```', args[2])
+                    await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[1]])), indent=4)}```', args, 2)
                 elif args[0] == 'reset':
                     db[args[1]] = {}
                     await send_success_embed(ctx, f'Reset "{args[1]}".')

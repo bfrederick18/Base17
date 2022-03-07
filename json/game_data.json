@@ -31,7 +31,11 @@
                 "2": {
                     "input": {
                         "type": "str",
-                        "name": "db['users'][user_id]['occupation']"
+                        "name": "db['users'][user_id]['occupation']",
+                        "checks": {
+                            "array": ["miner", "ace", "explorer", "trader"],
+                            "error_text": "Invalid occupation. Must be either: Miner, Ace, Explorer, or Trader"
+                        }
                     },
                     "next": {
                         "dialogue": {

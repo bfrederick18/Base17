@@ -136,6 +136,7 @@ class User(commands.Cog):
             
             print(f'{now()}: [{user_id}] system_types: {jdata["game_data"]["systems"]["system_types"]}: {len(jdata["game_data"]["systems"]["system_types"])}')
             print(f'{now()}: [{user_id}] system_types_roll_table: {jdata["game_data"]["systems"]["system_types_roll_table"]}: {len(jdata["game_data"]["systems"]["system_types_roll_table"])}')
+            
             system_data = {
                 'allegiance': 'alien',
                 'type': jdata['game_data']['systems']['system_types_roll_table'][random.randint(0, len(jdata['game_data']['systems']['system_types_roll_table']) - 1)],
