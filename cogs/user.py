@@ -18,10 +18,9 @@ class User(commands.Cog):
 
     def update_dlg_id(self, user_id, chosen_dlg):
         old_dlg = db['users'][user_id]['dialogue_id']
-        
-        db['users'][user_id]['dialogue_id']['major'] = chosen_dlg['next']['dialogue']['major']
-        db['users'][user_id]['dialogue_id']['minor'] = chosen_dlg['next']['dialogue']['minor']
-        db['users'][user_id]['dialogue_id']['sub'] = chosen_dlg['next']['dialogue']['sub']
+
+        for tag in ['major', 'minor', 'sub']:
+            db['users'][user_id]['dialogue_id'][tag] = chosen_dlg['next']['dialogue'][tag]
         
         new_dlg = db['users'][user_id]['dialogue_id']
         
@@ -83,6 +82,19 @@ class User(commands.Cog):
         return (x, y)
 
 
+    def gen_system_data(self, user_id):
+        print(f'{now()}: [{user_id}] system_types: {jdata["game_data"]["systems"]["system_types"]}: {len(jdata["game_data"]["systems"]["system_types"])}')
+        print(f'{now()}: [{user_id}] system_types_roll_table: {jdata["game_data"]["systems"]["system_types_roll_table"]}: {len(jdata["game_data"]["systems"]["system_types_roll_table"])}')
+        
+        system_data = {
+            'allegiance': 'alien',
+            'type': jdata['game_data']['systems']['system_types_roll_table'][random.randint(0, len(jdata['game_data']['systems']['system_types_roll_table']) - 1)],
+            'stars': {},
+            'planets': {}
+        }
+        return system_data
+
+
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'{now()}: User cog is online.')
@@ -134,15 +146,8 @@ class User(commands.Cog):
             db['users'][str(ctx.author.id)] = user_data
             print(f'{now()}: [{user_id}] Set user_data.')
             
-            print(f'{now()}: [{user_id}] system_types: {jdata["game_data"]["systems"]["system_types"]}: {len(jdata["game_data"]["systems"]["system_types"])}')
-            print(f'{now()}: [{user_id}] system_types_roll_table: {jdata["game_data"]["systems"]["system_types_roll_table"]}: {len(jdata["game_data"]["systems"]["system_types_roll_table"])}')
+            system_data = self.gen_system_data(user_id)
             
-            system_data = {
-                'allegiance': 'alien',
-                'type': jdata['game_data']['systems']['system_types_roll_table'][random.randint(0, len(jdata['game_data']['systems']['system_types_roll_table']) - 1)],
-                'stars': {},
-                'planets': {}
-            }
             print(f'{now()}: [{user_id}] Created system_data.')
 
             if str(x) not in db['systems'].keys():
