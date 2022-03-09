@@ -171,11 +171,13 @@ class User(commands.Cog):
             jdata_chosen_dlg = jdata['game_data']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
 
             if 'input' in jdata_chosen_dlg.keys():
-                print(f'{now()}: [{user_id}] Tries to match "{input}" to "{jdata_chosen_dlg["input"]["checks"]["regex"]}".')
-                if 'checks' in jdata_chosen_dlg['input'].keys() and not re.match(jdata_chosen_dlg['input']['checks']['regex'], input):
-                    await send_dlg_error_embed(ctx, jdata_chosen_dlg)
-                    print(f'{now()}: [{user_id}] Error.')
-                    return
+                if 'checks' in jdata_chosen_dlg['input'].keys():
+                    if 'regex' in jdata_chosen_dlg['input']['checks'].keys():
+                        print(f'{now()}: [{user_id}] Tries to match "{input}" to "{jdata_chosen_dlg["input"]["checks"]["regex"]}".')
+                        if not re.match(jdata_chosen_dlg['input']['checks']['regex'], input):
+                            await send_dlg_error_embed(ctx, jdata_chosen_dlg)
+                            print(f'{now()}: [{user_id}] Error.')
+                            return
                 print(f'{now()}: [{user_id}] Success.')
                 
                 print(f'{now()}: [{user_id}] Tries {jdata_chosen_dlg["input"]["name"]} = "{input}".')
