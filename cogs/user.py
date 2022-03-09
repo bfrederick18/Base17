@@ -171,10 +171,20 @@ class User(commands.Cog):
             jdata_chosen_dlg = jdata['game_data']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
 
             if 'input' in jdata_chosen_dlg.keys():
+                if not jdata_chosen_dlg['input']['case']:
+                    input = input.lower()
                 if 'checks' in jdata_chosen_dlg['input'].keys():
                     if 'regex' in jdata_chosen_dlg['input']['checks'].keys():
-                        print(f'{now()}: [{user_id}] Tries to match "{input}" to "{jdata_chosen_dlg["input"]["checks"]["regex"]}".')
-                        if not re.match(jdata_chosen_dlg['input']['checks']['regex'], input):
+                        regex = jdata_chosen_dlg["input"]["checks"]["regex"]
+                        print(f'{now()}: [{user_id}] Tries to match "{input}" to "{regex}".')
+                        if not re.match(regex, input):
+                            await send_dlg_error_embed(ctx, jdata_chosen_dlg)
+                            print(f'{now()}: [{user_id}] Error.')
+                            return
+                    elif 'array' in jdata_chosen_dlg['input']['checks'].keys():
+                        array = jdata_chosen_dlg["input"]["checks"]["array"]
+                        print(f'{now()}: [{user_id}] Checking if "{input}" is in "{array}".')
+                        if input not in array:
                             await send_dlg_error_embed(ctx, jdata_chosen_dlg)
                             print(f'{now()}: [{user_id}] Error.')
                             return

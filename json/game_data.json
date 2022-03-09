@@ -15,9 +15,10 @@
                     "input": {
                         "type": "str",
                         "name": "db['users'][user_id]['username']",
+                        "case": true,
                         "checks": {
                             "regex": "(?=^.{2,24}$)^[a-zA-Z][a-zA-Z0-9]*$",
-                            "error_text": "Invalid name. Must follow the regex: \"(?=^.{2,24}$)^[a-zA-Z][a-zA-Z0-9]*$\""
+                            "error_text": "Invalid name; Name must follow the regex: \"(?=^.{2,24}$)^[a-zA-Z][a-zA-Z0-9]*$\""
                         }
                     },
                     "next": {
@@ -32,9 +33,10 @@
                     "input": {
                         "type": "str",
                         "name": "db['users'][user_id]['occupation']",
+                        "case": false,
                         "checks": {
                             "array": ["miner", "ace", "explorer", "trader"],
-                            "error_text": "Invalid occupation. Must be either: Miner, Ace, Explorer, or Trader"
+                            "error_text": "Invalid occupation; Occupation must be either: \"Miner\", \"Ace\", \"Explorer\", or \"Trader\" (case insensitive)."
                         }
                     },
                     "next": {
@@ -48,7 +50,8 @@
                 "3": {
                     "input": {
                         "type": "str",
-                        "name": "db['users'][user_id]['skills']['special_skill']"
+                        "name": "db['users'][user_id]['skills']['special_skill']",
+                        "case": false
                     },
                     "next": {
                         "dialogue": {

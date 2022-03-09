@@ -42,7 +42,7 @@ class Master(commands.Cog):
             edits.append(diff)
 
         print(f'{now()}: Edits: {edits}')
-        await self.send_debug(ctx, edits, perm_arg)
+        await self.send_debug(ctx, edits, [perm_arg], 0)
 
 
     @commands.command()
