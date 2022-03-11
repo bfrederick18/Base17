@@ -105,5 +105,17 @@ class Master(commands.Cog):
             print(f'{now()}: IndexError: {e}: args = {args}')
             await send_error_embed(ctx, 'missing_arguments')
 
+
+    @commands.command()
+    @commands.is_owner()
+    async def prog(self, ctx, *args):
+        try:
+            if args[0] in jdata['prog']['text'].keys():
+                if len(jdata["prog"]["text"][args[0]]) > (2000 - 6):
+                    await ctx.send(f'```{jdata["prog"]["text"][args[0]][0:(2000 - 6)]}```')
+        except IndexError as e:
+            print(f'{now()}: IndexError: {e}: args = {args}')
+            await send_error_embed(ctx, 'missing_arguments')
+
 def setup(bot):
     bot.add_cog(Master(bot))

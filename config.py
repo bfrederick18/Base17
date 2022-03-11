@@ -19,13 +19,12 @@ def load_all_json():
 
     dicts = []
     for file in filenames:
+        print(f'Opening {file}.json')
         with open(f'json/{file}.json', 'r') as f:
             dict_data = json.load(f)
             dicts.append(dict_data)
 
     return dict(zip(filenames, dicts))
-
-    # print(json.dumps(jdata, indent=4))
 
 
 def reload_json(filename):
@@ -34,6 +33,7 @@ def reload_json(filename):
 
 
 jdata = load_all_json()
+# print(json.dumps(jdata, indent=4))
 
 status_cycle = cycle(jdata['config']['status'])
 three_dots_cycle = cycle(jdata['config']['three_dots'])
