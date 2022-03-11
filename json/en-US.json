@@ -1,6 +1,7 @@
 {
     "errors": {
         "missing_arguments": "Please include all required arguments. Check *help* for usage.",
+        "invalid_arguments": "Please use a valid argument selection/combination. Check *help* for usage.",
         "start_requires_username": "*Start* requires a username. Check *help* for usage.",
         "already_registered": "You already used *start* to register before. Check *help* for usage.",
         "not_registered": "You have not registered using *start* yet. Check *help* for usage.",

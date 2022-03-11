@@ -27,6 +27,7 @@ def unload(extension):
 
 @bot.event
 async def on_ready():
+    os.system('clear')
     print(jdata['config']['banner'] + '\n')
     print(f'{now()}: Logging in as {bot.user}.')
     c, l = os.get_terminal_size()
@@ -92,4 +93,5 @@ for filename in os.listdir('./cogs'):
         bot.load_extension(f'cogs.{filename[:-3]}')
 
 
+print('Running bot')
 bot.run(token)
