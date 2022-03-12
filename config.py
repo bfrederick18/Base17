@@ -23,6 +23,7 @@ def load_all_json():
         with open(f'json/{file}.json', 'r') as f:
             dict_data = json.load(f)
             dicts.append(dict_data)
+        print(f'Closing {file}.json')
 
     return dict(zip(filenames, dicts))
 

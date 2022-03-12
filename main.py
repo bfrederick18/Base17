@@ -6,6 +6,7 @@ from cogs.utils.embed import send_error_embed, send_success_embed
 from cogs.utils.time import now
 from config import jdata, status_cycle
 from discord.ext import commands, tasks
+from keep_alive import keep_alive
 
 
 token = os.environ['TOKEN']  # DON'T TOUCH
@@ -93,5 +94,6 @@ for filename in os.listdir('./cogs'):
         bot.load_extension(f'cogs.{filename[:-3]}')
 
 
+keep_alive()
 print('Running bot')
 bot.run(token)

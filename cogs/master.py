@@ -127,8 +127,8 @@ class Master(commands.Cog):
             delete_msg = True
             
             if args[0] == 'text':
-                if args[1] in jdata['pgrm']['text'].keys():
-                    text = jdata['pgrm']['text'][args[1]]
+                if args[1] in jdata['pgrm']['texts'].keys():
+                    text = jdata['pgrm']['texts'][args[1]]
                     offset = len('``````')
                     while len(text) > (2000 - offset):
                         await ctx.send(f'```{text[0:(2000 - offset)]}```')
@@ -137,6 +137,9 @@ class Master(commands.Cog):
                 else:
                     await send_error_embed(ctx, 'invalid_arguments')
                     delete_msg = False
+            if args[0] == 'link':
+                if args[1] in jdata['pgrm']['links'].keys():
+                    await ctx.send(f'```{jdata["pgrm"]["links"][args[1]]}```')
             else:
                 await send_error_embed(ctx, 'invalid_arguments')
                 delete_msg = False
