@@ -137,7 +137,7 @@ class Master(commands.Cog):
                 else:
                     await send_error_embed(ctx, 'invalid_arguments')
                     delete_msg = False
-            if args[0] == 'link':
+            elif args[0] == 'link':
                 if args[1] in jdata['pgrm']['links'].keys():
                     await ctx.send(f'```{jdata["pgrm"]["links"][args[1]]}```')
             else:
