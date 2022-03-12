@@ -122,13 +122,13 @@ class Master(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def prog(self, ctx, *args):
+    async def pgrm(self, ctx, *args):
         try:
             delete_msg = True
             
             if args[0] == 'text':
-                if args[1] in jdata['prog']['text'].keys():
-                    text = jdata['prog']['text'][args[1]]
+                if args[1] in jdata['pgrm']['text'].keys():
+                    text = jdata['pgrm']['text'][args[1]]
                     offset = len('``````')
                     while len(text) > (2000 - offset):
                         await ctx.send(f'```{text[0:(2000 - offset)]}```')
