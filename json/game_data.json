@@ -1,4 +1,16 @@
+
 {
+    "commands": {
+        "jump": {
+            "unlock": {
+                "dialogue": {
+                    "major": "0",
+                    "minor": "0",
+                    "sub": "1"
+                }
+            }
+        }
+    },
     "dialogue": {
         "0": {
             "0": {
@@ -102,25 +114,5 @@
         "system_types_roll_table": ["single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "single", "binary", "binary", "binary", "binary", "binary", "trinary", "trinary", "neutron", "black_hole", "white_dwarf"],
         "star_types": [],
         "planet_types": []
-    },
-    "ships": {
-        "nomad": {
-            "name": "Nomad",
-            "type": ["Miner"],
-            "cost": 0,
-            "mining_boost": 1
-        },
-        "sample_ship1": {
-            "name": "Sample Ship 1 Name",
-            "type": ["Miner"],
-            "cost": 100,
-            "mining_boost": 1
-        },
-        "sample_ship2": {
-            "name": "Sample Ship 2 Name",
-            "type": ["Combat", "Close Quarters"],
-            "cost": 200,
-            "mining_boost": 0
-        }
     }
 }

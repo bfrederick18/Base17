@@ -20,6 +20,13 @@ class System(commands.Cog):
         if 'users' not in db.keys():
             await send_error_embed(ctx, 'no_users')
             return
+
+        user_id = str(ctx.author.id)
+        if user_id not in db['users'].keys():
+            await send_error_embed(ctx, 'not_registered')
+            return
+
+        user_dlg_id = db['users'][user_id]['dialogue_id']
         
         await ctx.message.delete()
         await ctx.send(f'Pong: {round(self.bot.latency * 1000)}ms.')

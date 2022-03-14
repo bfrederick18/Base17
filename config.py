@@ -13,7 +13,7 @@ def load_all_json():
 
     filenames = []
     for file in jsons:
-        filenames.append(file[:-5])
+        filenames.append(file[:-len('.json')])
 
     filenames.sort()
 
