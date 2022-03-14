@@ -124,14 +124,20 @@ class User(commands.Cog):
             (x, y) = self.gen_starting_coords(user_id)
             
             user_data = {
-                'username': '',
+                'username': 'Unknown',
                 'prefix': '',
                 'quarx': 0,
                 'coords': {
                     'x': x,
                     'y': y
                 },
-                'ships': {},
+                'ships': {
+                    '1': {
+                        'name': 'Nomad',
+                        'nickname': 'Unknown',
+                        'fuel': 1
+                    }
+                },
                 'colonies': {},
                 'dialogue_id': {
                     'major': '0',

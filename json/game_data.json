@@ -5,7 +5,7 @@
             "unlock": {
                 "dialogue": {
                     "major": "0",
-                    "minor": "0",
+                    "minor": "1",
                     "sub": "1"
                 }
             }
@@ -87,7 +87,7 @@
                 "1": {
                     "input": {
                         "type": "cmd",
-                        "name": "db['users'][user_id]['skills']['special_skill']"
+                        "name": "jump"
                     },
                     "next": {
                         "dialogue": {
@@ -98,6 +98,26 @@
                     }
                 }
             }
+        }
+    },
+    "ships": {
+        "nomad": {
+            "name": "Nomad",
+            "type": ["Colonizer"],
+            "cost": 0,
+            "mining_boost": 1
+        },
+        "sample_ship1": {
+            "name": "Sample Ship 1 Name",
+            "type": ["Miner"],
+            "cost": 100,
+            "mining_boost": 1
+        },
+        "sample_ship2": {
+            "name": "Sample Ship 2 Name",
+            "type": ["Combat", "Close Quarters"],
+            "cost": 200,
+            "mining_boost": 0
         }
     },
     "systems": {
