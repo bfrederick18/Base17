@@ -39,15 +39,21 @@ class System(commands.Cog):
         if not unlocked:
             await send_error_embed(ctx, 'command_locked')
             return
+
         
         if 'ship' in db['users'][user_id]['piloting']:
-            ship_id = db['users'][user_id]['piloting'][5:]
+            ship_id = db['users'][user_id]['piloting'][len('ship_'):]  # ship_0 -> 0
+            print(ship_id)
+            ship = db['users'][user_id]['ships'][str(ship_id)]
+            print(ship)
 
-            x_dist = db['users'][user_id]['coords']['x'] - db['users'][user_id]['ships'][ship_id]['coords']['x']
-            y_dist = db['users'][user_id]['coords']['y'] - db['users'][user_id]['ships'][ship_id]['coords']['y']
+            x_dist = int(x) - ship['coords']['x']
+            y_dist = int(y) - ship['coords']['y']
             dist = round((x_dist ** 2 + y_dist ** 2) ** (1/2))
-            if db['users'][user_id]['ships'][db['users'][user_id]['piloting'][5:]]['fuel'] < dist:
+            print(dist)
+            if dist > ship['fuel']:
                 return
+
 
 def setup(bot):
     bot.add_cog(System(bot))

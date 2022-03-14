@@ -39,12 +39,12 @@
             "1": {
                 "0": {
                     "author": "f'[{db[\"users\"][str(ctx.author.id)][\"username\"]}] Your information and biometrics have been accepted.'",
-                    "description": "f'{db[\"users\"][str(ctx.author.id)][\"username\"]} is now eligible for manual operation of this vessel. All clearances are granted.\\n**WARNING**: This vessel has sustained heavy damage. **1** unit of fuel remaining.\\n**Suggested course of action**: Flee to a system near **({db[\"users\"][str(ctx.author.id)][\"coords\"][\"x\"]}, {db[\"users\"][str(ctx.author.id)][\"coords\"][\"y\"]})**.\\n No need to worry. The [aliens] will not follow.'",
+                    "description": "f'{db[\"users\"][str(ctx.author.id)][\"username\"]} is now eligible for manual operation of this vessel. All clearances are granted.\\n**WARNING**: This vessel has sustained heavy damage. **1** unit of fuel remaining.\\n**Suggested course of action**: Flee to a system near **({db[\"users\"][str(ctx.author.id)][\"ships\"][db[\"users\"][str(ctx.author.id)][\"piloting\"][len(\"ship_\"):]][\"coords\"][\"x\"]}, {db[\"users\"][str(ctx.author.id)][\"ships\"][db[\"users\"][str(ctx.author.id)][\"piloting\"][len(\"ship_\"):]][\"coords\"][\"y\"]})**.\\n No need to worry. The [aliens] will not follow.'",
                     "footer": "''"
                 },
                 "1": {
                     "author": "f'[{db[\"users\"][str(ctx.author.id)][\"username\"]}] Jump to an adjacent system.'",
-                    "description": "f'You need to leave the system, but you only have enough fuel to jump to an adjacent system.\\n**Current Coords**: **({db[\"users\"][str(ctx.author.id)][\"coords\"][\"x\"]}, {db[\"users\"][str(ctx.author.id)][\"coords\"][\"y\"]})**.'",
+                    "description": "f'You need to leave the system, but you only have enough fuel to jump to an adjacent system.\\n**Current Coords**: **({db[\"users\"][str(ctx.author.id)][\"ships\"][db[\"users\"][str(ctx.author.id)][\"piloting\"][len(\"ship_\"):]][\"coords\"][\"x\"]}, {db[\"users\"][str(ctx.author.id)][\"ships\"][db[\"users\"][str(ctx.author.id)][\"piloting\"][len(\"ship_\"):]][\"coords\"][\"y\"]})**.'",
                     "footer": "'Use \".jump\" to jump to a system (Ex. \".jump 0 0\").'"
                 }
             }
