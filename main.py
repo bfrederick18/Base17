@@ -11,7 +11,6 @@ from server import keep_alive
 
 token = os.environ['TOKEN']  # DON'T TOUCH
 bot = commands.Bot(command_prefix=jdata['config']['prefix'])
-alive_count = 0
 
 
 def load(extension):
