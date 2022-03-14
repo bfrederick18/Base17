@@ -17,7 +17,7 @@ class System(commands.Cog):
 
 
     @commands.command()
-    async def jump(self, ctx):
+    async def jump(self, ctx, x, y):
         if 'users' not in db.keys():
             await send_error_embed(ctx, 'no_users')
             return
@@ -40,9 +40,14 @@ class System(commands.Cog):
             await send_error_embed(ctx, 'command_locked')
             return
         
-        await ctx.message.delete()
-        await ctx.send(f'Pong: {round(self.bot.latency * 1000)}ms.')
+        if 'ship' in db['users'][user_id]['piloting']:
+            ship_id = db['users'][user_id]['piloting'][5:]
 
+            x_dist = db['users'][user_id]['coords']['x'] - db['users'][user_id]['ships'][ship_id]['coords']['x']
+            y_dist = db['users'][user_id]['coords']['y'] - db['users'][user_id]['ships'][ship_id]['coords']['y']
+            dist = round((x_dist ** 2 + y_dist ** 2) ** (1/2))
+            if db['users'][user_id]['ships'][db['users'][user_id]['piloting'][5:]]['fuel'] < dist:
+                return
 
 def setup(bot):
     bot.add_cog(System(bot))

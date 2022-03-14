@@ -127,23 +127,19 @@ class User(commands.Cog):
                 'username': 'Unknown',
                 'prefix': '',
                 'quarx': 0,
-                'coords': {
-                    'x': x,
-                    'y': y
-                },
-                'ships': [
-                    {
+                'coords': { 'x': x, 'y': y },
+                'ships': {
+                    "0": {
                         'name': 'Nomad',
                         'nickname': 'Unknown',
+                        'coords': { 'x': x, 'y': y },
                         'fuel': 1
                     }
-                ],
-                'colonies': {},
-                'dialogue_id': {
-                    'major': '0',
-                    'minor': '0',
-                    'sub': '0'
                 },
+                'next_ship': 1,
+                'piloting': 'ship_0',
+                'colonies': {},
+                'dialogue_id': { 'major': '0', 'minor': '0', 'sub': '0' },
                 'occupation': '',
                 'skills': {}
             }

@@ -24,9 +24,9 @@ def success_tpl(ctx, desc):  # Embed Success Template
 
 def dialogue_tpl(author, desc, footer):  # Embed Dialogue Template
     if desc == '':
-        embed = discord.Embed(color=int(jdata['config']['colors']['error'], 16))
+        embed = discord.Embed(color=int(jdata['config']['colors']['dialogue'], 16))
     else:
-        embed = discord.Embed(description=desc, color=int(jdata['config']['colors']['error'], 16))
+        embed = discord.Embed(description=desc, color=int(jdata['config']['colors']['dialogue'], 16))
         
     if author != '':
         embed.set_author(name=author)
