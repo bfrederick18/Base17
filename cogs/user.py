@@ -131,13 +131,13 @@ class User(commands.Cog):
                     'x': x,
                     'y': y
                 },
-                'ships': {
-                    '1': {
+                'ships': [
+                    {
                         'name': 'Nomad',
                         'nickname': 'Unknown',
                         'fuel': 1
                     }
-                },
+                ],
                 'colonies': {},
                 'dialogue_id': {
                     'major': '0',
