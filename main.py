@@ -14,15 +14,10 @@ bot = commands.Bot(command_prefix=jdata['config']['prefix'])
 
 
 def load(extension):
-    print(f'{now()}: Trying to load "{extension}" cog.')
     bot.load_extension(f'cogs.{extension}')
-    print(f'{now()}: Loaded "{extension}" cog.')
-
 
 def unload(extension):
-    print(f'{now()}: Trying to unload "{extension}" cog.')
     bot.unload_extension(f'cogs.{extension}')
-    print(f'{now()}: Unloaded "{extension}" cog.')
 
 
 @bot.event
@@ -54,11 +49,13 @@ async def change_status():
 @commands.is_owner()
 async def loadcog(ctx, extension):
     try:
+        print(f'{now()}: Loading \'cogs.{extension}\'...', end='', flush=True)
         load(extension)
         await ctx.message.delete()
-        await send_success_embed(ctx, f'Loaded "{extension}" cog.')
+        await send_success_embed(ctx, f'Loaded \'cogs.{extension}\'.')
+        print(' Success.')
     except commands.ExtensionAlreadyLoaded as e:
-        print(f'{now()}: *loadcog* Error: {e}')
+        print('\033[31m' + f' Failed: {e}' + '\033[0m')
         await send_error_embed(ctx, 'cog_already_loaded')
 
 
@@ -66,21 +63,29 @@ async def loadcog(ctx, extension):
 @commands.is_owner()
 async def unloadcog(ctx, extension):
     try:
+        print(f'{now()}: Unloading \'cogs.{extension}\'...', end='', flush=True)
         unload(extension)
         await ctx.message.delete()
-        await send_success_embed(ctx, f'Unloaded "{extension}" cog.')
+        await send_success_embed(ctx, f'Unloaded \'cogs.{extension}\'.')
+        print(' Success.')
     except commands.ExtensionNotLoaded as e:
-        print(f'{now()}: *unloadcog* Error: {e}')
+        print('\033[31m' + f' Failed: {e}' + '\033[0m')
         await send_error_embed(ctx, 'cog_not_loaded')
 
 
 @bot.command()
 @commands.is_owner()
 async def reloadcog(ctx, extension):
-    unload(extension)
-    load(extension)
-    await ctx.message.delete()
-    await send_success_embed(ctx, f'Reloaded "{extension}" cog.')
+    try:
+        print(f'{now()}: Reloading \'cogs.{extension}\'...', end='', flush=True)
+        unload(extension)
+        load(extension)
+        await ctx.message.delete()
+        await send_success_embed(ctx, f'Reloaded \'cogs.{extension}\'.')
+        print(' Success.')
+    except commands.ExtensionNotLoaded as e:
+        print('\033[31m' + f' Failed: {e}' + '\033[0m')
+        await send_error_embed(ctx, 'cog_not_loaded')
 
 
 @bot.event
