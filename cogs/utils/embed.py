@@ -7,7 +7,7 @@ from replit import db
 def error_tpl(ctx, desc):  # Embed Error Template
     user_id = str(ctx.author.id)
     
-    embed = discord.Embed(description=eval(desc), color=int(jdata['config']['colors']['error'], 16))
+    embed = discord.Embed(description=desc, color=int(jdata['config']['colors']['error'], 16))
     embed.set_author(name=f'[{db["users"][user_id]["username"]}] Error' if user_id in db['users'].keys() else 'Error',
                      icon_url=jdata['config']['icons']['error'])
     return embed

@@ -39,7 +39,7 @@ async def on_command_error(ctx, error):
     print(f'{now()}: Unhandled Command Error: {error}')
 
 
-@tasks.loop(seconds=60)
+@tasks.loop(seconds=150)
 async def change_status():
     await bot.change_presence(activity=discord.Game(next(status_cycle)))
     print(f'{now()}: Online: {round(bot.latency * 1000)}ms.')
@@ -52,7 +52,7 @@ async def loadcog(ctx, extension):
         print(f'{now()}: Loading \'cogs.{extension}\'...', end='', flush=True)
         load(extension)
         await ctx.message.delete()
-        await send_success_embed(ctx, f'Loaded \'cogs.{extension}\'.')
+        await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_loaded']))
         print(' Success.')
     except commands.ExtensionAlreadyLoaded as e:
         print('\033[31m' + f' Failed: {e}' + '\033[0m')
@@ -66,7 +66,7 @@ async def unloadcog(ctx, extension):
         print(f'{now()}: Unloading \'cogs.{extension}\'...', end='', flush=True)
         unload(extension)
         await ctx.message.delete()
-        await send_success_embed(ctx, f'Unloaded \'cogs.{extension}\'.')
+        await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_unloaded']))
         print(' Success.')
     except commands.ExtensionNotLoaded as e:
         print('\033[31m' + f' Failed: {e}' + '\033[0m')
@@ -81,7 +81,7 @@ async def reloadcog(ctx, extension):
         unload(extension)
         load(extension)
         await ctx.message.delete()
-        await send_success_embed(ctx, f'Reloaded \'cogs.{extension}\'.')
+        await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_reloaded']))
         print(' Success.')
     except commands.ExtensionNotLoaded as e:
         print('\033[31m' + f' Failed: {e}' + '\033[0m')
