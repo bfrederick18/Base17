@@ -1,16 +1,16 @@
 {
     "errors": {
-        "missing_arguments": "Please include all required arguments. Check *help* for usage.",
-        "invalid_arguments": "Please use a valid argument selection/combination. Check *help* for usage.",
-        "start_requires_username": "*Start* requires a username. Check *help* for usage.",
-        "already_registered": "You already used *start* to register before. Check *help* for usage.",
-        "not_registered": "You have not registered using *start* yet. Check *help* for usage.",
-        "no_users": "There appears to be no users. Ask a bot admin for help!",
-        "dlg_no_desc_or_author": "The current dialogue has no description or title. Ask a bot admin for help.",
-        "dlg_no_input": "The current dialogue has no input. If you get this error repeatedly and believe there should be an input, ask a bot admin for help.",
-        "cog_already_loaded": "Cog is already loaded. If you want to load this cog, try unloading it first with *unloadcog* and then try *loadcog* again, or try *reloadcog*. (*loadcog*, *unloadcog*, and *reloadcog* are reserved for bot owner)",
-        "cog_not_loaded": "Cog is not loaded. If you want to unload this cog, try loading it first with *loadcog* and then try *unloadcog* again. (*loadcog* and *unloadcog* are reserved for bot owner)",
-        "command_locked": "This command is currently locked. Progress with the dialogue and story to unlock this command."
+        "missing_arguments": "'Please include all required arguments. Check *help* for usage.'",
+        "invalid_arguments": "'Please use a valid argument selection/combination. Check *help* for usage.'",
+        "start_requires_username": "'*Start* requires a username. Check *help* for usage.'",
+        "already_registered": "'You already used *start* to register before. Check *help* for usage.'",
+        "not_registered": "'You have not registered using *start* yet. Check *help* for usage.'",
+        "no_users": "'There appears to be no users. Ask a bot admin for help!'",
+        "dlg_no_desc_or_author": "'The current dialogue has no description or title. Ask a bot admin for help.'",
+        "dlg_no_input": "'The current dialogue has no input. If you get this error repeatedly and believe there should be an input, ask a bot admin for help.'",
+        "cog_already_loaded": "'Cog is already loaded. If you want to load this cog, try unloading it first with *unloadcog* and then try *loadcog* again, or try *reloadcog*. (*loadcog*, *unloadcog*, and *reloadcog* are reserved for bot owner)'",
+        "cog_not_loaded": "'Cog is not loaded. If you want to unload this cog, try loading it first with *loadcog* and then try *unloadcog* again. (*loadcog* and *unloadcog* are reserved for bot owner)'",
+        "command_locked": "'This command is currently locked. Progress with the dialogue and story to unlock this command."
     },
     "dialogue": {
         "0": {
