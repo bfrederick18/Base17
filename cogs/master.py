@@ -53,7 +53,7 @@ class Master(commands.Cog):
             
             if args[0] in db.keys():
                 if args[1] in db[args[0]].keys():
-                    if args[2] == 'reset':
+                    if args[2] == 'reset' and args[4] == 'confirm':
                         db[args[0]][args[1]][args[3]] = {}
                         await send_success_embed(ctx, f'Reset "{args[3]}" in "{args[1]}" in "{args[0]}".')
                     elif args[2] == 'set':
@@ -69,7 +69,7 @@ class Master(commands.Cog):
                     await self.send_debug(ctx, f'```{list(db[args[0]].keys())}```', args, 2)
                 elif args[1] == 'val':
                     await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[0]][args[2]])), indent=4)}```', args, 3)
-                elif args[1] == 'reset':
+                elif args[1] == 'reset' and args[3] == 'confirm':
                     db[args[0]][args[2]] = {}
                     await send_success_embed(ctx, f'Reset "{args[2]}" in "{args[0]}".')
                 elif args[1] == 'set':
@@ -89,12 +89,16 @@ class Master(commands.Cog):
                 await self.send_debug(ctx, f'```{list(db.keys())}```', args, 1)
             elif args[0] == 'val':
                 await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[1]])), indent=4)}```', args, 2)
-            elif args[0] == 'reset':
+            elif args[0] == 'reset' and args[2] == 'confirm':
                 db[args[1]] = {}
                 await send_success_embed(ctx, f'Reset "{args[1]}".')
             elif args[0] == 'del' and args[2] == 'confirm':
                 del db[args[1]]
                 await send_success_embed(ctx, f'Deleted "{args[1]}".')
+            elif args[0] == 'base' and args[1] == 'confirm' and args[2] == 'confirm':
+                db['users'] = {}
+                db['systems'] = {}
+                await send_success_embed(ctx, f'Reset "db" back to base state.')
             else:
                 await send_error_embed(ctx, 'invalid_arguments')
                 delete_msg = False

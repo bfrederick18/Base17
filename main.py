@@ -54,8 +54,11 @@ async def loadcog(ctx, extension):
         await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_loaded']))
         print(' Success.')
     except commands.ExtensionAlreadyLoaded as e:
-        print('\033[31m' + f' Failed: {e}' + '\033[0m')
+        print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
         await send_error_embed(ctx, 'cog_already_loaded')
+    except commands.ExtensionNotFound as e:
+        print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
+        await send_error_embed(ctx, 'cog_not_found')
 
 
 @bot.command()
@@ -68,8 +71,11 @@ async def unloadcog(ctx, extension):
         await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_unloaded']))
         print(' Success.')
     except commands.ExtensionNotLoaded as e:
-        print('\033[31m' + f' Failed: {e}' + '\033[0m')
+        print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
         await send_error_embed(ctx, 'cog_not_loaded')
+    except commands.ExtensionNotFound as e:
+        print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
+        await send_error_embed(ctx, 'cog_not_found')
 
 
 @bot.command()
@@ -83,8 +89,11 @@ async def reloadcog(ctx, extension):
         await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_reloaded']))
         print(' Success.')
     except commands.ExtensionNotLoaded as e:
-        print('\033[31m' + f' Failed: {e}' + '\033[0m')
+        print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
         await send_error_embed(ctx, 'cog_not_loaded')
+    except commands.ExtensionNotFound as e:
+        print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
+        await send_error_embed(ctx, 'cog_not_found')
 
 
 @bot.event
