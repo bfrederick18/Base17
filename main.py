@@ -42,7 +42,6 @@ async def on_command_error(ctx, error):
 @tasks.loop(seconds=150)
 async def change_status():
     await bot.change_presence(activity=discord.Game(next(status_cycle)))
-    print(f'{now()}: Online: {round(bot.latency * 1000)}ms.')
 
 
 @bot.command()

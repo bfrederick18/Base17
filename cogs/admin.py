@@ -17,7 +17,8 @@ class Administrator(commands.Cog):
     @commands.command(aliases=['p'])
     async def ping(self, ctx):
         await ctx.message.delete()
-        await ctx.send(f'Pong: {round(self.bot.latency * 1000)}ms.')
+        await ctx.send(f'Online: {round(self.bot.latency * 1000)}ms.')
+        print(f'{now()}: Online: {round(self.bot.latency * 1000)}ms.')
 
 
     @commands.command()
