@@ -54,6 +54,9 @@
     "successes": {
         "cog_reloaded": "f'Reloaded \\'cogs.{extension}\\'.'",
         "cog_unloaded": "f'Unloaded \\'cogs.{extension}\\'.'",
-        "cog_loaded": "f'Loaded \\'cogs.{extension}\\'.'"
+        "cog_loaded": "f'Loaded \\'cogs.{extension}\\'.'",
+        "db_tier_1_base": "f'Reset 'db' back to base state.'",
+        "db_tier_1_del": "f'Deleted '{args[1]}'.'",
+        "db_tier_1_reset": "f'Reset '{args[1]}'.'"
     }
 }

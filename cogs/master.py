@@ -94,11 +94,11 @@ class Master(commands.Cog):
                 await send_success_embed(ctx, f'Reset "{args[1]}".')
             elif args[0] == 'del' and args[2] == 'confirm':
                 del db[args[1]]
-                await send_success_embed(ctx, f'Deleted "{args[1]}".')
+                await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_1_del']))
             elif args[0] == 'base' and args[1] == 'confirm' and args[2] == 'confirm':
                 db['users'] = {}
                 db['systems'] = {}
-                await send_success_embed(ctx, f'Reset "db" back to base state.')
+                await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_1_base']))
             else:
                 await send_error_embed(ctx, 'invalid_arguments')
                 delete_msg = False
