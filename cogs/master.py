@@ -91,7 +91,7 @@ class Master(commands.Cog):
                 await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[1]])), indent=4)}```', args, 2)
             elif args[0] == 'reset' and args[2] == 'confirm':
                 db[args[1]] = {}
-                await send_success_embed(ctx, f'Reset "{args[1]}".')
+                await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_1_reset']))
             elif args[0] == 'del' and args[2] == 'confirm':
                 del db[args[1]]
                 await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_1_del']))
