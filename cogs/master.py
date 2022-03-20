@@ -55,10 +55,10 @@ class Master(commands.Cog):
                 if args[1] in db[args[0]].keys():
                     if args[2] == 'reset' and args[4] == 'confirm':
                         db[args[0]][args[1]][args[3]] = {}
-                        await send_success_embed(ctx, f'Reset "{args[3]}" in "{args[1]}" in "{args[0]}".')
+                        await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_2_reset']))
                     elif args[2] == 'set':
                         db[args[0]][args[1]][args[3]] = args[4]
-                        await send_success_embed(ctx, f'Set "{args[3]}" in "{args[1]}" in "{args[0]}" to "{args[4]}".')
+                        await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_2_set']))
                     else:
                         await send_error_embed(ctx, 'invalid_arguments')
                         delete_msg = False
@@ -71,13 +71,13 @@ class Master(commands.Cog):
                     await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[0]][args[2]])), indent=4)}```', args, 3)
                 elif args[1] == 'reset' and args[3] == 'confirm':
                     db[args[0]][args[2]] = {}
-                    await send_success_embed(ctx, f'Reset "{args[2]}" in "{args[0]}".')
+                    await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_1_reset']))
                 elif args[1] == 'set':
                     db[args[0]][args[2]] = args[3]
-                    await send_success_embed(ctx, f'Set "{args[2]}" in "{args[0]}" to "{args[3]}".')
+                    await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_1_set']))
                 elif args[1] == 'del' and args[3] == 'confirm':
                     del db[args[0]][args[2]]
-                    await send_success_embed(ctx, f'Deleted "{args[2]}" in "{args[0]}".')
+                    await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_1_del']))
                 else:
                     await send_error_embed(ctx, 'invalid_arguments')
                     delete_msg = False
@@ -91,14 +91,14 @@ class Master(commands.Cog):
                 await self.send_debug(ctx, f'```{json.dumps(json.loads(dumps(db[args[1]])), indent=4)}```', args, 2)
             elif args[0] == 'reset' and args[2] == 'confirm':
                 db[args[1]] = {}
-                await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_1_reset']))
+                await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_0_reset']))
             elif args[0] == 'del' and args[2] == 'confirm':
                 del db[args[1]]
-                await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_1_del']))
+                await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_0_del']))
             elif args[0] == 'base' and args[1] == 'confirm' and args[2] == 'confirm':
                 db['users'] = {}
                 db['systems'] = {}
-                await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_1_base']))
+                await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['db_tier_0_base']))
             else:
                 await send_error_embed(ctx, 'invalid_arguments')
                 delete_msg = False

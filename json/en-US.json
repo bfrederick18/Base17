@@ -55,8 +55,13 @@
         "cog_reloaded": "f'Reloaded \\'cogs.{extension}\\'.'",
         "cog_unloaded": "f'Unloaded \\'cogs.{extension}\\'.'",
         "cog_loaded": "f'Loaded \\'cogs.{extension}\\'.'",
-        "db_tier_1_base": "f'Reset 'db' back to base state.'",
-        "db_tier_1_del": "f'Deleted '{args[1]}'.'",
-        "db_tier_1_reset": "f'Reset '{args[1]}'.'"
+        "db_tier_0_base": "f'Reset \\'db\\' back to base state.'",
+        "db_tier_0_del": "f'Deleted \\'{args[1]}\\'.'",
+        "db_tier_0_reset": "f'Reset \\'{args[1]}\\'.'",
+        "db_tier_1_del": "f'Deleted \\'{args[2]}\\' in \\'{args[0]}\\'.'",
+        "db_tier_1_set": "f'Set \\'{args[2]}\\' in \\'{args[0]}\\' to \\'{args[3]}\\'.'",
+        "db_tier_1_reset": "f'Reset \\'{args[2]}\\' in \\'{args[0]}\\'.'",
+        "db_tier_2_set": "f'Set \\'{args[3]}\\' in \\'{args[1]}\\' in \\'{args[0]}\\' to \\'{args[4]}\\'.'",
+        "db_tier_2_reset": "'Reset \\'{args[3]}\\' in \\'{args[1]}\\' in \\'{args[0]}\\'.'"
     }
 }
