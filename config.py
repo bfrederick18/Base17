@@ -4,7 +4,6 @@ import pytz
 from os import listdir
 from itertools import cycle
 
-
 jdata = {}
 
 

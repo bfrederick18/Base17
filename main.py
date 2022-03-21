@@ -36,6 +36,7 @@ async def on_ready():
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await send_error_embed(ctx, 'missing_arguments')
+
     print(f'{now()}: Unhandled Command Error: {error}')
 
 
@@ -48,14 +49,14 @@ async def change_status():
 @commands.is_owner()
 async def loadcog(ctx, extension):
     try:
-        print(f'{now()}: Loading \'cogs.{extension}\'...', end='', flush=True)
+        print(f'{now()}: Loading \'cogs.{extension}\'...',
+              end='',
+              flush=True)
         load(extension)
         await ctx.message.delete()
-        await send_success_embed(
-            ctx,
-            eval(jdata[jdata['config']['chosen_language']]['successes']
-                 ['cog_loaded']))
+        await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_loaded']))
         print(' Success.')
+        
     except commands.ExtensionAlreadyLoaded as e:
         print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
         await send_error_embed(ctx, 'cog_already_loaded')
@@ -73,11 +74,9 @@ async def unloadcog(ctx, extension):
               flush=True)
         unload(extension)
         await ctx.message.delete()
-        await send_success_embed(
-            ctx,
-            eval(jdata[jdata['config']['chosen_language']]['successes']
-                 ['cog_unloaded']))
+        await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_unloaded']))
         print(' Success.')
+        
     except commands.ExtensionNotLoaded as e:
         print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
         await send_error_embed(ctx, 'cog_not_loaded')
@@ -96,11 +95,9 @@ async def reloadcog(ctx, extension):
         unload(extension)
         load(extension)
         await ctx.message.delete()
-        await send_success_embed(
-            ctx,
-            eval(jdata[jdata['config']['chosen_language']]['successes']
-                 ['cog_reloaded']))
+        await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_reloaded']))
         print(' Success.')
+        
     except commands.ExtensionNotLoaded as e:
         print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
         await send_error_embed(ctx, 'cog_not_loaded')

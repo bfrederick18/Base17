@@ -8,7 +8,6 @@ from replit import db
 from replit.database import dumps
 from threading import Thread
 
-
 app = Flask('')
 app.logger.disabled = True
 
