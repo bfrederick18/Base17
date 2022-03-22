@@ -2,7 +2,6 @@ import json
 import logging
 
 from cogs.utils.time import now
-from config import jdata
 from flask import Flask
 from replit import db
 from replit.database import dumps
@@ -17,10 +16,16 @@ log.setLevel(logging.ERROR)
 
 @app.route('/')
 def home():
+    pre = '<!DOCTYPE html>\n<html>\n<body>\n\n'
+    suf = '</pre>\n\n</body>\n</html>'
+    key_pre = '<p style="font-family:\'Courier New\'"><pre>'
+    key_suf = '</pre></p>\n'
     html = ''
+
     for key in db.keys():
-        html += f'<p>"{key}": {json.dumps(json.loads(dumps(db[key])), indent=4)}</p>'
-    return html
+        html += key_pre + f'"{key}": {json.dumps(json.loads(dumps(db[key])), indent=4)}' + key_suf
+
+    return pre + html + suf
 
 
 @app.after_request

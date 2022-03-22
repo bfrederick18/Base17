@@ -85,7 +85,7 @@
                     }
                 },
                 "1": {
-                    "input": {
+                    "flag": {
                         "type": "cmd",
                         "name": "jump"
                     },
