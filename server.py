@@ -16,8 +16,8 @@ log.setLevel(logging.ERROR)
 
 @app.route('/')
 def home():
-    pre = '<!DOCTYPE html>\n<html>\n<body>\n\n'
-    suf = '</pre>\n\n</body>\n</html>'
+    pre = '<body>\n\n'
+    suf = '</pre>\n\n</body>'
     key_pre = '<p style="font-family:\'Courier New\'"><pre>'
     key_suf = '</pre></p>\n'
     html = ''
