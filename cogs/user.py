@@ -69,6 +69,7 @@ class User(commands.Cog):
                 random.randint(jdata['game_data']['systems']['height']['min'], jdata['game_data']['systems']['height']['max'])
                 )
             print(f'{now()}: [{user_id}] Rolled ({x}, {y})')
+            
             clear = True
             for i in range(x - 1, x + 2): # (x - 1) to (x + 1) inclusive
                 for j in range(y - 1, y + 2):  # (y - 1) to (y + 1) inclusive
@@ -78,6 +79,7 @@ class User(commands.Cog):
                     if str(i) in db['systems'].keys() and str(j) in db['systems'][str(i)].keys():
                         clear = False
                         print(f'{now()}: [{user_id}] Conflict on ({i}, {j})')
+                        
         print(f'{now()}: [{user_id}] Returning ({x}, {y})')
         return (x, y)
 
