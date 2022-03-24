@@ -54,8 +54,8 @@ class System(commands.Cog):
             print(f'{now()}: Jumping ship "{ship_id}" from ({ship["coords"]["x"]},{ship["coords"]["y"]}) to ({x},{y}), a distance of {dist} (raw_dist: {round(raw_dist, 4)}) with {fuel} unit(s) of fuel.')
             
             print(dist)
-            if dist > fuel:
-                
+            if dist >= fuel:
+                db['users'][user_id]['ships'][ship_id]['fuel'] -= dist
                 return
         else:
             # Send Error Message Not Enought Fuel
