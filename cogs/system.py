@@ -1,4 +1,4 @@
-from cogs.utils.embed import send_error_embed
+from cogs.utils.embed import send_error_embed, send_success_embed
 from cogs.utils.time import now
 from config import jdata
 from discord.ext import commands
@@ -50,15 +50,22 @@ class System(commands.Cog):
         dist = round(raw_dist)
         fuel = ship['fuel']
 
-        print(f'{now()}: Jumping ship "{ship_id}" from ({ship["coords"]["x"]},{ship["coords"]["y"]}) to ({x},{y}), a distance of {dist} (raw_dist: {round(raw_dist, 4)}) with {fuel} unit(s) of fuel.')
+        print(f'{now()}: Jumping ship "{ship_id}" from ({ship["coords"]["x"]},{ship["coords"]["y"]}) to ({x},{y}), a distance of {dist} (raw_dist: {round(raw_dist, 4)}) with {fuel} unit(s) of fuel.',
+              end='',
+              flush=True)
         
         if dist > fuel:
+            print('\033[31m' + f' Failed: NotEnoughtFuelShip' + '\033[0m')
             await send_error_embed(ctx, 'not_enough_fuel_ship')
             return
         
         db['users'][user_id]['ships'][ship_id]['fuel'] -= dist
         db['users'][user_id]['ships'][ship_id]['coords']['x'] = int(x)
         db['users'][user_id]['ships'][ship_id]['coords']['y'] = int(y)
+
+        await ctx.message.delete()
+        await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['jump_ship']))
+        print(' Success.')
 
 
 def setup(bot):
