@@ -49,7 +49,9 @@
         "cog_already_loaded": "Cog is already loaded. If you want to load this cog, try unloading it first with *unloadcog* and then try *loadcog* again, or try *reloadcog*. (*loadcog*, *unloadcog*, and *reloadcog* are reserved for bot owner)",
         "cog_not_loaded": "Cog is not loaded. If you want to unload this cog, try loading it first with *loadcog* and then try *unloadcog* again. (*loadcog* and *unloadcog* are reserved for bot owner)",
         "command_locked": "This command is currently locked. Progress with the dialogue and story to unlock this command.",
-        "cog_not_found": "Cog was not found. Check that the cog you are trying to find exists or that it is spelled correctly."
+        "cog_not_found": "Cog was not found. Check that the cog you are trying to find exists or that it is spelled correctly.",
+        "not_enough_fuel_ship": "This ship does not have enough fuel to travel to the target system.",
+        "not_enough_fuel_fleet": "This fleet does not have enough fuel to travel to the target system."
     },
     "successes": {
         "cog_reloaded": "f'Reloaded \\'cogs.{extension}\\'.'",

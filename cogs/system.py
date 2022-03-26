@@ -40,26 +40,25 @@ class System(commands.Cog):
             await send_error_embed(ctx, 'command_locked')
             return
 
+        # if 'ship' in db['users'][user_id]['piloting']:
+        ship_id = db['users'][user_id]['piloting'][len('ship_'):]  # ship_0 -> 0
+        ship = db['users'][user_id]['ships'][ship_id]
+
+        x_dist = int(x) - ship['coords']['x']
+        y_dist = int(y) - ship['coords']['y']
+        raw_dist = (x_dist ** 2 + y_dist ** 2) ** (1/2)
+        dist = round(raw_dist)
+        fuel = ship['fuel']
+
+        print(f'{now()}: Jumping ship "{ship_id}" from ({ship["coords"]["x"]},{ship["coords"]["y"]}) to ({x},{y}), a distance of {dist} (raw_dist: {round(raw_dist, 4)}) with {fuel} unit(s) of fuel.')
         
-        if 'ship' in db['users'][user_id]['piloting']:
-            ship_id = db['users'][user_id]['piloting'][len('ship_'):]  # ship_0 -> 0
-            ship = db['users'][user_id]['ships'][ship_id]
-
-            x_dist = int(x) - ship['coords']['x']
-            y_dist = int(y) - ship['coords']['y']
-            raw_dist = (x_dist ** 2 + y_dist ** 2) ** (1/2)
-            dist = round(raw_dist)
-            fuel = ship['fuel']
-
-            print(f'{now()}: Jumping ship "{ship_id}" from ({ship["coords"]["x"]},{ship["coords"]["y"]}) to ({x},{y}), a distance of {dist} (raw_dist: {round(raw_dist, 4)}) with {fuel} unit(s) of fuel.')
-            
-            print(dist)
-            if dist >= fuel:
-                db['users'][user_id]['ships'][ship_id]['fuel'] -= dist
-                return
-        else:
-            # Send Error Message Not Enought Fuel
-            return 
+        if dist > fuel:
+            await send_error_embed(ctx, 'not_enough_fuel_ship')
+            return
+        
+        db['users'][user_id]['ships'][ship_id]['fuel'] -= dist
+        db['users'][user_id]['ships'][ship_id]['coords']['x'] = int(x)
+        db['users'][user_id]['ships'][ship_id]['coords']['y'] = int(y)
 
 
 def setup(bot):
