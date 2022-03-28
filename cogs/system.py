@@ -59,7 +59,7 @@ class System(commands.Cog):
             await send_error_embed(ctx, 'not_enough_fuel_ship')
             return
         
-        db['users'][user_id]['ships'][ship_id]['fuel'] -= dist
+        db['users'][user_id]['ships'][ship_id]['fuel'] = fuel - dist
         db['users'][user_id]['ships'][ship_id]['coords']['x'] = int(x)
         db['users'][user_id]['ships'][ship_id]['coords']['y'] = int(y)
 
