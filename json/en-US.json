@@ -34,6 +34,13 @@
                     "description": "f'You need to leave the system, but you only have enough fuel to jump to an adjacent system.\\n**Current Coords**: **({db[\"users\"][str(ctx.author.id)][\"ships\"][db[\"users\"][str(ctx.author.id)][\"piloting\"][len(\"ship_\"):]][\"coords\"][\"x\"]}, {db[\"users\"][str(ctx.author.id)][\"ships\"][db[\"users\"][str(ctx.author.id)][\"piloting\"][len(\"ship_\"):]][\"coords\"][\"y\"]})**.'",
                     "footer": "'Use \".jump\" to jump to a system (Ex. \".jump 0 0\").'"
                 }
+            },
+            "2": {
+                "0": {
+                    "author": "f'[{db[\"users\"][str(ctx.author.id)][\"username\"]}] [Alien] threat avoided... New threat detected: Starvation and lack of oxygen.'",
+                    "description": "f'This vessel cannot sustain its population for long. This vessel will now convert its remaining power to life support. It is recommended that you recycle the engines for parts. There is a harvestable planet nearby. Send probes? People? Down to gather/mine.'",
+                    "footer": "'Use \".settle\" to start a settlement on a target planet (Ex. \".settle titan\").'"
+                }
             }
         }
     },

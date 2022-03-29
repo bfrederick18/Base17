@@ -92,8 +92,23 @@
                     "next": {
                         "dialogue": {
                             "major": "0",
-                            "minor": "1",
-                            "sub": "1"
+                            "minor": "2",
+                            "sub": "0"
+                        }
+                    }
+                }
+            },
+            "2": {
+                "0": {
+                    "flag": {
+                        "type": "cmd",
+                        "name": "settle"
+                    },
+                    "next": {
+                        "dialogue": {
+                            "major": "0",
+                            "minor": "2",
+                            "sub": "0"
                         }
                     }
                 }
