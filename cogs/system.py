@@ -21,7 +21,7 @@ class System(commands.Cog):
         if 'users' not in db.keys():
             await send_error_embed(ctx, 'no_users')
             return
-
+ 
         user_id = str(ctx.author.id)
         if user_id not in db['users'].keys():
             await send_error_embed(ctx, 'not_registered')
@@ -50,7 +50,7 @@ class System(commands.Cog):
         dist = round(raw_dist)
         fuel = ship['fuel']
 
-        print(f'{now()}: Jumping ship "{ship_id}" from ({ship["coords"]["x"]},{ship["coords"]["y"]}) to ({x},{y}), a distance of {dist} (raw_dist: {round(raw_dist, 4)}) with {fuel} unit(s) of fuel.',
+        print(f'{now()}: Jumping ship "{ship_id}" from ({ship["coords"]["x"]},{ship["coords"]["y"]}) to ({x},{y}), a distance of {dist} (raw_dist: {round(raw_dist, 4)}) with {fuel} unit(s) of fuel...',
               end='',
               flush=True)
         
