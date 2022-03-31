@@ -144,8 +144,9 @@ class User(commands.Cog):
                 'next_ship': 1,
                 'colonies': {},
                 'dialogue_id': { 'major': '0', 'minor': '0', 'sub': '0' },
-                'occupation': '',
-                'skills': {}
+                'occupation': 'Unknown',
+                'skills': {},
+                'flags': {}
             }
             print(f'{now()}: [{user_id}] Created user_data.')
             
