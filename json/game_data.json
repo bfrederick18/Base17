@@ -108,7 +108,16 @@
                         "dialogue": {
                             "major": "0",
                             "minor": "2",
-                            "sub": "0"
+                            "sub": "1"
+                        }
+                    }
+                },
+                "1": {
+                    "next": {
+                        "dialogue": {
+                            "major": "0",
+                            "minor": "2",
+                            "sub": "1"
                         }
                     }
                 }

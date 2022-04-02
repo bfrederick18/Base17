@@ -40,6 +40,11 @@
                     "author": "f'[{db[\"users\"][str(ctx.author.id)][\"username\"]}] [Alien] threat avoided... New threat detected: Starvation and lack of oxygen.'",
                     "description": "f'This vessel cannot sustain its population for long. This vessel will now convert its remaining power to life support. It is recommended that you recycle the engines for parts. There is a harvestable planet nearby. Send probes? People? Down to gather/mine.'",
                     "footer": "'Use \".settle\" to start a settlement on a target planet (Ex. \".settle titan\").'"
+                },
+                "1": {
+                    "author": "f'[{db[\"users\"][str(ctx.author.id)][\"username\"]}] Settlement Established.'",
+                    "description": "'What would you like to call your settlement?'",
+                    "footer": "''"
                 }
             }
         }
