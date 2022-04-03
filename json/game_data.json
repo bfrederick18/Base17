@@ -1,16 +1,5 @@
 
 {
-    "commands": {
-        "jump": {
-            "unlock": {
-                "dialogue": {
-                    "major": "0",
-                    "minor": "1",
-                    "sub": "1"
-                }
-            }
-        }
-    },
     "dialogue": {
         "0": {
             "0": {
