@@ -81,14 +81,13 @@
                             "major": "0",
                             "minor": "1",
                             "sub": "1"
+                        },
+                        "flag": {
+                            "name": "cmd_jump_unlocked"
                         }
                     }
                 },
                 "1": {
-                    "flag": {
-                        "type": "cmd",
-                        "name": "jump"
-                    },
                     "next": {
                         "dialogue": {
                             "major": "0",

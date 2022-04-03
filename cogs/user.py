@@ -19,14 +19,22 @@ class User(commands.Cog):
     def update_dlg_id(self, user_id, chosen_dlg):
         old_dlg = db['users'][user_id]['dialogue_id']
 
-        for tag in ['major', 'minor', 'sub']:
-            db['users'][user_id]['dialogue_id'][tag] = chosen_dlg['next']['dialogue'][tag]
-        
-        new_dlg = db['users'][user_id]['dialogue_id']
-        
-        print(f'{now()}: [{user_id}] Updated dialogue_id from \
+        if 'next' in chosen_dlg:
+            if 'dialogue' in chosen_dlg['next']:
+                for tag in ['major', 'minor', 'sub']:
+                    db['users'][user_id]['dialogue_id'][tag] = chosen_dlg['next']['dialogue'][tag]
+                
+                new_dlg = db['users'][user_id]['dialogue_id']
+                
+                print(f'{now()}: [{user_id}] Updated dialogue_id from \
 ({old_dlg["major"]}, {old_dlg["minor"]}, {old_dlg["sub"]}) to \
 ({new_dlg["major"]}, {new_dlg["minor"]}, {new_dlg["sub"]}).')
+            if 'flag' in chosen_dlg['next']:
+                flag = chosen_dlg['next']['flag']['name']
+                
+                db['users'][user_id]['flags'][flag] = True
+
+                print(f'{now()}: [{user_id}] Added \'{flag}\' flag.')
 
 
     async def send_dlg(self, ctx):
