@@ -1,4 +1,3 @@
-
 {
     "dialogue": {
         "0": {
@@ -77,20 +76,29 @@
                     }
                 },
                 "1": {
+                    "await": {
+                        "flag": {
+                            "name": "cmd_jump_success"
+                        }  
+                    },
                     "next": {
                         "dialogue": {
                             "major": "0",
                             "minor": "2",
                             "sub": "0"
+                        },
+                        "flag": {
+                            "name": "cmd_settle_unlocked"
                         }
                     }
                 }
             },
             "2": {
                 "0": {
-                    "flag": {
-                        "type": "cmd",
-                        "name": "settle"
+                    "await": {
+                        "flag": {
+                            "name": "cmd_settle_success"
+                        }  
                     },
                     "next": {
                         "dialogue": {
