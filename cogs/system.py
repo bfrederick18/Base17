@@ -27,11 +27,16 @@ class System(commands.Cog):
             await send_error_embed(ctx, 'not_registered')
             return
 
-        print(f'{now()}: Checking if "{self.jump.name}" command is unlocked.')
+        print(f'{now()}: Checking if "{self.jump.name}" command is unlocked...',
+              end='',
+              flush=True)
+        
         if 'cmd_jump_unlocked' not in db['users'][user_id]['flags']:
-            print(f'{now()}: "{self.jump.name}" command is locked.')
+            print('\033[31m' + f' Failed: "{self.jump.name}" command is locked.' + '\033[0m')
             await send_error_embed(ctx, 'command_locked')
             return
+            
+        print(' Success.')
 
         # if 'ship' in db['users'][user_id]['piloting']:
         ship_id = db['users'][user_id]['piloting'][len('ship_'):]  # ship_0 -> 0
@@ -48,7 +53,7 @@ class System(commands.Cog):
               flush=True)
         
         if dist > fuel:
-            print('\033[31m' + f' Failed: NotEnoughtFuelShip' + '\033[0m')
+            print('\033[31m' + ' Failed: NotEnoughtFuelShip' + '\033[0m')
             await send_error_embed(ctx, 'not_enough_fuel_ship')
             return
         
