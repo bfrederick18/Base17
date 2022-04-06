@@ -27,16 +27,9 @@ class System(commands.Cog):
             await send_error_embed(ctx, 'not_registered')
             return
 
-        user_dlg_id = db['users'][user_id]['dialogue_id']
-
         print(f'{now()}: Checking if "{self.jump.name}" command is unlocked.')
-        unlocked = True
-        for tag in ['major', 'minor', 'sub']:
-            if int(user_dlg_id[tag]) < int(jdata['game_data']['commands'][self.jump.name]['unlock']['dialogue'][tag]):
-                unlocked = False
-                
-        print(f'{now()}: "{self.jump.name}" command is {"unlocked" if unlocked else "locked"}.')
-        if not unlocked:
+        if 'cmd_jump_unlocked' not in db['users'][user_id]['flags']:
+            print(f'{now()}: "{self.jump.name}" command is locked.')
             await send_error_embed(ctx, 'command_locked')
             return
 
