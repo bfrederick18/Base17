@@ -22,7 +22,7 @@ class User(commands.Cog):
         if 'after' in chosen_dlg:
             if 'flag' in chosen_dlg['after']:
                 flag = chosen_dlg['after']['flag']['name']
-                db['users'][user_id]['flags'][flag] = True
+                db['users'][user_id]['flags'].append(flag)
                 print(f'{now()}: [{user_id}] Added \'{flag}\' flag.')
                 
             if 'dialogue' in chosen_dlg['after']:
@@ -39,7 +39,7 @@ class User(commands.Cog):
                 if 'before' in new_chosen_dlg:
                     if 'flag' in new_chosen_dlg['before']:
                         flag = new_chosen_dlg['before']['flag']['name']
-                        db['users'][user_id]['flags'][flag] = True
+                        db['users'][user_id]['flags'].append(flag)
                         print(f'{now()}: [{user_id}] Added \'{flag}\' flag.')
 
     async def send_dlg(self, ctx):
@@ -159,7 +159,7 @@ class User(commands.Cog):
                 'dialogue_id': { 'major': '0', 'minor': '0', 'sub': '0' },
                 'occupation': 'Unknown',
                 'skills': {},
-                'flags': {}
+                'flags': []
             }
             print(f'{now()}: [{user_id}] Created user_data.')
             

@@ -53,7 +53,7 @@ class System(commands.Cog):
               flush=True)
         
         if dist > fuel:
-            print('\033[31m' + ' Failed: NotEnoughtFuelShip' + '\033[0m')
+            print('\033[31m' + ' Failed: NotEnoughtFuelShip.' + '\033[0m')
             await send_error_embed(ctx, 'not_enough_fuel_ship')
             return
         
