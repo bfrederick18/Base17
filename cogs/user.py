@@ -17,25 +17,30 @@ class User(commands.Cog):
 
 
     def update_dlg_id(self, user_id, chosen_dlg):
-        old_dlg = db['users'][user_id]['dialogue_id']
+        old_dlg_id = db['users'][user_id]['dialogue_id']
 
-        if 'next' in chosen_dlg:
-            if 'dialogue' in chosen_dlg['next']:
-                for tag in ['major', 'minor', 'sub']:
-                    db['users'][user_id]['dialogue_id'][tag] = chosen_dlg['next']['dialogue'][tag]
+        if 'after' in chosen_dlg:
+            if 'flag' in chosen_dlg['after']:
+                flag = chosen_dlg['after']['flag']['name']
+                db['users'][user_id]['flags'][flag] = True
+                print(f'{now()}: [{user_id}] Added \'{flag}\' flag.')
                 
-                new_dlg = db['users'][user_id]['dialogue_id']
+            if 'dialogue' in chosen_dlg['after']:
+                for tag in ['major', 'minor', 'sub']:
+                    db['users'][user_id]['dialogue_id'][tag] = chosen_dlg['after']['dialogue'][tag]
+                
+                new_dlg_id = db['users'][user_id]['dialogue_id']
                 
                 print(f'{now()}: [{user_id}] Updated dialogue_id from \
-({old_dlg["major"]}, {old_dlg["minor"]}, {old_dlg["sub"]}) to \
-({new_dlg["major"]}, {new_dlg["minor"]}, {new_dlg["sub"]}).')
-            if 'flag' in chosen_dlg['next']:
-                flag = chosen_dlg['next']['flag']['name']
-                
-                db['users'][user_id]['flags'][flag] = True
+({old_dlg_id["major"]}, {old_dlg_id["minor"]}, {old_dlg_id["sub"]}) to \
+({new_dlg_id["major"]}, {new_dlg_id["minor"]}, {new_dlg_id["sub"]}).')
 
-                print(f'{now()}: [{user_id}] Added \'{flag}\' flag.')
-
+                new_chosen_dlg = jdata['game_data']['dialogue'][new_dlg_id['major']][new_dlg_id['minor']][new_dlg_id['sub']]
+                if 'before' in new_chosen_dlg:
+                    if 'flag' in new_chosen_dlg['before']:
+                        flag = new_chosen_dlg['before']['flag']['name']
+                        db['users'][user_id]['flags'][flag] = True
+                        print(f'{now()}: [{user_id}] Added \'{flag}\' flag.')
 
     async def send_dlg(self, ctx):
         user_id = str(ctx.author.id)
@@ -52,7 +57,7 @@ class User(commands.Cog):
                 jdata_chosen_dlg = jdata['game_data']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
                 print(f'{now()}: [{user_id}] Defined jdata_chosen_dlg')
                 
-                if 'input' not in jdata_chosen_dlg.keys():
+                if 'await' not in jdata_chosen_dlg.keys():
                     print(f'{now()}: [{user_id}] Entered if scope.')
                     
                     self.update_dlg_id(user_id, jdata_chosen_dlg)
@@ -185,19 +190,19 @@ class User(commands.Cog):
             user_dlg_id = db['users'][user_id]['dialogue_id']
             jdata_chosen_dlg = jdata['game_data']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
 
-            if 'input' in jdata_chosen_dlg.keys():
-                if not jdata_chosen_dlg['input']['case']:
+            if 'await' in jdata_chosen_dlg.keys():
+                if not jdata_chosen_dlg['await']['case']:
                     input = input.lower()
-                if 'checks' in jdata_chosen_dlg['input'].keys():
-                    if 'regex' in jdata_chosen_dlg['input']['checks'].keys():
-                        regex = jdata_chosen_dlg["input"]["checks"]["regex"]
+                if 'checks' in jdata_chosen_dlg['await'].keys():
+                    if 'regex' in jdata_chosen_dlg['await']['checks'].keys():
+                        regex = jdata_chosen_dlg['await']['checks']['regex']
                         print(f'{now()}: [{user_id}] Tries to match "{input}" to "{regex}".')
                         if not re.match(regex, input):
                             await send_dlg_error_embed(ctx, jdata_chosen_dlg)
                             print(f'{now()}: [{user_id}] Error.')
                             return
-                    elif 'array' in jdata_chosen_dlg['input']['checks'].keys():
-                        array = jdata_chosen_dlg["input"]["checks"]["array"]
+                    elif 'array' in jdata_chosen_dlg['await']['checks'].keys():
+                        array = jdata_chosen_dlg['await']['checks']['array']
                         print(f'{now()}: [{user_id}] Checking if "{input}" is in "{array}".')
                         if input not in array:
                             await send_dlg_error_embed(ctx, jdata_chosen_dlg)
@@ -205,8 +210,8 @@ class User(commands.Cog):
                             return
                 print(f'{now()}: [{user_id}] Success.')
                 
-                print(f'{now()}: [{user_id}] Tries {jdata_chosen_dlg["input"]["name"]} = "{input}".')
-                exec(f'{jdata_chosen_dlg["input"]["name"]} = "{input}"')
+                print(f'{now()}: [{user_id}] Tries {jdata_chosen_dlg["await"]["name"]} = "{input}".')
+                exec(f'{jdata_chosen_dlg["await"]["name"]} = "{input}"')
                 print(f'{now()}: [{user_id}] Success.')
 
                 self.update_dlg_id(user_id, jdata_chosen_dlg)
@@ -217,7 +222,7 @@ class User(commands.Cog):
                 await send_error_embed(ctx, 'dlg_no_input')
             return
             
-        await send_error_embed(ctx, 'already_registered')
+        await send_error_embed(ctx, 'not_registered')
 
 
     @commands.command(aliases=['dlg'])

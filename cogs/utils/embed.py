@@ -44,7 +44,7 @@ async def send_error_embed(ctx, error_name):
 
 
 async def send_dlg_error_embed(ctx, jdata_chosen_dlg):
-    await ctx.send(embed=error_tpl(ctx, jdata_chosen_dlg['input']['checks']['error_text']))
+    await ctx.send(embed=error_tpl(ctx, jdata_chosen_dlg['await']['checks']['error_text']))
 
 
 async def send_dialogue_embed(ctx, lang_chosen_dlg):

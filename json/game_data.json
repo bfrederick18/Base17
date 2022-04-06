@@ -3,7 +3,7 @@
         "0": {
             "0": {
                 "0": {
-                    "next": {
+                    "after": {
                         "dialogue": {
                             "major": "0",
                             "minor": "0",
@@ -12,7 +12,7 @@
                     }
                 },
                 "1": {
-                    "input": {
+                    "await": {
                         "type": "str",
                         "name": "db['users'][user_id]['username']",
                         "case": true,
@@ -21,7 +21,7 @@
                             "error_text": "Invalid name; Name must follow the regex: \"(?=^.{2,24}$)^[a-zA-Z][a-zA-Z0-9]*$\""
                         }
                     },
-                    "next": {
+                    "after": {
                         "dialogue": {
                             "major": "0",
                             "minor": "0",
@@ -30,7 +30,7 @@
                     }
                 },
                 "2": {
-                    "input": {
+                    "await": {
                         "type": "str",
                         "name": "db['users'][user_id]['occupation']",
                         "case": false,
@@ -39,7 +39,7 @@
                             "error_text": "Invalid occupation; Occupation must be either: \"Miner\", \"Ace\", \"Explorer\", or \"Trader\" (case insensitive)."
                         }
                     },
-                    "next": {
+                    "after": {
                         "dialogue": {
                             "major": "0",
                             "minor": "0",
@@ -48,12 +48,12 @@
                     }
                 },
                 "3": {
-                    "input": {
+                    "await": {
                         "type": "str",
                         "name": "db['users'][user_id]['skills']['special_skill']",
                         "case": false
                     },
-                    "next": {
+                    "after": {
                         "dialogue": {
                             "major": "0",
                             "minor": "1",
@@ -64,43 +64,47 @@
             },
             "1": {
                 "0": {
-                    "next": {
+                    "after": {
                         "dialogue": {
                             "major": "0",
                             "minor": "1",
                             "sub": "1"
-                        },
-                        "flag": {
-                            "name": "cmd_jump_unlocked"
                         }
                     }
                 },
                 "1": {
+                    "before": {
+                        "flag": {
+                            "name": "cmd_jump_unlocked"
+                        }
+                    },
                     "await": {
                         "flag": {
                             "name": "cmd_jump_success"
                         }  
                     },
-                    "next": {
+                    "after": {
                         "dialogue": {
                             "major": "0",
                             "minor": "2",
                             "sub": "0"
-                        },
-                        "flag": {
-                            "name": "cmd_settle_unlocked"
                         }
                     }
                 }
             },
             "2": {
                 "0": {
+                    "before": {
+                        "flag": {
+                            "name": "cmd_settle_unlocked"
+                        }
+                    },
                     "await": {
                         "flag": {
                             "name": "cmd_settle_success"
                         }  
                     },
-                    "next": {
+                    "after": {
                         "dialogue": {
                             "major": "0",
                             "minor": "2",
@@ -109,13 +113,7 @@
                     }
                 },
                 "1": {
-                    "next": {
-                        "dialogue": {
-                            "major": "0",
-                            "minor": "2",
-                            "sub": "1"
-                        }
-                    }
+                    
                 }
             }
         }
