@@ -191,7 +191,7 @@ class User(commands.Cog):
             jdata_chosen_dlg = jdata['game_data']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
 
             if 'await' in jdata_chosen_dlg.keys():
-                if not jdata_chosen_dlg['await']['case']:
+                if 'case' in jdata_chosen_dlg['await'] and not jdata_chosen_dlg['await']['case']:
                     input = input.lower()
                 if 'checks' in jdata_chosen_dlg['await'].keys():
                     if 'regex' in jdata_chosen_dlg['await']['checks'].keys():
@@ -209,10 +209,15 @@ class User(commands.Cog):
                             print(f'{now()}: [{user_id}] Error.')
                             return
                 print(f'{now()}: [{user_id}] Success.')
-                
-                print(f'{now()}: [{user_id}] Tries {jdata_chosen_dlg["await"]["name"]} = "{input}".')
+
+                print(f'{now()}: [{user_id}] Setting {jdata_chosen_dlg["await"]["name"]} = "{input}"...',
+                      end='',
+                      flush=True)
+                #try:
                 exec(f'{jdata_chosen_dlg["await"]["name"]} = "{input}"')
-                print(f'{now()}: [{user_id}] Success.')
+                # except:
+                    # print('\033[31m' + f' Failed: {}' + '\033[0m')
+                print(' Success.')
 
                 self.update_dlg_id(user_id, jdata_chosen_dlg)
                 
