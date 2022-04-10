@@ -203,6 +203,7 @@ class User(commands.Cog):
                             await send_dlg_error_embed(ctx, jdata_chosen_dlg)
                             print('\033[31m' + f' Failed.' + '\033[0m')
                             return
+                        print(' Success.')
                     elif 'array' in jdata_chosen_dlg['await']['checks'].keys():
                         array = jdata_chosen_dlg['await']['checks']['array']
                         print(f'{now()}: [{user_id}] Checking if "{input}" is in "{array}".',
@@ -212,7 +213,8 @@ class User(commands.Cog):
                             await send_dlg_error_embed(ctx, jdata_chosen_dlg)
                             print('\033[31m' + f' Failed.' + '\033[0m')
                             return
-                print(' Success.')
+                        print(' Success.')
+                
 
                 print(f'{now()}: [{user_id}] Setting {jdata_chosen_dlg["await"]["name"]} = "{input}"...',
                       end='',
