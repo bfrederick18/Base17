@@ -37,7 +37,7 @@ class Mining(commands.Cog):
         user_data = db['users'][user_id]
         ore_icons = jdata['config']['icons']['ores']
 
-        embed = discord.Embed(description=f'Mined a profit of **{inc}** quarx.', color=int(jdata['config']['colors']['mining'], 16))
+        embed = discord.Embed(description=f'Mined a profit of **{inc}** quarx.', color=int(jdata['config']['colors']['embed']['mining'], 16))
         embed.set_author(
             name=f'[{user_data["username"]}] Successfully mined.',
             icon_url=(ore_icons[random.randint(0, len(ore_icons) - 1)] if len(ore_icons) > 0 else discord.Embed.Empty))

@@ -125,7 +125,7 @@ class User(commands.Cog):
         user_data = db['users'][user_id]
         embed = discord.Embed(
             description=f'Quarx: {user_data["quarx"]}\nShips: {len(user_data["ships"])}\n Colonies: {len(user_data["colonies"])}',
-            color=int(jdata['config']['colors']['info'], 16))
+            color=int(jdata['config']['colors']['embed']['info'], 16))
         embed.set_author(name=f'[{user_data["username"]}] Personal Data.', icon_url=jdata['config']['icons']['success'])
         embed.set_footer(text=f'This data will expire in {jdata["config"]["delete_after"]["default"]} seconds.')
         await ctx.message.delete()
