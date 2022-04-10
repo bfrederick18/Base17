@@ -49,9 +49,7 @@ async def change_status():
 @commands.is_owner()
 async def loadcog(ctx, extension):
     try:
-        print(f'{now()}: Loading \'cogs.{extension}\'...',
-              end='',
-              flush=True)
+        print(f'{now()}: Loading \'cogs.{extension}\'...', end='', flush=True)
         load(extension)
         await ctx.message.delete()
         await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_loaded']))
@@ -69,9 +67,7 @@ async def loadcog(ctx, extension):
 @commands.is_owner()
 async def unloadcog(ctx, extension):
     try:
-        print(f'{now()}: Unloading \'cogs.{extension}\'...',
-              end='',
-              flush=True)
+        print(f'{now()}: Unloading \'cogs.{extension}\'...', end='', flush=True)
         unload(extension)
         await ctx.message.delete()
         await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_unloaded']))
@@ -89,9 +85,7 @@ async def unloadcog(ctx, extension):
 @commands.is_owner()
 async def reloadcog(ctx, extension):
     try:
-        print(f'{now()}: Reloading \'cogs.{extension}\'...',
-              end='',
-              flush=True)
+        print(f'{now()}: Reloading \'cogs.{extension}\'...', end='', flush=True)
         unload(extension)
         load(extension)
         await ctx.message.delete()

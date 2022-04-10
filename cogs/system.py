@@ -48,9 +48,7 @@ class System(commands.Cog):
         dist = round(raw_dist)
         fuel = ship['fuel']
 
-        print(f'{now()}: Jumping ship "{ship_id}" from ({ship["coords"]["x"]},{ship["coords"]["y"]}) to ({x},{y}), a distance of {dist} (raw_dist: {round(raw_dist, 4)}) with {fuel} unit(s) of fuel...',
-              end='',
-              flush=True)
+        print(f'{now()}: Jumping ship "{ship_id}" from ({ship["coords"]["x"]},{ship["coords"]["y"]}) to ({x},{y}), a distance of {dist} (raw_dist: {round(raw_dist, 4)}) with {fuel} unit(s) of fuel...', end='', flush=True)
         
         if dist > fuel:
             print('\033[31m' + ' Failed: NotEnoughtFuelShip.' + '\033[0m')

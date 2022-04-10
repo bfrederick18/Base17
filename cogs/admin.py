@@ -24,10 +24,10 @@ class Administrator(commands.Cog):
     @commands.command()
     async def clear(self, ctx, amount: int):
         await ctx.message.delete()
-        print(f'{now()}: Clearing messages in channel {ctx.channel.id}.')
+        print(f'{now()}: Clearing messages in channel {ctx.channel.id} (max {amount})...', end='', flush=True)
         deleted = await ctx.channel.purge(limit=amount)
         await send_success_embed(ctx, f'Deleted {len(deleted)} message{"s" if len(deleted) < 1 or len(deleted) > 1 else ""}.')
-        print(f'{now()}: Successfully cleared {len(deleted)} message{"s" if len(deleted) < 1 or len(deleted) > 1 else ""}.')
+        print(f' Success: Cleared {len(deleted)} message{"s" if len(deleted) < 1 or len(deleted) > 1 else ""}.')
 
 
 def setup(bot):
