@@ -190,30 +190,35 @@ class User(commands.Cog):
             user_dlg_id = db['users'][user_id]['dialogue_id']
             jdata_chosen_dlg = jdata['game_data']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
 
-            if 'await' in jdata_chosen_dlg.keys():
-                if 'case' in jdata_chosen_dlg['await'] and not jdata_chosen_dlg['await']['case']:
-                    input = input.lower()
-                if 'checks' in jdata_chosen_dlg['await'].keys():
-                    if 'regex' in jdata_chosen_dlg['await']['checks'].keys():
-                        regex = jdata_chosen_dlg['await']['checks']['regex']
-                        print(f'{now()}: [{user_id}] Tries to match "{input}" to "{regex}".',
-                              end='',
-                              flush=True)
-                        if not re.match(regex, input):
-                            await send_dlg_error_embed(ctx, jdata_chosen_dlg)
-                            print('\033[31m' + f' Failed.' + '\033[0m')
-                            return
-                        print(' Success.')
-                    elif 'array' in jdata_chosen_dlg['await']['checks'].keys():
-                        array = jdata_chosen_dlg['await']['checks']['array']
-                        print(f'{now()}: [{user_id}] Checking if "{input}" is in "{array}".',
-                              end='',
-                              flush=True)
-                        if input not in array:
-                            await send_dlg_error_embed(ctx, jdata_chosen_dlg)
-                            print('\033[31m' + f' Failed.' + '\033[0m')
-                            return
-                        print(' Success.')
+            if 'await' in jdata_chosen_dlg.keys() and 'type' in jdata_chosen_dlg['await'].keys():
+                if jdata_chosen_dlg['await']['type'] == 'str':
+                    if 'case' in jdata_chosen_dlg['await'] and not jdata_chosen_dlg['await']['case']:
+                        input = input.lower()
+                        
+                    if 'checks' in jdata_chosen_dlg['await'].keys():
+                        if 'regex' in jdata_chosen_dlg['await']['checks'].keys():
+                            regex = jdata_chosen_dlg['await']['checks']['regex']
+                            print(f'{now()}: [{user_id}] Tries to match "{input}" to "{regex}"...',
+                                  end='',
+                                  flush=True)
+                            if not re.match(regex, input):
+                                await send_dlg_error_embed(ctx, jdata_chosen_dlg)
+                                print('\033[31m' + f' Failed.' + '\033[0m')
+                                return
+                            print(' Success.')
+                        elif 'array' in jdata_chosen_dlg['await']['checks'].keys():
+                            array = jdata_chosen_dlg['await']['checks']['array']
+                            print(f'{now()}: [{user_id}] Checking if "{input}" is in "{array}"...',
+                                  end='',
+                                  flush=True)
+                            if input not in array:
+                                await send_dlg_error_embed(ctx, jdata_chosen_dlg)
+                                print('\033[31m' + f' Failed.' + '\033[0m')
+                                return
+                            print(' Success.')
+                            
+                elif jdata_chosen_dlg['await']['type'] == 'int':
+                    pass
                 
 
                 print(f'{now()}: [{user_id}] Setting {jdata_chosen_dlg["await"]["name"]} = "{input}"...',
