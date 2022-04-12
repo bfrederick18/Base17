@@ -30,9 +30,9 @@ class Master(commands.Cog):
     async def reloadjson(self, ctx, extension, perm_arg=''):
         old_dict = jdata[extension]
 
-        print(f'{now()}: Reloading {extension}.json...')
+        print(f'{now()}: Reloading {extension}.json...', end='', flush=True)
         reload_json(extension)
-        print(f'{now()}: Done.')
+        print(' Success.')
         await ctx.message.delete()
 
         new_dict = jdata[extension]

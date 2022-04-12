@@ -100,6 +100,12 @@ async def reloadcog(ctx, extension):
         await send_error_embed(ctx, 'cog_not_found')
 
 
+@bot.command()
+@commands.is_owner()
+async def reloadall(ctx):
+    pass
+
+
 @bot.event
 async def on_member_join(member):
     return

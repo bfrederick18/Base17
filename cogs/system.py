@@ -27,9 +27,7 @@ class System(commands.Cog):
             await send_error_embed(ctx, 'not_registered')
             return
 
-        print(f'{now()}: Checking if "{self.jump.name}" command is unlocked...',
-              end='',
-              flush=True)
+        print(f'{now()}: Checking if "{self.jump.name}" command is unlocked...', end='', flush=True)
         
         if 'cmd_jump_unlocked' not in db['users'][user_id]['flags']:
             print('\033[31m' + f' Failed: "{self.jump.name}" command is locked.' + '\033[0m')
