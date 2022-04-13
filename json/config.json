@@ -26,8 +26,9 @@
             "success": "0x2ecc36"
         },
         "trm": {
-            "failed": "0xe74c3c",
-            "success": "0xe74c3c"
+            "base": "\\033[0m",
+            "failed": "\\033[31m",
+            "success": "\\033[32m"
         }
     }
 }           

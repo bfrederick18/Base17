@@ -1,8 +1,10 @@
 from cogs.utils.time import now
+from config import jdata
 
-def trmprint(msg: str, color=None):
+def trmprint(msg: str, color=None, time=True):
     if color == None:
-        print(f'{now()}: {msg}')
-    else:
-        if color == 'error':
-            print('\033[31m' + ' Failed: NotEnoughtFuelShip.' + '\033[0m')
+        print(f'{now()}:' + f' {msg}')
+        return
+
+    trm_config = jdata['config']['colors']['trm']
+    print(trm_config['error'] + msg + trm_config['base'])
