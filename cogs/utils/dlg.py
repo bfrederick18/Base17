@@ -1,0 +1,60 @@
+from cogs.utils.embed import send_error_embed, send_dialogue_embed
+from cogs.utils.time import now
+from config import jdata
+from replit import db
+
+
+def update_dlg_id(user_id, chosen_dlg):
+    old_dlg_id = db['users'][user_id]['dialogue_id']
+
+    if 'after' in chosen_dlg:
+        if 'flag' in chosen_dlg['after']:
+            flag = chosen_dlg['after']['flag']['name']
+            db['users'][user_id]['flags'].append(flag)
+            print(f'{now()}: [{user_id}] Added \'{flag}\' flag.')
+            
+        if 'dialogue' in chosen_dlg['after']:
+            for tag in ['major', 'minor', 'sub']:
+                db['users'][user_id]['dialogue_id'][tag] = chosen_dlg['after']['dialogue'][tag]
+            
+            new_dlg_id = db['users'][user_id]['dialogue_id']
+            
+            print(f'{now()}: [{user_id}] Updated dialogue_id from \
+({old_dlg_id["major"]}, {old_dlg_id["minor"]}, {old_dlg_id["sub"]}) to \
+({new_dlg_id["major"]}, {new_dlg_id["minor"]}, {new_dlg_id["sub"]}).')
+
+            new_chosen_dlg = jdata['game_data']['dialogue'][new_dlg_id['major']][new_dlg_id['minor']][new_dlg_id['sub']]
+            if 'before' in new_chosen_dlg:
+                if 'flag' in new_chosen_dlg['before']:
+                    flag = new_chosen_dlg['before']['flag']['name']
+                    db['users'][user_id]['flags'].append(flag)
+                    print(f'{now()}: [{user_id}] Added \'{flag}\' flag.')
+
+async def send_dlg(ctx):
+    user_id = str(ctx.author.id)
+    print(f'{now()}: [{user_id}] Entered send_dlg.')
+    
+    if user_id in db['users'].keys():
+        user_dlg_id = db['users'][user_id]['dialogue_id']
+        lang_chosen_dlg = jdata[jdata['config']['chosen_language']]['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
+    
+        if 'description' in lang_chosen_dlg.keys() and 'author' in lang_chosen_dlg.keys():
+            await send_dialogue_embed(ctx, lang_chosen_dlg)
+            print(f'{now()}: [{user_id}] Sent dialogue ({user_dlg_id["major"]}, {user_dlg_id["minor"]}, {user_dlg_id["sub"]}).')
+
+            jdata_chosen_dlg = jdata['game_data']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
+            print(f'{now()}: [{user_id}] Defined jdata_chosen_dlg')
+            
+            if 'await' not in jdata_chosen_dlg.keys():
+                print(f'{now()}: [{user_id}] Entered if scope.')
+                
+                update_dlg_id(user_id, jdata_chosen_dlg)
+                
+                await send_dlg(ctx)
+                print(f'{now()}: [{user_id}] Done with send_dlg recursion.')
+            else:
+                print(f'{now()}: [{user_id}] Waiting on input.')
+        else:
+            await send_error_embed(ctx, 'dlg_no_desc_or_author')
+    else:
+        await send_error_embed(ctx, 'not_registered')

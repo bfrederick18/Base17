@@ -1,3 +1,4 @@
+from cogs.utils.dlg import send_dlg, update_dlg_id
 from cogs.utils.embed import send_error_embed, send_success_embed
 from cogs.utils.time import now
 from config import jdata
@@ -60,6 +61,15 @@ class System(commands.Cog):
         await ctx.message.delete()
         await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['jump_ship']))
         print(' Success.')
+
+        if 'cmd_jump_success' not in db['users'][user_id]['flags']:
+            db['users'][user_id]['flags'].append('cmd_jump_success')
+
+            user_dlg_id = db['users'][user_id]['dialogue_id']
+            jdata_chosen_dlg = jdata['game_data']['dialogue'][user_dlg_id['major']][user_dlg_id['minor']][user_dlg_id['sub']]
+            update_dlg_id(user_id, jdata_chosen_dlg)
+            
+            await send_dlg(ctx)
 
 
 def setup(bot):
