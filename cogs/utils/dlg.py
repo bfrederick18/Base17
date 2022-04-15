@@ -5,30 +5,32 @@ from replit import db
 
 
 def update_dlg_id(user_id, chosen_dlg):
+    if 'after' not in chosen_dlg:
+        return
+        
     old_dlg_id = db['users'][user_id]['dialogue_id']
-
-    if 'after' in chosen_dlg:
-        if 'flag' in chosen_dlg['after']:
-            flag = chosen_dlg['after']['flag']['name']
-            db['users'][user_id]['flags'].append(flag)
-            print(f'{now()}: [{user_id}] Added \'{flag}\' flag.')
-            
-        if 'dialogue' in chosen_dlg['after']:
-            for tag in ['major', 'minor', 'sub']:
-                db['users'][user_id]['dialogue_id'][tag] = chosen_dlg['after']['dialogue'][tag]
-            
-            new_dlg_id = db['users'][user_id]['dialogue_id']
-            
-            print(f'{now()}: [{user_id}] Updated dialogue_id from \
+        
+    if 'flag' in chosen_dlg['after']:
+        flag = chosen_dlg['after']['flag']['name']
+        db['users'][user_id]['flags'].append(flag)
+        print(f'{now()}: [{user_id}] Added \'{flag}\' flag.')
+        
+    if 'dialogue' in chosen_dlg['after']:
+        for tag in ['major', 'minor', 'sub']:
+            db['users'][user_id]['dialogue_id'][tag] = chosen_dlg['after']['dialogue'][tag]
+        
+        new_dlg_id = db['users'][user_id]['dialogue_id']
+        
+        print(f'{now()}: [{user_id}] Updated dialogue_id from \
 ({old_dlg_id["major"]}, {old_dlg_id["minor"]}, {old_dlg_id["sub"]}) to \
 ({new_dlg_id["major"]}, {new_dlg_id["minor"]}, {new_dlg_id["sub"]}).')
 
-            new_chosen_dlg = jdata['game_data']['dialogue'][new_dlg_id['major']][new_dlg_id['minor']][new_dlg_id['sub']]
-            if 'before' in new_chosen_dlg:
-                if 'flag' in new_chosen_dlg['before']:
-                    flag = new_chosen_dlg['before']['flag']['name']
-                    db['users'][user_id]['flags'].append(flag)
-                    print(f'{now()}: [{user_id}] Added \'{flag}\' flag.')
+        new_chosen_dlg = jdata['game_data']['dialogue'][new_dlg_id['major']][new_dlg_id['minor']][new_dlg_id['sub']]
+        if 'before' in new_chosen_dlg:
+            if 'flag' in new_chosen_dlg['before']:
+                flag = new_chosen_dlg['before']['flag']['name']
+                db['users'][user_id]['flags'].append(flag)
+                print(f'{now()}: [{user_id}] Added \'{flag}\' flag.')
 
 async def send_dlg(ctx):
     user_id = str(ctx.author.id)

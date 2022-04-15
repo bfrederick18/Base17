@@ -6,6 +6,7 @@ import discord
 from cogs.utils.dlg import send_dlg, update_dlg_id
 from cogs.utils.embed import send_error_embed, send_dlg_error_embed
 from cogs.utils.time import now
+from cogs.utils.trm import trmprint
 from config import jdata
 from discord.ext import commands
 from replit import db
