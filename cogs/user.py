@@ -5,7 +5,6 @@ import discord
 
 from cogs.utils.dlg import send_dlg, update_dlg_id
 from cogs.utils.embed import send_error_embed, send_dlg_error_embed
-from cogs.utils.time import now
 from cogs.utils.trm import trmprint
 from config import jdata
 from discord.ext import commands
@@ -27,25 +26,25 @@ class User(commands.Cog):
                 random.randint(jdata['game_data']['systems']['width']['min'], jdata['game_data']['systems']['width']['max']),
                 random.randint(jdata['game_data']['systems']['height']['min'], jdata['game_data']['systems']['height']['max'])
                 )
-            print(f'{now()}: [{user_id}] Rolled ({x}, {y})')
+            trmprint(f'[{user_id}] Rolled ({x}, {y})')
             
             clear = True
             for i in range(x - 1, x + 2): # (x - 1) to (x + 1) inclusive
                 for j in range(y - 1, y + 2):  # (y - 1) to (y + 1) inclusive
                     if (i == x) and (j == y):  # Not (x, y)
                         continue
-                    print(f'{now()}: [{user_id}] Checking ({i}, {j})')
+                    trmprint(f'[{user_id}] Checking ({i}, {j})')
                     if str(i) in db['systems'].keys() and str(j) in db['systems'][str(i)].keys():
                         clear = False
-                        print(f'{now()}: [{user_id}] Conflict on ({i}, {j})')
+                        trmprint(f'[{user_id}] Conflict on ({i}, {j})')
                         
-        print(f'{now()}: [{user_id}] Returning ({x}, {y})')
+        trmprint(f'[{user_id}] Returning ({x}, {y})')
         return (x, y)
 
 
     def gen_system_data(self, user_id):
-        print(f'{now()}: [{user_id}] system_types: {jdata["game_data"]["systems"]["system_types"]}: {len(jdata["game_data"]["systems"]["system_types"])}')
-        print(f'{now()}: [{user_id}] system_types_roll_table: {jdata["game_data"]["systems"]["system_types_roll_table"]}: {len(jdata["game_data"]["systems"]["system_types_roll_table"])}')
+        trmprint(f'[{user_id}] system_types: {jdata["game_data"]["systems"]["system_types"]}: {len(jdata["game_data"]["systems"]["system_types"])}')
+        trmprint(f'[{user_id}] system_types_roll_table: {jdata["game_data"]["systems"]["system_types_roll_table"]}: {len(jdata["game_data"]["systems"]["system_types_roll_table"])}')
         
         system_data = {
             'allegiance': 'alien',
@@ -58,7 +57,7 @@ class User(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'{now()}: User cog is online.')
+        trmprint(f'User cog is online.')
 
 
     @commands.command(aliases=['i', 'inv', 'data'])
@@ -107,21 +106,21 @@ class User(commands.Cog):
                 'skills': {},
                 'flags': []
             }
-            print(f'{now()}: [{user_id}] Created user_data.')
+            trmprint(f'[{user_id}] Created user_data.')
             
             db['users'][str(ctx.author.id)] = user_data
-            print(f'{now()}: [{user_id}] Set user_data.')
+            trmprint(f'[{user_id}] Set user_data.')
             
             system_data = self.gen_system_data(user_id)
             
-            print(f'{now()}: [{user_id}] Created system_data.')
+            trmprint(f'[{user_id}] Created system_data.')
 
             if str(x) not in db['systems'].keys():
                 db['systems'][str(x)] = {}
 
             db['systems'][str(x)][str(y)] = system_data
             
-            print(f'{now()}: [{user_id}] Set system_data.')
+            trmprint(f'[{user_id}] Set system_data.')
 
             await send_dlg(ctx)
             return
@@ -144,36 +143,36 @@ class User(commands.Cog):
                     if 'checks' in jdata_chosen_dlg['await'].keys():
                         if 'regex' in jdata_chosen_dlg['await']['checks'].keys():
                             regex = jdata_chosen_dlg['await']['checks']['regex']
-                            print(f'{now()}: [{user_id}] Tries to match "{input}" to "{regex}"...', end='', flush=True)
+                            trmprint(f'[{user_id}] Tries to match "{input}" to "{regex}"...', end=' ', flush=True)
                             if not re.match(regex, input):
                                 await send_dlg_error_embed(ctx, jdata_chosen_dlg)
-                                print('\033[31m' + f' Failed.' + '\033[0m')
+                                trmprint('Failed.', type='failed', time=False)
                                 return
-                            print(' Success.')
+                            trmprint('Success.', type='success', time=False)
                         elif 'array' in jdata_chosen_dlg['await']['checks'].keys():
                             array = jdata_chosen_dlg['await']['checks']['array']
-                            print(f'{now()}: [{user_id}] Checking if "{input}" is in "{array}"...', end='', flush=True)
+                            trmprint(f'[{user_id}] Checking if "{input}" is in "{array}"...', end=' ', flush=True)
                             if input not in array:
                                 await send_dlg_error_embed(ctx, jdata_chosen_dlg)
-                                print('\033[31m' + f' Failed.' + '\033[0m')
+                                trmprint('Failed.', type='failed', time=False)
                                 return
-                            print(' Success.')
+                            trmprint('Success.', type='success', time=False)
                             
                 elif jdata_chosen_dlg['await']['type'] == 'int':
                     pass
                 
 
-                print(f'{now()}: [{user_id}] Setting {jdata_chosen_dlg["await"]["name"]} = "{input}"...', end='', flush=True)
+                trmprint(f'[{user_id}] Setting {jdata_chosen_dlg["await"]["name"]} = "{input}"...', end=' ', flush=True)
                 #try:
                 exec(f'{jdata_chosen_dlg["await"]["name"]} = "{input}"')
                 # except:
                     # print('\033[31m' + f' Failed: {}' + '\033[0m')
-                print(' Success.')
+                trmprint('Success.', type='success', time=False)
 
                 update_dlg_id(user_id, jdata_chosen_dlg)
                 
                 await send_dlg(ctx)
-                print(f'{now()}: [{user_id}] Done with send_dlg recursion.')
+                trmprint(f'[{user_id}] Done with send_dlg recursion.')
             else:
                 await send_error_embed(ctx, 'dlg_no_input')
             return
