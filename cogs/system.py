@@ -1,6 +1,6 @@
 from cogs.utils.dlg import send_dlg, update_dlg_id
 from cogs.utils.embed import send_error_embed, send_success_embed
-from cogs.utils.time import now
+from cogs.utils.trm import trmprint
 from config import jdata
 from discord.ext import commands
 from replit import db
@@ -14,7 +14,7 @@ class System(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'{now()}: System cog is online.')
+        trmprint('System cog is online.')
 
 
     @commands.command()
@@ -28,14 +28,14 @@ class System(commands.Cog):
             await send_error_embed(ctx, 'not_registered')
             return
 
-        print(f'{now()}: Checking if "{self.jump.name}" command is unlocked...', end='', flush=True)
+        trmprint(f'[{user_id}] Checking if "{self.jump.name}" command is unlocked...', end=' ', flush=True)
         
         if 'cmd_jump_unlocked' not in db['users'][user_id]['flags']:
-            print('\033[31m' + f' Failed: "{self.jump.name}" command is locked.' + '\033[0m')
+            trmprint(f'Failed: "{self.jump.name}" command is locked.', type='failed', time=False)
             await send_error_embed(ctx, 'command_locked')
             return
             
-        print(' Success.')
+        trmprint('Success.', type='success', time=False)
 
         # if 'ship' in db['users'][user_id]['piloting']:
         ship_id = db['users'][user_id]['piloting'][len('ship_'):]  # ship_0 -> 0
@@ -47,10 +47,10 @@ class System(commands.Cog):
         dist = round(raw_dist)
         fuel = ship['fuel']
 
-        print(f'{now()}: Jumping ship "{ship_id}" from ({ship["coords"]["x"]},{ship["coords"]["y"]}) to ({x},{y}), a distance of {dist} (raw_dist: {round(raw_dist, 4)}) with {fuel} unit(s) of fuel...', end='', flush=True)
+        trmprint(f'[{user_id}] Jumping ship "{ship_id}" from ({ship["coords"]["x"]},{ship["coords"]["y"]}) to ({x},{y}), a distance of {dist} (raw_dist: {round(raw_dist, 4)}) with {fuel} unit(s) of fuel...', end=' ', flush=True)
         
         if dist > fuel:
-            print('\033[31m' + ' Failed: NotEnoughtFuelShip.' + '\033[0m')
+            trmprint('Failed: NotEnoughtFuelShip.', type='failed', time=False)
             await send_error_embed(ctx, 'not_enough_fuel_ship')
             return
         
@@ -60,7 +60,7 @@ class System(commands.Cog):
 
         await ctx.message.delete()
         await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['jump_ship']))
-        print(' Success.')
+        trmprint('Success.', type='success', time=False)
 
         if 'cmd_jump_success' not in db['users'][user_id]['flags']:
             db['users'][user_id]['flags'].append('cmd_jump_success')
