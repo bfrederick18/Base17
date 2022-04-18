@@ -3,7 +3,7 @@ import random
 import discord
 
 from cogs.utils.embed import send_error_embed
-from cogs.utils.time import now
+from cogs.utils.trm import trmprint
 from config import jdata
 from discord.ext import commands
 from replit import db
@@ -17,7 +17,7 @@ class Mining(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'{now()}: Mining cog is online.')
+        trmprint('Mining cog is online.')
 
 
     @commands.command(aliases=['m'])
