@@ -30,7 +30,7 @@ class Master(commands.Cog):
     async def reloadjson(self, ctx, extension, perm_arg=''):
         old_dict = jdata[extension]
 
-        trmprint(f'Reloading {extension}.json...', end='', flush=True)
+        trmprint(f'Reloading {extension}.json...', end=' ', flush=True)
         reload_json(extension)
         trmprint('Success.', type='success', time=False)
         await ctx.message.delete()
