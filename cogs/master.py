@@ -3,7 +3,7 @@ import json
 import os
 
 from cogs.utils.embed import send_error_embed, send_success_embed
-from cogs.utils.time import now
+from cogs.utils.trm import trmprint
 from config import jdata, reload_json
 from discord.ext import commands
 from replit import db
@@ -22,7 +22,7 @@ class Master(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'{now()}: Master cog is online.')
+        trmprint('Master cog is online.')
 
 
     @commands.command()
@@ -30,9 +30,9 @@ class Master(commands.Cog):
     async def reloadjson(self, ctx, extension, perm_arg=''):
         old_dict = jdata[extension]
 
-        print(f'{now()}: Reloading {extension}.json...', end='', flush=True)
+        trmprint(f'Reloading {extension}.json...', end='', flush=True)
         reload_json(extension)
-        print(' Success.')
+        trmprint('Success.', type='success', time=False)
         await ctx.message.delete()
 
         new_dict = jdata[extension]
@@ -41,7 +41,7 @@ class Master(commands.Cog):
         for diff in list(dictdiffer.diff(old_dict, new_dict)):
             edits.append(diff)
 
-        print(f'{now()}: Edits: {edits}')
+        trmprint(f'Edits: {edits}')
         await self.send_debug(ctx, edits, [perm_arg], 0)
 
 
@@ -107,7 +107,7 @@ class Master(commands.Cog):
                 await ctx.message.delete()
                 
         except IndexError as e:
-            print(f'{now()}: IndexError: {e}: args = {args}')
+            trmprint(f'IndexError: {e}: args = {args}')
             await send_error_embed(ctx, 'missing_arguments')
 
     
@@ -118,9 +118,9 @@ class Master(commands.Cog):
             if args[0] == 'clear':
                 os.system('clear')  # Might not want to delete everyting because keeping a log is important...
                 # print('\n' * 100)
-                print(jdata['config']['banner'] + '\n')
+                trmprint(jdata['config']['banner'] + '\n', time=False)
         except IndexError as e:
-            print(f'{now()}: IndexError: {e}: args = {args}')
+            trmprint(f'IndexError: {e}: args = {args}')
             await send_error_embed(ctx, 'missing_arguments')
 
 
@@ -152,7 +152,7 @@ class Master(commands.Cog):
                 await ctx.message.delete()
             
         except IndexError as e:
-            print(f'{now()}: IndexError: {e}: args = {args}')
+            trmprint(f'IndexError: {e}: args = {args}')
             await send_error_embed(ctx, 'missing_arguments')
 
 def setup(bot):
