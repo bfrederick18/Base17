@@ -3,7 +3,7 @@ import os
 import discord
 
 from cogs.utils.embed import send_error_embed, send_success_embed
-from cogs.utils.time import now
+from cogs.utils.trm import trmprint
 from config import jdata, status_cycle
 from discord.ext import commands, tasks
 from server import keep_alive
@@ -23,13 +23,13 @@ def unload(extension):
 @bot.event
 async def on_ready():
     os.system('clear')
-    print(jdata['config']['banner'] + '\n')
-    print(f'{now()}: Logging in as {bot.user}.')
+    trmprint(jdata['config']['banner'] + '\n', time=False)
+    trmprint(f'Logging in as {bot.user}.')
     c, l = os.get_terminal_size()
-    print(f'{now()}: Terminal Size: ({c}, {l}).')
-    print(f'{now()}: Starting status loop.')
+    trmprint(f'Terminal Size: ({c}, {l}).')
+    trmprint('Starting status loop.')
     change_status.start()
-    print(f'{now()}: Loading cogs.')
+    trmprint('Loading cogs.')
 
 
 @bot.event
@@ -37,7 +37,7 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await send_error_embed(ctx, 'missing_arguments')
 
-    print(f'{now()}: Unhandled Command Error: {error}')
+    trmprint(f'Unhandled Command Error: {error}')
 
 
 @tasks.loop(seconds=150)
@@ -49,17 +49,17 @@ async def change_status():
 @commands.is_owner()
 async def loadcog(ctx, extension):
     try:
-        print(f'{now()}: Loading \'cogs.{extension}\'...', end='', flush=True)
+        trmprint(f'Loading \'cogs.{extension}\'...', end=' ', flush=True)
         load(extension)
         await ctx.message.delete()
         await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_loaded']))
-        print(' Success.')
+        trmprint('Success.', type='success', time=False)
         
     except commands.ExtensionAlreadyLoaded as e:
-        print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
+        trmprint(f' Failed: {e}, {type(e)}', type='failed', time=False)
         await send_error_embed(ctx, 'cog_already_loaded')
     except commands.ExtensionNotFound as e:
-        print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
+        trmprint(f' Failed: {e}, {type(e)}', type='failed', time=False)
         await send_error_embed(ctx, 'cog_not_found')
 
 
@@ -67,17 +67,17 @@ async def loadcog(ctx, extension):
 @commands.is_owner()
 async def unloadcog(ctx, extension):
     try:
-        print(f'{now()}: Unloading \'cogs.{extension}\'...', end='', flush=True)
+        trmprint(f'Unloading \'cogs.{extension}\'...', end=' ', flush=True)
         unload(extension)
         await ctx.message.delete()
         await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_unloaded']))
-        print(' Success.')
+        trmprint('Success.', type='success', time=False)
         
     except commands.ExtensionNotLoaded as e:
-        print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
+        trmprint(f'Failed: {e}, {type(e)}', type='failed', time=False)
         await send_error_embed(ctx, 'cog_not_loaded')
     except commands.ExtensionNotFound as e:
-        print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
+        trmprint(f'Failed: {e}, {type(e)}', type='failed', time=False)
         await send_error_embed(ctx, 'cog_not_found')
 
 
@@ -85,18 +85,18 @@ async def unloadcog(ctx, extension):
 @commands.is_owner()
 async def reloadcog(ctx, extension):
     try:
-        print(f'{now()}: Reloading \'cogs.{extension}\'...', end='', flush=True)
+        trmprint(f'Reloading \'cogs.{extension}\'...', end=' ', flush=True)
         unload(extension)
         load(extension)
         await ctx.message.delete()
         await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_reloaded']))
-        print(' Success.')
+        trmprint('Success.', type='success', time=False)
         
     except commands.ExtensionNotLoaded as e:
-        print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
+        trmprint(f'Failed: {e}, {type(e)}', type='failed', time=False)
         await send_error_embed(ctx, 'cog_not_loaded')
     except commands.ExtensionNotFound as e:
-        print('\033[31m' + f' Failed: {e}, {type(e)}' + '\033[0m')
+        trmprint(f'Failed: {e}, {type(e)}', type='failed', time=False)
         await send_error_embed(ctx, 'cog_not_found')
 
 
