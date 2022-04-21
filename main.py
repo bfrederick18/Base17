@@ -113,7 +113,8 @@ async def on_member_join(member):
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
-        bot.load_extension(f'cogs.{filename[:-3]}')
+        cogname = filename[:-3]
+        bot.load_extension(f'cogs.{cogname}')
 
 keep_alive()
 print('Running bot')
