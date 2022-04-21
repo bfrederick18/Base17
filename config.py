@@ -1,8 +1,8 @@
 import json
 import pytz
 
-from os import listdir
 from itertools import cycle
+from os import listdir
 
 jdata = {}
 
