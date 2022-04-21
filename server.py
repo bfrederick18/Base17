@@ -1,11 +1,12 @@
 import json
 import logging
 
-from cogs.utils.time import now
+from cogs.utils.trm import trmprint
 from flask import Flask
 from replit import db
 from replit.database import dumps
 from threading import Thread
+
 
 app = Flask('')
 app.logger.disabled = True
@@ -31,7 +32,7 @@ def home():
 @app.after_request
 def after_request_func(response):
     # API: https://tedboy.github.io/flask/interface_api.response_object.html
-    print(f'{now()}: Request: {response}')
+    trmprint(f'Request: {response}')
     return response
 
 
