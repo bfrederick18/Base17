@@ -20,24 +20,33 @@ class User(commands.Cog):
     def gen_starting_coords(self, user_id):
         (x, y) = (0, 0)
 
+        trmprint(f'[{user_id}] Rolled: ', end=' ', flush=True)
         clear = False
         while not clear:
             (x, y) = (
                 random.randint(jdata['game_data']['systems']['width']['min'], jdata['game_data']['systems']['width']['max']),
                 random.randint(jdata['game_data']['systems']['height']['min'], jdata['game_data']['systems']['height']['max'])
                 )
-            trmprint(f'[{user_id}] Rolled ({x}, {y})')
-            
+            trmprint(f'({x}, {y})', time=False)
+            trmprint(f'[{user_id}] Checking:', end=' ', flush=True)
             clear = True
             for i in range(x - 1, x + 2): # (x - 1) to (x + 1) inclusive
                 for j in range(y - 1, y + 2):  # (y - 1) to (y + 1) inclusive
-                    if (i == x) and (j == y):  # Not (x, y)
-                        continue
-                    trmprint(f'[{user_id}] Checking ({i}, {j})')
+                    isLast = ((i == (x + 1)) and (j == (y + 1)))
+                    
+                    trmprint(f'({i}, {j}):', time=False, end=' ', flush=True)
                     if str(i) in db['systems'].keys() and str(j) in db['systems'][str(i)].keys():
                         clear = False
-                        trmprint(f'[{user_id}] Conflict on ({i}, {j})')
-                        
+                        trmprint(f'N', type='failed', time=False, 
+                                 end=('\n' if isLast else ', '), flush=(False if isLast else True))
+                        continue
+
+                    trmprint(f'Y', type='success', time=False, 
+                             end=('\n' if isLast else ', '), flush=(False if isLast else True))
+
+            if not clear:
+                trmprint(f'[{user_id}] Rerolled: ', end=' ', flush=True)
+                
         trmprint(f'[{user_id}] Returning ({x}, {y})')
         return (x, y)
 
