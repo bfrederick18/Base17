@@ -45,6 +45,11 @@
                     "author": "f'[{db[\"users\"][str(ctx.author.id)][\"username\"]}] Settlement Established.'",
                     "description": "'What would you like to call your settlement?'",
                     "footer": "''"
+                },
+                "2": {
+                    "author": "f'[{db[\"users\"][str(ctx.author.id)][\"username\"]}] Settlement Established.'",
+                    "description": "'Congratulations, {db[\"users\"][str(ctx.author.id)][\"username\"]}, you have established your first settlement. You can now begin to harvest resources from that planet.'",
+                    "footer": "'Use \".mine\" to harvest resources from the planet (Ex. \".mine titan\").'"
                 }
             }
         }
