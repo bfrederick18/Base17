@@ -45,7 +45,7 @@ class User(commands.Cog):
                              end=('\n' if isLast else ', '), flush=(False if isLast else True))
 
             if not clear:
-                trmprint(f'[{user_id}] Rerolled: ', end=' ', flush=True)
+                trmprint(f'[{user_id}] Rerolled:', end=' ', flush=True)
                 
         trmprint(f'[{user_id}] Returning ({x}, {y})')
         return (x, y)
