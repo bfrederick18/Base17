@@ -91,7 +91,8 @@ class User(commands.Cog):
         user_id = str(ctx.author.id)
         if user_id not in db['users'].keys():
             (x, y) = self.gen_starting_coords(user_id)
-            
+
+            trmprint(f'[{user_id}] Initializing user_data...', end=' ', flush=True)
             user_data = {
                 'username': 'Unknown',
                 'prefix': '',
@@ -115,13 +116,13 @@ class User(commands.Cog):
                 'skills': {},
                 'flags': []
             }
-            trmprint(f'[{user_id}] Created user_data.')
-            
+            trmprint('Success.', type='success', time=False)
+
+            trmprint(f'[{user_id}] Setting user_data...', end=' ', flush=True)
             db['users'][str(ctx.author.id)] = user_data
-            trmprint(f'[{user_id}] Set user_data.')
+            trmprint('Success.', type='success', time=False)
             
             system_data = self.gen_system_data(user_id)
-            
             trmprint(f'[{user_id}] Created system_data.')
 
             if str(x) not in db['systems'].keys():
