@@ -52,8 +52,15 @@ class User(commands.Cog):
 
 
     def gen_system_data(self, user_id):
-        trmprint(f'[{user_id}] system_types: {jdata["game_data"]["systems"]["system_types"]}: {len(jdata["game_data"]["systems"]["system_types"])}')
-        trmprint(f'[{user_id}] system_types_roll_table: {jdata["game_data"]["systems"]["system_types_roll_table"]}: {len(jdata["game_data"]["systems"]["system_types_roll_table"])}')
+        types = jdata["game_data"]["systems"]["system_types"]
+        roll_table = jdata["game_data"]["systems"]["system_types"]
+        
+        roll_counts = {}
+        for i in roll_table:
+            roll_counts[i] = roll_counts.get(i, 0) + 1
+            
+        trmprint(f'[{user_id}] system_types: {types}: {len(types)}')
+        trmprint(f'[{user_id}] system_types_roll_table: {roll_counts}: {len(roll_table)}')
         
         system_data = {
             'allegiance': 'alien',
