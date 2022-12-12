@@ -9,7 +9,7 @@ from discord.ext import commands, tasks
 from server import keep_alive
 
 token = os.environ['TOKEN']  # DON'T TOUCH
-bot = commands.Bot(command_prefix=jdata['config']['prefix'])
+bot = commands.Bot(command_prefix=jdata['config']['prefix'], intents=discord.Intents.all())
 
 
 def load(extension):
