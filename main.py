@@ -6,10 +6,12 @@ from cogs.utils.embed import send_error_embed, send_success_embed
 from cogs.utils.trm import trmprint
 from config import jdata, status_cycle
 from discord.ext import commands, tasks
+from discord.app_commands import CommandTree
 from server import keep_alive
 
 token = os.environ['TOKEN']  # DON'T TOUCH
-bot = commands.Bot(command_prefix=jdata['config']['prefix'], intents=discord.Intents.all())
+bot = commands.AutoShardedBot(command_prefix=jdata['config']['prefix'],
+                              intents=discord.Intents.all())
 
 
 def load(extension):
@@ -45,16 +47,19 @@ async def change_status():
     await bot.change_presence(activity=discord.Game(next(status_cycle)))
 
 
-@bot.command()
+@bot.tree.command()
 @commands.is_owner()
-async def loadcog(ctx, extension):
+async def loadcog(interaction: discord.Interaction):  # ctx, extension
     try:
         trmprint(f'Loading \'cogs.{extension}\'...', end=' ', flush=True)
         load(extension)
         await ctx.message.delete()
-        await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_loaded']))
+        await send_success_embed(
+            ctx,
+            eval(jdata[jdata['config']['chosen_language']]['successes']
+                 ['cog_loaded']))
         trmprint('Success.', type='success', time=False)
-        
+
     except commands.ExtensionAlreadyLoaded as e:
         trmprint(f' Failed: {e}, {type(e)}', type='failed', time=False)
         await send_error_embed(ctx, 'cog_already_loaded')
@@ -70,9 +75,12 @@ async def unloadcog(ctx, extension):
         trmprint(f'Unloading \'cogs.{extension}\'...', end=' ', flush=True)
         unload(extension)
         await ctx.message.delete()
-        await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_unloaded']))
+        await send_success_embed(
+            ctx,
+            eval(jdata[jdata['config']['chosen_language']]['successes']
+                 ['cog_unloaded']))
         trmprint('Success.', type='success', time=False)
-        
+
     except commands.ExtensionNotLoaded as e:
         trmprint(f'Failed: {e}, {type(e)}', type='failed', time=False)
         await send_error_embed(ctx, 'cog_not_loaded')
@@ -89,9 +97,12 @@ async def reloadcog(ctx, extension):
         unload(extension)
         load(extension)
         await ctx.message.delete()
-        await send_success_embed(ctx, eval(jdata[jdata['config']['chosen_language']]['successes']['cog_reloaded']))
+        await send_success_embed(
+            ctx,
+            eval(jdata[jdata['config']['chosen_language']]['successes']
+                 ['cog_reloaded']))
         trmprint('Success.', type='success', time=False)
-        
+
     except commands.ExtensionNotLoaded as e:
         trmprint(f'Failed: {e}, {type(e)}', type='failed', time=False)
         await send_error_embed(ctx, 'cog_not_loaded')
